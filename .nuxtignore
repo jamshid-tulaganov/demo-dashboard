@@ -1,0 +1,5 @@
+# Ignore these directories from being scanned by Nuxt
+node_modules
+.nuxt
+.output
+dist

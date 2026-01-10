@@ -1,3 +1,23 @@
 {
-  "extends": "./.nuxt/tsconfig.json"
+    "extends": "./.nuxt/tsconfig.json",
+    "compilerOptions": {
+        "types": ["./types/vue-i18n", "./types/json"],
+        "resolveJsonModule": true,
+        "baseUrl": ".",
+        "paths": {
+            "~/*": ["./*"],
+            "@/*": ["./*"],
+            "~/shared/*": ["./shared/*"],
+            "~/widgets/*": ["./widgets/*"],
+            "~/features/*": ["./features/*"],
+            "~/entities/*": ["./entities/*"],
+            "~/app/*": ["./app/*"]
+        }
+    },
+    "include": [
+        "types/**/*.d.ts",
+        "**/*.ts",
+        "**/*.vue",
+        ".nuxt/**/*.ts"
+    ]
 }
