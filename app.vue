@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ThemeProvider, LocaleProvider } from '~/app/providers';
+import { ThemeProvider, LocaleProvider } from '~/providers';
 </script>
 
 <template>

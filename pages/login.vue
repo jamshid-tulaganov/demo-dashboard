@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
-import { useAuth, useLocale } from '~/shared/lib';
+import { useAuth } from '~/shared/lib';
 import { Logo } from '~/shared/ui';
 import { message } from 'ant-design-vue';
+import { ThemeSwitcher } from '~/widgets/ThemeSwitcher';
 
 definePageMeta({
     layout: 'auth',
@@ -10,8 +11,22 @@ definePageMeta({
 });
 
 const router = useRouter();
-const { t, setLocale, availableLocales, locale } = useLocale();
+const { t, setLocale, locales, locale } = useI18n();
 const { login, loading } = useAuth();
+
+const localeFlags: Record<string, string> = {
+    en: '🇬🇧',
+    ru: '🇷🇺',
+    uz: '🇺🇿',
+};
+
+const availableLocales = computed(() =>
+    locales.value.map((loc) => ({
+        code: loc.code,
+        name: loc.name,
+        flag: localeFlags[loc.code] || '🌐',
+    })),
+);
 
 const formState = reactive({
     username: '',
@@ -50,12 +65,13 @@ const handleLocaleChange = (newLocale: string) => {
 
 <template>
     <div class="w-full max-w-md">
-        <!-- Language Switcher -->
-        <div class="flex justify-end mb-4">
+        <!-- Theme and Language Switcher -->
+        <div class="flex justify-end gap-3 mb-4">
+            <ThemeSwitcher />
             <a-select
                 :value="locale"
                 @change="handleLocaleChange"
-                style="width: 150px"
+                style="width: 170px"
                 size="large"
             >
                 <a-select-option
@@ -63,8 +79,10 @@ const handleLocaleChange = (newLocale: string) => {
                     :key="loc.code"
                     :value="loc.code"
                 >
-                    <span class="mr-2">{{ loc.flag }}</span>
-                    {{ loc.name }}
+                    <div class="flex items-center gap-2">
+                        <span>{{ loc.flag }}</span>
+                        <span>{{ loc.name }}</span>
+                    </div>
                 </a-select-option>
             </a-select>
         </div>

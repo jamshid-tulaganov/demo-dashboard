@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useLocale } from '~/shared/lib/i18n';
 import { Icon } from '~/shared/ui';
 
 definePageMeta({
@@ -7,7 +6,7 @@ definePageMeta({
     middleware: ['auth'],
 });
 
-const { t } = useLocale();
+const { t } = useI18n();
 </script>
 
 <template>

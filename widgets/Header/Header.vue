@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { useLocale, useAuth } from '~/shared/lib';
+import { useAuth } from '~/shared/lib';
 import { LanguageSwitcher } from '~/widgets/LanguageSwitcher';
 import { ThemeSwitcher } from '~/widgets/ThemeSwitcher';
 import { Logo } from '~/shared/ui';
 
-const { t } = useLocale();
+const { t } = useI18n();
 const { logout, user } = useAuth();
 
 const handleLogout = async () => {

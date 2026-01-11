@@ -1,8 +1,10 @@
 import { computed, onMounted, ref } from 'vue';
 import { theme } from 'ant-design-vue';
 
+// Global state - shared across all components
+const isDark = ref(false);
+
 export const useTheme = () => {
-    const isDark = ref(false);
 
     const themeConfig = computed(() => ({
         algorithm: isDark.value ? theme.darkAlgorithm : theme.defaultAlgorithm,

@@ -35,9 +35,13 @@ export default defineNuxtConfig({
             { code: 'ru', name: 'Русский', file: 'ru.json' },
             { code: 'uz', name: "O'zbekcha", file: 'uz.json' },
         ],
-        langDir: 'locales/',
+        langDir: '',
         defaultLocale: 'uz',
-        vueI18n: './i18n.config.ts',
+        detectBrowserLanguage: {
+            useCookie: true,
+            cookieKey: 'i18n_redirected',
+            redirectOn: 'root',
+        },
     },
 
     // Tailwind CSS configuration
