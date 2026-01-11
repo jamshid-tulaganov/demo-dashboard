@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+    darkMode: 'class',
     content: [
         "./components/**/*.{js,vue,ts}",
         "./layouts/**/*.vue",
@@ -11,22 +12,65 @@ export default {
     theme: {
         extend: {
             colors: {
-                // Add custom colors for dashboard
+                // Primary colors
                 primary: {
-                    50: "#f0f9ff",
-                    100: "#e0f2fe",
-                    200: "#bae6fd",
-                    300: "#7dd3fc",
-                    400: "#38bdf8",
-                    500: "#0ea5e9",
-                    600: "#0284c7",
-                    700: "#0369a1",
-                    800: "#075985",
-                    900: "#0c4a6e",
+                    DEFAULT: '#4880FF',
+                    blue: '#4880FF',
+                },
+                // Status colors
+                red: {
+                    DEFAULT: '#EA0234',
+                    light: 'rgba(234, 2, 52, 0.2)',
+                },
+                green: {
+                    DEFAULT: '#00B69B',
+                    light: 'rgba(0, 182, 155, 0.2)',
+                },
+                purple: {
+                    DEFAULT: '#6226EF',
+                    light: 'rgba(98, 38, 239, 0.2)',
+                },
+                orange: {
+                    DEFAULT: '#FFA756',
+                    light: 'rgba(255, 167, 86, 0.2)',
+                },
+                pink: {
+                    DEFAULT: '#BA29FF',
+                    light: 'rgba(186, 41, 255, 0.2)',
+                },
+                // Chart colors
+                chart: {
+                    purple: '#8280FF',
+                    yellow: '#FEC53D',
+                    green: '#4AD991',
+                    orange: '#FF9066',
+                    pink: '#F93C65',
+                    teal: '#00B69B',
+                },
+                // Dark mode colors
+                dark: {
+                    primary: '#1B2431',
+                    secondary: '#273142',
+                    tertiary: '#323D4E',
+                    quaternary: '#4B5668',
+                    text: {
+                        primary: '#FFFFFF',
+                        secondary: 'rgba(255, 255, 255, 0.8)',
+                    },
+                },
+                // Light mode colors
+                light: {
+                    bg: '#F5F6FA',
+                    menu: '#FFFFFF',
+                    text: {
+                        primary: '#202224',
+                        secondary: '#434343',
+                        tertiary: '#646464',
+                    },
                 },
             },
             fontFamily: {
-                sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+                sans: ["Nunito Sans", "ui-sans-serif", "system-ui", "sans-serif"],
             },
         },
     },

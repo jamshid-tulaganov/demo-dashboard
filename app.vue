@@ -1,14 +1,13 @@
 <script setup lang="ts">
-import { Header } from '~/widgets/Header';
+import { ThemeProvider, LocaleProvider } from '~/app/providers';
 </script>
 
 <template>
-    <a-config-provider>
-        <a-layout class="min-h-screen">
-            <Header />
-            <a-layout-content class="bg-gray-50">
+    <ThemeProvider>
+        <LocaleProvider>
+            <NuxtLayout>
                 <NuxtPage />
-            </a-layout-content>
-        </a-layout>
-    </a-config-provider>
+            </NuxtLayout>
+        </LocaleProvider>
+    </ThemeProvider>
 </template>

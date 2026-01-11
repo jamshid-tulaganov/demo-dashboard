@@ -1,0 +1,114 @@
+{
+    "dashboard": {
+        "title": "Демо Панель",
+        "welcome": "Добро пожаловать в вашу панель управления",
+        "overview": "Обзор",
+        "statistics": "Статистика",
+        "recentActivity": "Недавняя активность"
+    },
+    "auth": {
+        "login": {
+            "title": "Вход",
+            "subtitle": "Войдите в свой аккаунт",
+            "email": "Электронная почта",
+            "password": "Пароль",
+            "rememberMe": "Запомнить меня",
+            "submit": "Войти",
+            "emailPlaceholder": "Введите вашу почту",
+            "passwordPlaceholder": "Введите ваш пароль",
+            "forgotPassword": "Забыли пароль?",
+            "noAccount": "Нет аккаунта?",
+            "signUp": "Зарегистрироваться"
+        },
+        "logout": {
+            "title": "Выход",
+            "confirm": "Вы уверены, что хотите выйти?"
+        }
+    },
+    "navigation": {
+        "home": "Главная",
+        "dashboard": "Панель управления",
+        "profile": "Профиль",
+        "settings": "Настройки",
+        "users": "Пользователи",
+        "reports": "Отчёты",
+        "analytics": "Аналитика"
+    },
+    "common": {
+        "save": "Сохранить",
+        "cancel": "Отмена",
+        "delete": "Удалить",
+        "edit": "Редактировать",
+        "add": "Добавить",
+        "search": "Поиск",
+        "filter": "Фильтр",
+        "export": "Экспорт",
+        "import": "Импорт",
+        "loading": "Загрузка...",
+        "noData": "Нет данных",
+        "error": "Ошибка",
+        "success": "Успешно",
+        "warning": "Предупреждение",
+        "info": "Информация",
+        "confirm": "Подтвердить",
+        "yes": "Да",
+        "no": "Нет",
+        "close": "Закрыть",
+        "back": "Назад",
+        "next": "Далее",
+        "previous": "Предыдущий",
+        "submit": "Отправить",
+        "reset": "Сбросить"
+    },
+    "theme": {
+        "light": "Светлая",
+        "dark": "Темная",
+        "toggle": "Сменить тему",
+        "auto": "Авто"
+    },
+    "language": {
+        "select": "Выбрать язык",
+        "current": "Текущий язык"
+    },
+    "errors": {
+        "required": "Это поле обязательно",
+        "invalidEmail": "Неверный адрес электронной почты",
+        "minLength": "Минимум {min} символов",
+        "maxLength": "Максимум {max} символов",
+        "networkError": "Ошибка сети. Попробуйте снова.",
+        "serverError": "Ошибка сервера. Обратитесь в поддержку.",
+        "notFound": "Страница не найдена",
+        "unauthorized": "Неавторизованный доступ",
+        "forbidden": "Доступ запрещен"
+    },
+    "messages": {
+        "saveSuccess": "Успешно сохранено",
+        "deleteSuccess": "Успешно удалено",
+        "updateSuccess": "Успешно обновлено",
+        "createSuccess": "Успешно создано",
+        "confirmDelete": "Вы уверены, что хотите удалить этот элемент?",
+        "unsavedChanges": "У вас есть несохраненные изменения. Хотите уйти?"
+    },
+    "profile": {
+        "title": "Профиль",
+        "personalInfo": "Личная информация",
+        "firstName": "Имя",
+        "lastName": "Фамилия",
+        "email": "Электронная почта",
+        "phone": "Телефон",
+        "address": "Адрес",
+        "changePassword": "Изменить пароль",
+        "currentPassword": "Текущий пароль",
+        "newPassword": "Новый пароль",
+        "confirmPassword": "Подтвердите пароль"
+    },
+    "settings": {
+        "title": "Настройки",
+        "general": "Общие настройки",
+        "appearance": "Внешний вид",
+        "notifications": "Уведомления",
+        "security": "Безопасность",
+        "language": "Язык",
+        "timezone": "Часовой пояс"
+    }
+}

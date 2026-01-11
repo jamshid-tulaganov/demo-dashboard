@@ -16,3 +16,5 @@ withDefaults(defineProps<Props>(), {
 const emit = defineEmits<{
     click: [event: MouseEvent];
 }>();
+
+</script>

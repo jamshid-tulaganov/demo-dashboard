@@ -1,0 +1,114 @@
+{
+    "dashboard": {
+        "title": "Demo Boshqaruv paneli",
+        "welcome": "Boshqaruv paneliga xush kelibsiz",
+        "overview": "Umumiy ko'rinish",
+        "statistics": "Statistika",
+        "recentActivity": "So'nggi faoliyat"
+    },
+    "auth": {
+        "login": {
+            "title": "Kirish",
+            "subtitle": "Hisobingizga kiring",
+            "email": "Elektron pochta",
+            "password": "Parol",
+            "rememberMe": "Meni eslab qol",
+            "submit": "Kirish",
+            "emailPlaceholder": "Elektron pochtangizni kiriting",
+            "passwordPlaceholder": "Parolingizni kiriting",
+            "forgotPassword": "Parolni unutdingizmi?",
+            "noAccount": "Hisobingiz yo'qmi?",
+            "signUp": "Ro'yxatdan o'tish"
+        },
+        "logout": {
+            "title": "Chiqish",
+            "confirm": "Chiqishni xohlaysizmi?"
+        }
+    },
+    "navigation": {
+        "home": "Bosh sahifa",
+        "dashboard": "Boshqaruv paneli",
+        "profile": "Profil",
+        "settings": "Sozlamalar",
+        "users": "Foydalanuvchilar",
+        "reports": "Hisobotlar",
+        "analytics": "Analitika"
+    },
+    "common": {
+        "save": "Saqlash",
+        "cancel": "Bekor qilish",
+        "delete": "O'chirish",
+        "edit": "Tahrirlash",
+        "add": "Qo'shish",
+        "search": "Qidirish",
+        "filter": "Filtr",
+        "export": "Eksport",
+        "import": "Import",
+        "loading": "Yuklanmoqda...",
+        "noData": "Ma'lumot yo'q",
+        "error": "Xatolik",
+        "success": "Muvaffaqiyatli",
+        "warning": "Ogohlantirish",
+        "info": "Ma'lumot",
+        "confirm": "Tasdiqlash",
+        "yes": "Ha",
+        "no": "Yo'q",
+        "close": "Yopish",
+        "back": "Orqaga",
+        "next": "Keyingisi",
+        "previous": "Oldingi",
+        "submit": "Yuborish",
+        "reset": "Qayta tiklash"
+    },
+    "theme": {
+        "light": "Yorug'",
+        "dark": "Qorong'i",
+        "toggle": "Mavzuni o'zgartirish",
+        "auto": "Avto"
+    },
+    "language": {
+        "select": "Tilni tanlash",
+        "current": "Joriy til"
+    },
+    "errors": {
+        "required": "Bu maydon to'ldirilishi shart",
+        "invalidEmail": "Noto'g'ri elektron pochta manzili",
+        "minLength": "Kamida {min} ta belgi talab qilinadi",
+        "maxLength": "Maksimal {max} ta belgi ruxsat etiladi",
+        "networkError": "Tarmoq xatosi. Qayta urinib ko'ring.",
+        "serverError": "Server xatosi. Qo'llab-quvvatlash xizmatiga murojaat qiling.",
+        "notFound": "Sahifa topilmadi",
+        "unauthorized": "Ruxsatsiz kirish",
+        "forbidden": "Kirish taqiqlangan"
+    },
+    "messages": {
+        "saveSuccess": "Muvaffaqiyatli saqlandi",
+        "deleteSuccess": "Muvaffaqiyatli o'chirildi",
+        "updateSuccess": "Muvaffaqiyatli yangilandi",
+        "createSuccess": "Muvaffaqiyatli yaratildi",
+        "confirmDelete": "Ushbu elementni o'chirishni xohlaysizmi?",
+        "unsavedChanges": "Saqlanmagan o'zgarishlar mavjud. Chiqmoqchimisiz?"
+    },
+    "profile": {
+        "title": "Profil",
+        "personalInfo": "Shaxsiy ma'lumotlar",
+        "firstName": "Ism",
+        "lastName": "Familiya",
+        "email": "Elektron pochta",
+        "phone": "Telefon",
+        "address": "Manzil",
+        "changePassword": "Parolni o'zgartirish",
+        "currentPassword": "Joriy parol",
+        "newPassword": "Yangi parol",
+        "confirmPassword": "Parolni tasdiqlang"
+    },
+    "settings": {
+        "title": "Sozlamalar",
+        "general": "Umumiy sozlamalar",
+        "appearance": "Tashqi ko'rinish",
+        "notifications": "Bildirishnomalar",
+        "security": "Xavfsizlik",
+        "language": "Til",
+        "timezone": "Vaqt mintaqasi"
+    }
+}

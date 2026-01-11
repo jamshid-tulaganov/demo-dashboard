@@ -1,5 +1,3 @@
-import { useI18n } from 'vue-i18n';
-
 export const useLocale = () => {
     const { locale, t } = useI18n();
 
@@ -12,7 +10,7 @@ export const useLocale = () => {
     const setLocale = (newLocale: string) => {
         if (availableLocales.some((l) => l.code === newLocale)) {
             locale.value = newLocale;
-            if (process.client) {
+            if (typeof window !== 'undefined') {
                 localStorage.setItem('locale', newLocale);
             }
         }
