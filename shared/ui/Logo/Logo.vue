@@ -19,8 +19,7 @@ const props = withDefaults(defineProps<LogoProps>(), {
 const { isDark } = useTheme();
 
 const logoSrc = computed(() => {
-    // Use light logo on dark backgrounds, dark logo on light backgrounds
-    return isDark.value ? '/assets/icons/logo/light.svg' : '/assets/icons/logo/dark.svg';
+    return isDark.value ? '/logo/light.svg' : '/logo/dark.svg';
 });
 
 const logoWidth = computed(() => {

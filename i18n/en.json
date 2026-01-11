@@ -10,12 +10,14 @@
         "login": {
             "title": "Login",
             "subtitle": "Sign in to your account",
-            "email": "Email",
+            "username": "Username",
             "password": "Password",
             "rememberMe": "Remember me",
             "submit": "Login",
-            "emailPlaceholder": "Enter your email",
+            "usernamePlaceholder": "Enter your username",
             "passwordPlaceholder": "Enter your password",
+            "usernameRequired": "Please input your username!",
+            "passwordRequired": "Please input your password!",
             "forgotPassword": "Forgot password?",
             "noAccount": "Don't have an account?",
             "signUp": "Sign up"
@@ -110,5 +112,45 @@
         "security": "Security",
         "language": "Language",
         "timezone": "Timezone"
+    },
+    "sidebar": {
+        "appName": "Dashboard",
+        "sections": {
+            "pages": "Pages"
+        },
+        "menu": {
+            "dashboard": "Dashboard",
+            "products": "Products",
+            "favourites": "Favourites",
+            "inbox": "Inbox",
+            "order-lists": "Order Lists",
+            "product-stock": "Product Stock",
+            "pricing": "Pricing",
+            "calendar": "Calendar",
+            "todo": "To-Do",
+            "contact": "Contact",
+            "invoice": "Invoice",
+            "team": "Team",
+            "settings": "Settings",
+            "logout": "Logout"
+        }
+    },
+    "header": {
+        "search": {
+            "placeholder": "Search..."
+        },
+        "profile": {
+            "myProfile": "My Profile",
+            "theme": "Theme",
+            "language": "Language"
+        }
+    },
+    "search": {
+        "recentSearches": "Recent Searches",
+        "popular": "Popular Searches",
+        "quickLinks": "Quick Links",
+        "clearAll": "Clear all",
+        "toSearch": "to search",
+        "toClose": "to close"
     }
 }

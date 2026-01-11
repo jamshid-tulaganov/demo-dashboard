@@ -10,12 +10,14 @@
         "login": {
             "title": "Вход",
             "subtitle": "Войдите в свой аккаунт",
-            "email": "Электронная почта",
+            "username": "Имя пользователя",
             "password": "Пароль",
             "rememberMe": "Запомнить меня",
             "submit": "Войти",
-            "emailPlaceholder": "Введите вашу почту",
+            "usernamePlaceholder": "Введите имя пользователя",
             "passwordPlaceholder": "Введите ваш пароль",
+            "usernameRequired": "Пожалуйста, введите имя пользователя!",
+            "passwordRequired": "Пожалуйста, введите пароль!",
             "forgotPassword": "Забыли пароль?",
             "noAccount": "Нет аккаунта?",
             "signUp": "Зарегистрироваться"
@@ -110,5 +112,45 @@
         "security": "Безопасность",
         "language": "Язык",
         "timezone": "Часовой пояс"
+    },
+    "sidebar": {
+        "appName": "Панель управления",
+        "sections": {
+            "pages": "Страницы"
+        },
+        "menu": {
+            "dashboard": "Панель управления",
+            "products": "Продукты",
+            "favourites": "Избранное",
+            "inbox": "Входящие",
+            "order-lists": "Списки заказов",
+            "product-stock": "Складские запасы",
+            "pricing": "Цены",
+            "calendar": "Календарь",
+            "todo": "Задачи",
+            "contact": "Контакты",
+            "invoice": "Счета",
+            "team": "Команда",
+            "settings": "Настройки",
+            "logout": "Выход"
+        }
+    },
+    "header": {
+        "search": {
+            "placeholder": "Поиск..."
+        },
+        "profile": {
+            "myProfile": "Мой профиль",
+            "theme": "Тема",
+            "language": "Язык"
+        }
+    },
+    "search": {
+        "recentSearches": "Недавние поиски",
+        "popular": "Популярные поиски",
+        "quickLinks": "Быстрые ссылки",
+        "clearAll": "Очистить все",
+        "toSearch": "для поиска",
+        "toClose": "для закрытия"
     }
 }

@@ -121,13 +121,13 @@ const handleLocaleChange = (newLocale: string) => {
                 @finishFailed="onFinishFailed"
             >
                 <a-form-item
-                    :label="t('auth.login.email')"
+                    :label="t('auth.login.username')"
                     name="username"
-                    :rules="[{ required: true, message: 'Please input your username!' }]"
+                    :rules="[{ required: true, message: t('auth.login.usernameRequired') }]"
                 >
                     <a-input
                         v-model:value="formState.username"
-                        :placeholder="t('auth.login.emailPlaceholder')"
+                        :placeholder="t('auth.login.usernamePlaceholder')"
                         size="large"
                     />
                 </a-form-item>
@@ -135,7 +135,7 @@ const handleLocaleChange = (newLocale: string) => {
                 <a-form-item
                     :label="t('auth.login.password')"
                     name="password"
-                    :rules="[{ required: true, message: 'Please input your password!' }]"
+                    :rules="[{ required: true, message: t('auth.login.passwordRequired') }]"
                 >
                     <a-input-password
                         v-model:value="formState.password"

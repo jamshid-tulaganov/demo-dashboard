@@ -10,12 +10,14 @@
         "login": {
             "title": "Kirish",
             "subtitle": "Hisobingizga kiring",
-            "email": "Elektron pochta",
+            "username": "Foydalanuvchi nomi",
             "password": "Parol",
             "rememberMe": "Meni eslab qol",
             "submit": "Kirish",
-            "emailPlaceholder": "Elektron pochtangizni kiriting",
+            "usernamePlaceholder": "Foydalanuvchi nomingizni kiriting",
             "passwordPlaceholder": "Parolingizni kiriting",
+            "usernameRequired": "Iltimos, foydalanuvchi nomingizni kiriting!",
+            "passwordRequired": "Iltimos, parolingizni kiriting!",
             "forgotPassword": "Parolni unutdingizmi?",
             "noAccount": "Hisobingiz yo'qmi?",
             "signUp": "Ro'yxatdan o'tish"
@@ -110,5 +112,45 @@
         "security": "Xavfsizlik",
         "language": "Til",
         "timezone": "Vaqt mintaqasi"
+    },
+    "sidebar": {
+        "appName": "Boshqaruv paneli",
+        "sections": {
+            "pages": "Sahifalar"
+        },
+        "menu": {
+            "dashboard": "Boshqaruv paneli",
+            "products": "Mahsulotlar",
+            "favourites": "Sevimlilar",
+            "inbox": "Xabarlar",
+            "order-lists": "Buyurtma ro'yxatlari",
+            "product-stock": "Mahsulot zaxirasi",
+            "pricing": "Narxlar",
+            "calendar": "Taqvim",
+            "todo": "Vazifalar",
+            "contact": "Aloqa",
+            "invoice": "Hisob-faktura",
+            "team": "Jamoa",
+            "settings": "Sozlamalar",
+            "logout": "Chiqish"
+        }
+    },
+    "header": {
+        "search": {
+            "placeholder": "Qidirish..."
+        },
+        "profile": {
+            "myProfile": "Mening profilim",
+            "theme": "Mavzu",
+            "language": "Til"
+        }
+    },
+    "search": {
+        "recentSearches": "So'nggi qidiruvlar",
+        "popular": "Mashhur qidiruvlar",
+        "quickLinks": "Tezkor havolalar",
+        "clearAll": "Hammasini tozalash",
+        "toSearch": "qidirish uchun",
+        "toClose": "yopish uchun"
     }
 }

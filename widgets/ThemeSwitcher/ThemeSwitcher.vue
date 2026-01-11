@@ -1,19 +1,24 @@
 <script setup lang="ts">
-import { useTheme } from '~/shared/lib/theme';
-
-const { isDark, toggleTheme } = useTheme();
-const { t } = useI18n();
+import { ThemeTransition } from '~/shared/ui';
 </script>
 
 <template>
-    <a-button
-        @click="toggleTheme"
-        :title="t('theme.toggle')"
-        size="large"
-        class="flex items-center justify-center"
-    >
-        <span class="text-xl">
-            {{ isDark ? '☀️' : '🌙' }}
-        </span>
-    </a-button>
+    <ThemeTransition />
 </template>
+
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+    transition: all 0.2s ease;
+}
+
+.fade-enter-from {
+    opacity: 0;
+    transform: scale(0.8) rotate(-180deg);
+}
+
+.fade-leave-to {
+    opacity: 0;
+    transform: scale(0.8) rotate(180deg);
+}
+</style>
