@@ -9,7 +9,9 @@ import { Sidebar } from '~/widgets/Sidebar';
         <div class="flex-1 flex flex-col min-w-0">
             <Header />
             <main class="flex-1 flex-start justify-start p-[30px] overflow-auto bg-light-bg dark:bg-dark-primary">
-                <slot />
+                <div class="w-full max-w-[1400px] mx-auto">
+                    <slot />
+                </div>
             </main>
         </div>
     </div>

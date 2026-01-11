@@ -1,10 +1,18 @@
 {
     "dashboard": {
-        "title": "Демо Панель",
+        "title": "Панель управления",
         "welcome": "Добро пожаловать в вашу панель управления",
         "overview": "Обзор",
         "statistics": "Статистика",
-        "recentActivity": "Недавняя активность"
+        "recentActivity": "Недавняя активность",
+        "totalUsers": "Всего пользователей",
+        "totalOrders": "Всего заказов",
+        "totalSales": "Общие продажи",
+        "totalPending": "В ожидании",
+        "salesDetails": "Детали продаж",
+        "sales": "Продажи",
+        "upFromYesterday": "Рост с вчерашнего дня",
+        "downFromYesterday": "Снижение с вчерашнего дня"
     },
     "auth": {
         "login": {
@@ -152,5 +160,62 @@
         "clearAll": "Очистить все",
         "toSearch": "для поиска",
         "toClose": "для закрытия"
+    },
+    "orders": {
+        "title": "Детали заказов",
+        "productName": "Название продукта",
+        "location": "Местоположение",
+        "dateTime": "Дата и время",
+        "quantity": "Количество",
+        "price": "Цена",
+        "totalItems": "Всего элементов: {count}",
+        "status": {
+            "title": "Статус",
+            "pending": "В ожидании",
+            "processing": "В обработке",
+            "shipped": "Отправлено",
+            "delivered": "Доставлено",
+            "cancelled": "Отменено"
+        }
+    },
+    "products": {
+        "title": "Продукты",
+        "editProduct": "Редактировать продукт",
+        "addToFavorites": "Добавить в избранное",
+        "removeFromFavorites": "Удалить из избранного",
+        "loading": "Загрузка продуктов...",
+        "loadMore": "Загрузить ещё",
+        "promo": {
+            "title1": "Бесплатная доставка на дом этим летом",
+            "subtitle1": "Дизайнерские платья - Выбирайте из модных дизайнерских платьев",
+            "title2": "Новая коллекция 2024",
+            "subtitle2": "Изучите последние новинки в моде и аксессуарах",
+            "title3": "Специальная скидка до 50%",
+            "subtitle3": "Ограниченное предложение на выбранные товары",
+            "getStarted": "Начать"
+        },
+        "detail": {
+            "brand": "Бренд",
+            "category": "Категория",
+            "stock": "Склад",
+            "rating": "Рейтинг",
+            "discount": "Скидка",
+            "description": "Описание",
+            "backToProducts": "Назад к продуктам",
+            "productName": "Название продукта",
+            "price": "Цена"
+        },
+        "editSuccess": "Продукт успешно обновлен"
+    },
+    "favorites": {
+        "empty": "Пока нет избранных",
+        "emptyDescription": "Начните добавлять продукты в избранное, нажав на иконку сердца",
+        "browseProducts": "Просмотреть продукты",
+        "addedToFavorites": "Добавлено в избранное",
+        "removedFromFavorites": "Удалено из избранного"
+    },
+    "messages": {
+        "updateSuccess": "Успех",
+        "updateError": "Ошибка"
     }
 }

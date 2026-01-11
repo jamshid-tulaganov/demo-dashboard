@@ -1,10 +1,18 @@
 {
     "dashboard": {
-        "title": "Demo Dashboard",
+        "title": "Dashboard",
         "welcome": "Welcome to your dashboard",
         "overview": "Overview",
         "statistics": "Statistics",
-        "recentActivity": "Recent Activity"
+        "recentActivity": "Recent Activity",
+        "totalUsers": "Total Users",
+        "totalOrders": "Total Orders",
+        "totalSales": "Total Sales",
+        "totalPending": "Total Pending",
+        "salesDetails": "Sale Details",
+        "sales": "Sales",
+        "upFromYesterday": "Up from yesterday",
+        "downFromYesterday": "Down from yesterday"
     },
     "auth": {
         "login": {
@@ -152,5 +160,62 @@
         "clearAll": "Clear all",
         "toSearch": "to search",
         "toClose": "to close"
+    },
+    "orders": {
+        "title": "Order Details",
+        "productName": "Product Name",
+        "location": "Location",
+        "dateTime": "Date & Time",
+        "quantity": "Quantity",
+        "price": "Price",
+        "totalItems": "{count} total items",
+        "status": {
+            "title": "Status",
+            "pending": "Pending",
+            "processing": "Processing",
+            "shipped": "Shipped",
+            "delivered": "Delivered",
+            "cancelled": "Cancelled"
+        }
+    },
+    "products": {
+        "title": "Products",
+        "editProduct": "Edit Product",
+        "addToFavorites": "Add to Favorites",
+        "removeFromFavorites": "Remove from Favorites",
+        "loading": "Loading products...",
+        "loadMore": "Load More",
+        "promo": {
+            "title1": "Enjoy free home delivery in this summer",
+            "subtitle1": "Designer Dresses - Pick from trendy Designer Dress",
+            "title2": "New Collection 2024",
+            "subtitle2": "Explore latest arrivals in fashion and accessories",
+            "title3": "Special Discount Up to 50%",
+            "subtitle3": "Limited time offer on selected items",
+            "getStarted": "Get Started"
+        },
+        "detail": {
+            "brand": "Brand",
+            "category": "Category",
+            "stock": "Stock",
+            "rating": "Rating",
+            "discount": "Discount",
+            "description": "Description",
+            "backToProducts": "Back to Products",
+            "productName": "Product Name",
+            "price": "Price"
+        },
+        "editSuccess": "Product updated successfully"
+    },
+    "favorites": {
+        "empty": "No Favorites Yet",
+        "emptyDescription": "Start adding products to your favorites by clicking the heart icon",
+        "browseProducts": "Browse Products",
+        "addedToFavorites": "Added to favorites",
+        "removedFromFavorites": "Removed from favorites"
+    },
+    "messages": {
+        "updateSuccess": "Success",
+        "updateError": "Error"
     }
 }

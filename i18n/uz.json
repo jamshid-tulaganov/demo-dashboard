@@ -1,10 +1,18 @@
 {
     "dashboard": {
-        "title": "Demo Boshqaruv paneli",
+        "title": "Boshqaruv paneli",
         "welcome": "Boshqaruv paneliga xush kelibsiz",
         "overview": "Umumiy ko'rinish",
         "statistics": "Statistika",
-        "recentActivity": "So'nggi faoliyat"
+        "recentActivity": "So'nggi faoliyat",
+        "totalUsers": "Jami foydalanuvchilar",
+        "totalOrders": "Jami buyurtmalar",
+        "totalSales": "Jami sotuvlar",
+        "totalPending": "Kutilayotganlar",
+        "salesDetails": "Sotuv tafsilotlari",
+        "sales": "Sotuvlar",
+        "upFromYesterday": "Kechaga nisbatan o'sish",
+        "downFromYesterday": "Kechaga nisbatan kamayish"
     },
     "auth": {
         "login": {
@@ -152,5 +160,62 @@
         "clearAll": "Hammasini tozalash",
         "toSearch": "qidirish uchun",
         "toClose": "yopish uchun"
+    },
+    "orders": {
+        "title": "Buyurtma tafsilotlari",
+        "productName": "Mahsulot nomi",
+        "location": "Manzil",
+        "dateTime": "Sana va vaqt",
+        "quantity": "Miqdor",
+        "price": "Narx",
+        "totalItems": "Jami: {count} ta",
+        "status": {
+            "title": "Holat",
+            "pending": "Kutilmoqda",
+            "processing": "Jarayonda",
+            "shipped": "Yuborilgan",
+            "delivered": "Yetkazilgan",
+            "cancelled": "Bekor qilingan"
+        }
+    },
+    "products": {
+        "title": "Mahsulotlar",
+        "editProduct": "Mahsulotni tahrirlash",
+        "addToFavorites": "Sevimlilarga qo'shish",
+        "removeFromFavorites": "Sevimlilardan o'chirish",
+        "loading": "Mahsulotlar yuklanmoqda...",
+        "loadMore": "Ko'proq yuklash",
+        "promo": {
+            "title1": "Bu yozda bepul uyga yetkazib berish",
+            "subtitle1": "Dizayner ko'ylaklari - Zamonaviy dizayner ko'ylaklaridan tanlang",
+            "title2": "Yangi kolleksiya 2024",
+            "subtitle2": "Moda va aksessuarlarda so'nggi yangiliklar",
+            "title3": "50% gacha maxsus chegirma",
+            "subtitle3": "Tanlangan mahsulotlarga cheklangan taklif",
+            "getStarted": "Boshlash"
+        },
+        "detail": {
+            "brand": "Brend",
+            "category": "Kategoriya",
+            "stock": "Zaxira",
+            "rating": "Reyting",
+            "discount": "Chegirma",
+            "description": "Tavsif",
+            "backToProducts": "Mahsulotlarga qaytish",
+            "productName": "Mahsulot nomi",
+            "price": "Narx"
+        },
+        "editSuccess": "Mahsulot muvaffaqiyatli yangilandi"
+    },
+    "favorites": {
+        "empty": "Hali sevimlilar yo'q",
+        "emptyDescription": "Yurak belgisini bosib, sevimli mahsulotlaringizni qo'shishni boshlang",
+        "browseProducts": "Mahsulotlarni ko'rish",
+        "addedToFavorites": "Sevimlilarga qo'shildi",
+        "removedFromFavorites": "Sevimlilardan o'chirildi"
+    },
+    "messages": {
+        "updateSuccess": "Muvaffaqiyatli",
+        "updateError": "Xato"
     }
 }

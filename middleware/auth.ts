@@ -15,7 +15,6 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 
     // Check if user has access token
     if (!accessToken.value) {
-        // Try to refresh token if refresh token exists
         if (refreshToken.value) {
             try {
                 const config = useRuntimeConfig()
