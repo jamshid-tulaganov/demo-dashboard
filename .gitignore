@@ -2,6 +2,7 @@
 .output
 .data
 .nuxt
+.nuxtrc
 dist
 
 # Node dependencies

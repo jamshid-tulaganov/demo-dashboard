@@ -20,6 +20,7 @@ A modern admin dashboard built with Nuxt 3, Vue 3, and Ant Design Vue.
 - **Styling:** TailwindCSS
 - **Charts:** Chart.js
 - **i18n:** @nuxtjs/i18n
+- **Testing:** Vitest
 
 ## Getting Started
 
@@ -49,6 +50,17 @@ npm run build
 npm run preview
 ```
 
+### Testing
+
+Run unit tests:
+
+```bash
+npm run test          # Run tests in watch mode
+npm run test:run      # Run tests once
+npm run test:ui       # Open Vitest UI
+npm run test:coverage # Generate coverage report
+```
+
 ## Project Structure
 
 ```
@@ -62,6 +74,7 @@ demo-dashboard/
 ├── providers/       # Data providers
 ├── shared/          # Shared components and utilities
 ├── stores/          # Pinia stores
+├── tests/           # Unit tests
 └── widgets/         # Complex UI components
 ```
 
