@@ -128,7 +128,7 @@ const handleLogout = async () => {
                 >
                     <div
                         v-if="section.title && !collapsed"
-                        class="px-4 mb-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider"
+                        class="px-4 mb-2 text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider"
                     >
                         {{ t(`sidebar.sections.${section.title.toLowerCase()}`) }}
                     </div>
@@ -141,7 +141,7 @@ const handleLogout = async () => {
                         :key="`${item.key}-${locale}`"
                         @click="handleNavigation(item)"
                         :class="[
-                            'w-full flex items-center px-3 py-2.5 rounded-lg transition-all duration-500 ease-in-out relative overflow-hidden',
+                            'w-full flex items-center px-3 py-2.5 rounded-lg transition-all duration-500 ease-in-out relative overflow-hidden text-semibold',
                             isActive(item.path)
                                 ? 'bg-primary text-white font-medium shadow-sm'
                                 : 'text-light-text-secondary dark:text-dark-text-secondary hover:bg-gray-100 dark:hover:bg-dark-quaternary hover:text-light-text-primary dark:hover:text-dark-text-primary',
@@ -152,7 +152,7 @@ const handleLogout = async () => {
                         <Icon :name="item.icon" :size="20" class="shrink-0" />
                         <span
                             :class="[
-                                'text-sm whitespace-nowrap transition-all duration-500 ease-in-out',
+                                'text-sm text-semibold whitespace-nowrap transition-all duration-500 ease-in-out',
                                 collapsed ? 'opacity-0 max-w-0 overflow-hidden' : 'opacity-100 max-w-[200px]'
                             ]"
                         >

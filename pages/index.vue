@@ -89,8 +89,8 @@ const statCards = computed(() => [
             </div>
         </a-spin>
 
-        <SalesChart class="mb-4" />
+        <SalesChart  />
 
-        <OrdersTable />
+        <OrdersTable class="!md:mt-12" />
     </div>
 </template>

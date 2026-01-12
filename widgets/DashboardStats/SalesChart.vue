@@ -166,7 +166,7 @@ const chartOptions = computed(() => ({
 }));
 
 const isDark = computed(() => {
-    if (process.client) {
+    if (window) {
         return document.documentElement.classList.contains('dark');
     }
     return false;
@@ -174,10 +174,7 @@ const isDark = computed(() => {
 </script>
 
 <template>
-    <a-card
-        :bordered="false"
-        class="sales-chart-card"
-    >
+    <a-card :bordered="false" class="sales-chart-card !mb-6 pb-6">
         <template #title>
             <div class="flex items-center justify-between flex-wrap gap-4">
                 <h3 class="text-lg font-semibold text-light-text-primary dark:text-dark-text-primary">
@@ -185,12 +182,7 @@ const isDark = computed(() => {
                 </h3>
 
                 <!-- Month Filter -->
-                <a-select
-                    v-model:value="selectedMonth"
-                    :options="monthOptions"
-                    class="w-48"
-                    size="large"
-                >
+                <a-select v-model:value="selectedMonth" :options="monthOptions" class="w-48" size="large">
                     <template #suffixIcon>
                         <Icon name="calendar" :size="16" />
                     </template>
@@ -198,7 +190,7 @@ const isDark = computed(() => {
             </div>
         </template>
 
-        <div class="chart-container">
+        <div class="chart-container !mb-6 pb-6">
             <LineChart :chart-data="chartData" :options="chartOptions" />
         </div>
     </a-card>
