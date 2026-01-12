@@ -180,11 +180,13 @@
     },
     "products": {
         "title": "Продукты",
+        "addProduct": "Добавить продукт",
         "editProduct": "Редактировать продукт",
         "addToFavorites": "Добавить в избранное",
         "removeFromFavorites": "Удалить из избранного",
         "loading": "Загрузка продуктов...",
         "loadMore": "Загрузить ещё",
+        "resultsCount": "Показано {count} продуктов",
         "promo": {
             "title1": "Бесплатная доставка на дом этим летом",
             "subtitle1": "Дизайнерские платья - Выбирайте из модных дизайнерских платьев",
@@ -205,6 +207,152 @@
             "productName": "Название продукта",
             "price": "Цена"
         },
+        "table": {
+            "id": "ID",
+            "thumbnail": "Изображение",
+            "title": "Название",
+            "category": "Категория",
+            "brand": "Бренд",
+            "price": "Цена",
+            "discount": "Скидка",
+            "rating": "Рейтинг",
+            "stock": "Склад",
+            "availability": "Доступность",
+            "actions": "Действия",
+            "notSpecified": "Не указано",
+            "pagination": "Показано {start}-{end} из {total} продуктов"
+        },
+        "search": {
+            "placeholder": "Поиск продуктов по названию..."
+        },
+        "filters": {
+            "selectCategory": "Выберите категорию",
+            "allCategories": "Все категории",
+            "priceRange": "Диапазон цен",
+            "stockStatus": "Статус склада",
+            "allStock": "Все уровни склада",
+            "inStock": "В наличии",
+            "lowStock": "Низкий запас",
+            "outOfStock": "Нет в наличии",
+            "reset": "Сбросить фильтры"
+        },
+        "sort": {
+            "label": "Сортировать по",
+            "placeholder": "Выберите порядок сортировки",
+            "default": "По умолчанию",
+            "priceLowToHigh": "Цена: от низкой к высокой",
+            "priceHighToLow": "Цена: от высокой к низкой",
+            "ratingLowToHigh": "Рейтинг: от низкого к высокому",
+            "ratingHighToLow": "Рейтинг: от высокого к низкому",
+            "stockLowToHigh": "Склад: от низкого к высокому",
+            "stockHighToLow": "Склад: от высокого к низкому"
+        },
+        "modal": {
+            "addTitle": "Добавить новый продукт",
+            "editTitle": "Редактировать продукт",
+            "create": "Создать продукт"
+        },
+        "form": {
+            "title": "Название продукта",
+            "description": "Описание",
+            "category": "Категория",
+            "brand": "Бренд",
+            "price": "Цена",
+            "discount": "Процент скидки",
+            "stock": "Склад",
+            "sku": "Артикул",
+            "availability": "Статус доступности",
+            "minimumOrder": "Минимальное количество заказа",
+            "rating": "Рейтинг",
+            "weight": "Вес",
+            "width": "Ширина",
+            "height": "Высота",
+            "depth": "Глубина",
+            "warranty": "Гарантийная информация",
+            "shipping": "Информация о доставке",
+            "returnPolicy": "Политика возврата",
+            "thumbnail": "URL миниатюры",
+            "additionalImages": "Дополнительные изображения",
+            "addImage": "Добавить изображение",
+            "addTag": "Добавить тег",
+            "sections": {
+                "basicInfo": "Основная информация",
+                "pricingInventory": "Цены и инвентарь",
+                "rating": "Рейтинг и отзывы",
+                "physical": "Физические свойства",
+                "tags": "Теги",
+                "images": "Изображения",
+                "additional": "Дополнительная информация"
+            },
+            "availability": {
+                "inStock": "В наличии",
+                "lowStock": "Низкий запас",
+                "outOfStock": "Нет в наличии"
+            },
+            "placeholders": {
+                "title": "Введите название продукта",
+                "description": "Введите описание продукта",
+                "category": "Выберите категорию",
+                "brand": "Введите название бренда",
+                "price": "0.00",
+                "discount": "0",
+                "stock": "0",
+                "sku": "Введите артикул",
+                "availability": "Выберите статус доступности",
+                "minimumOrder": "1",
+                "weight": "0.0",
+                "width": "0.0",
+                "height": "0.0",
+                "depth": "0.0",
+                "warranty": "Введите гарантийную информацию",
+                "shipping": "Введите информацию о доставке",
+                "returnPolicy": "Введите политику возврата",
+                "thumbnail": "Введите URL миниатюры",
+                "imageUrl": "Введите URL изображения",
+                "addTag": "Введите название тега"
+            },
+            "validation": {
+                "titleRequired": "Название продукта обязательно",
+                "titleMin": "Название должно содержать минимум 3 символа",
+                "descriptionRequired": "Описание обязательно",
+                "descriptionMin": "Описание должно содержать минимум 10 символов",
+                "categoryRequired": "Категория обязательна",
+                "priceRequired": "Цена обязательна",
+                "priceMin": "Цена должна быть 0 или больше",
+                "stockRequired": "Склад обязателен",
+                "stockMin": "Склад должен быть 0 или больше",
+                "availabilityRequired": "Статус доступности обязателен",
+                "discountRange": "Скидка должна быть от 0 до 100",
+                "ratingRange": "Рейтинг должен быть от 1 до 5"
+            }
+        },
+        "delete": {
+            "confirmTitle": "Удалить продукт",
+            "confirmMessage": "Вы уверены, что хотите удалить этот продукт?",
+            "success": "Продукт успешно удален",
+            "error": "Не удалось удалить продукт"
+        },
+        "bulkDelete": {
+            "button": "Удалить выбранные ({count})",
+            "noSelection": "Пожалуйста, выберите продукты для удаления",
+            "confirmTitle": "Удалить несколько продуктов",
+            "confirmMessage": "Вы уверены, что хотите удалить {count} продуктов?",
+            "success": "{count} продуктов успешно удалено",
+            "error": "Не удалось удалить продукты"
+        },
+        "create": {
+            "success": "Продукт успешно создан",
+            "error": "Не удалось создать продукт"
+        },
+        "update": {
+            "success": "Продукт успешно обновлен",
+            "error": "Не удалось обновить продукт"
+        },
+        "export": {
+            "button": "Экспорт в CSV",
+            "noData": "Нет продуктов для экспорта",
+            "success": "Продукты успешно экспортированы"
+        },
         "editSuccess": "Продукт успешно обновлен"
     },
     "favorites": {
@@ -213,6 +361,237 @@
         "browseProducts": "Просмотреть продукты",
         "addedToFavorites": "Добавлено в избранное",
         "removedFromFavorites": "Удалено из избранного"
+    },
+    "users": {
+        "title": "Пользователи",
+        "addUser": "Добавить пользователя",
+        "resultsCount": "Показано {count} пользователей",
+        "table": {
+            "avatar": "Аватар",
+            "fullName": "Полное имя",
+            "username": "Имя пользователя",
+            "email": "Email",
+            "age": "Возраст",
+            "gender": "Пол",
+            "role": "Роль",
+            "status": "Статус",
+            "company": "Компания",
+            "city": "Город",
+            "actions": "Действия",
+            "pagination": "Показано {start}-{end} из {total} пользователей"
+        },
+        "actions": {
+            "view": "Просмотр"
+        },
+        "search": {
+            "placeholder": "Поиск по имени, email или имени пользователя..."
+        },
+        "filters": {
+            "gender": "Пол",
+            "role": "Роль",
+            "status": "Статус",
+            "ageRange": "Диапазон возраста",
+            "allGenders": "Все полы",
+            "allRoles": "Все роли",
+            "allStatuses": "Все статусы",
+            "reset": "Сбросить фильтры"
+        },
+        "sort": {
+            "label": "Сортировать по",
+            "placeholder": "Выберите порядок сортировки",
+            "default": "По умолчанию",
+            "nameAsc": "Имя: А-Я",
+            "nameDesc": "Имя: Я-А",
+            "ageAsc": "Возраст: от меньшего к большему",
+            "ageDesc": "Возраст: от большего к меньшему",
+            "emailAsc": "Email: А-Я",
+            "emailDesc": "Email: Я-А"
+        },
+        "status": {
+            "active": "Активен",
+            "inactive": "Неактивен",
+            "suspended": "Приостановлен",
+            "toggleSuccess": "Статус пользователя обновлен",
+            "toggleError": "Не удалось обновить статус"
+        },
+        "modal": {
+            "addTitle": "Добавить пользователя",
+            "editTitle": "Редактировать пользователя",
+            "create": "Создать пользователя"
+        },
+        "form": {
+            "username": "Имя пользователя",
+            "email": "Email",
+            "password": "Пароль",
+            "role": "Роль",
+            "status": "Статус",
+            "image": "URL аватара",
+            "firstName": "Имя",
+            "lastName": "Фамилия",
+            "maidenName": "Девичья фамилия",
+            "age": "Возраст",
+            "gender": "Пол",
+            "birthDate": "Дата рождения",
+            "phone": "Телефон",
+            "height": "Рост (см)",
+            "weight": "Вес (кг)",
+            "bloodGroup": "Группа крови",
+            "eyeColor": "Цвет глаз",
+            "hairColor": "Цвет волос",
+            "hairType": "Тип волос",
+            "street": "Улица",
+            "city": "Город",
+            "state": "Штат",
+            "stateCode": "Код штата",
+            "postalCode": "Почтовый индекс",
+            "country": "Страна",
+            "university": "Университет",
+            "companyName": "Название компании",
+            "department": "Отдел",
+            "jobTitle": "Должность",
+            "ein": "EIN",
+            "ssn": "SSN",
+            "userAgent": "User Agent",
+            "sections": {
+                "account": "Учетная запись",
+                "personal": "Личная информация",
+                "physical": "Физические данные",
+                "address": "Адрес",
+                "professional": "Профессиональное",
+                "additional": "Дополнительная информация"
+            },
+            "gender": {
+                "male": "Мужской",
+                "female": "Женский",
+                "other": "Другой"
+            },
+            "hair": {
+                "straight": "Прямые",
+                "wavy": "Волнистые",
+                "curly": "Кудрявые",
+                "kinky": "Курчавые"
+            },
+            "role": {
+                "user": "Пользователь",
+                "moderator": "Модератор",
+                "admin": "Администратор"
+            },
+            "placeholders": {
+                "username": "Введите имя пользователя",
+                "email": "Введите email",
+                "password": "Введите пароль",
+                "passwordEdit": "Оставьте пустым для сохранения текущего",
+                "image": "Введите URL аватара",
+                "firstName": "Введите имя",
+                "lastName": "Введите фамилию",
+                "maidenName": "Введите девичью фамилию",
+                "birthDate": "Выберите дату рождения",
+                "phone": "Введите номер телефона",
+                "height": "0.0",
+                "weight": "0.0",
+                "street": "Введите адрес",
+                "city": "Введите город",
+                "state": "Введите штат",
+                "stateCode": "Введите код штата",
+                "postalCode": "Введите индекс",
+                "country": "Введите страну",
+                "university": "Введите университет",
+                "companyName": "Введите название компании",
+                "department": "Введите отдел",
+                "jobTitle": "Введите должность",
+                "ein": "Введите EIN",
+                "ssn": "Введите SSN",
+                "userAgent": "Введите user agent"
+            },
+            "validation": {
+                "firstNameRequired": "Имя обязательно",
+                "firstNameMin": "Минимум 2 символа",
+                "lastNameRequired": "Фамилия обязательна",
+                "lastNameMin": "Минимум 2 символа",
+                "emailRequired": "Email обязателен",
+                "emailInvalid": "Неверный email",
+                "usernameRequired": "Имя пользователя обязательно",
+                "usernameMin": "Минимум 3 символа",
+                "passwordRequired": "Пароль обязателен",
+                "passwordMin": "Минимум 6 символов",
+                "ageRequired": "Возраст обязателен",
+                "ageMin": "Минимальный возраст 18",
+                "genderRequired": "Пол обязателен",
+                "roleRequired": "Роль обязательна",
+                "statusRequired": "Статус обязателен"
+            }
+        },
+        "detail": {
+            "title": "Детали пользователя",
+            "personal": "Личная информация",
+            "contact": "Контактная информация",
+            "physical": "Физические данные",
+            "address": "Адрес",
+            "professional": "Профессиональное",
+            "age": "Возраст",
+            "gender": "Пол",
+            "birthDate": "Дата рождения",
+            "bloodGroup": "Группа крови",
+            "email": "Email",
+            "phone": "Телефон",
+            "username": "Имя пользователя",
+            "height": "Рост",
+            "weight": "Вес",
+            "eyeColor": "Цвет глаз",
+            "hair": "Волосы",
+            "street": "Улица",
+            "city": "Город",
+            "state": "Штат",
+            "postalCode": "Индекс",
+            "country": "Страна",
+            "university": "Университет",
+            "company": "Компания",
+            "department": "Отдел",
+            "jobTitle": "Должность"
+        },
+        "delete": {
+            "confirmTitle": "Удалить пользователя",
+            "confirmMessage": "Вы уверены?",
+            "success": "Пользователь удален",
+            "error": "Ошибка удаления"
+        },
+        "bulkDelete": {
+            "button": "Удалить выбранные ({count})",
+            "noSelection": "Выберите пользователей",
+            "confirmTitle": "Удалить пользователей",
+            "confirmMessage": "Удалить {count} пользователей?",
+            "success": "{count} пользователей удалено",
+            "error": "Ошибка удаления"
+        },
+        "bulkStatus": {
+            "button": "Изменить статус ({count})",
+            "noSelection": "Выберите пользователей",
+            "confirmTitle": "Изменить статус",
+            "confirmMessage": "Изменить статус {count} пользователей на {status}?",
+            "success": "Статус изменен для {count} пользователей",
+            "error": "Ошибка изменения статуса"
+        },
+        "bulkRole": {
+            "button": "Изменить роль ({count})",
+            "noSelection": "Выберите пользователей",
+            "confirmTitle": "Изменить роль",
+            "confirmMessage": "Изменить роль {count} пользователей на {role}?",
+            "success": "Роль изменена для {count} пользователей",
+            "error": "Ошибка изменения роли"
+        },
+        "create": {
+            "success": "Пользователь создан",
+            "error": "Ошибка создания"
+        },
+        "update": {
+            "success": "Пользователь обновлен",
+            "error": "Ошибка обновления"
+        },
+        "export": {
+            "button": "Экспорт в CSV",
+            "noData": "Нет данных для экспорта",
+            "success": "Данные экспортированы"
+        }
     },
     "messages": {
         "updateSuccess": "Успех",

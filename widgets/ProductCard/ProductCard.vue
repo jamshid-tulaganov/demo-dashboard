@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import { Icon, ImageModal } from '~/shared/ui';
+import { Icon, ImageModal, LazyImage } from '~/shared/ui';
 import type { Product } from '~/stores/products';
 import { useFavoritesStore } from '~/stores/favorites';
 import { message } from 'ant-design-vue';
@@ -31,7 +31,6 @@ const toggleFavorite = (e: Event) => {
     const wasFavorite = isFavorite.value;
     favoritesStore.toggleFavorite(props.product);
 
-    // Show toast notification
     if (wasFavorite) {
         message.info(t('favorites.removedFromFavorites'));
     } else {
@@ -93,10 +92,12 @@ const renderStars = (rating: number) => {
                         class="image-container"
                         @click.stop="openImageModal(index, $event)"
                     >
-                        <img
+                        <LazyImage
                             :src="image"
                             :alt="`${product.title} - ${index + 1}`"
                             class="w-full h-48 object-cover rounded-t-lg"
+                            width="300"
+                            height="192"
                         />
                     </div>
                 </SwiperSlide>

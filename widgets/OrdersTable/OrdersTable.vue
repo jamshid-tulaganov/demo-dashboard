@@ -7,7 +7,6 @@ import type { Order } from '~/stores/orders';
 const { t } = useI18n();
 const ordersStore = useOrdersStore();
 
-// Get list of last 6 months for dropdown
 const monthOptions = computed(() => {
     const months = [];
     for (let i = 0; i < 6; i++) {
@@ -27,16 +26,13 @@ const selectedMonth = computed({
     set: (value: string) => ordersStore.setSelectedMonth(value),
 });
 
-// Fetch orders on mount
 onMounted(() => {
     ordersStore.fetchOrders();
 });
 
-// Pagination
 const currentPage = ref(1);
 const pageSize = ref(10);
 
-// Table columns configuration
 const columns = [
     {
         title: t('orders.productName'),
@@ -78,12 +74,10 @@ const columns = [
     },
 ];
 
-// Format date for display
 const formatDate = (dateString: string) => {
     return dayjs(dateString).format('MMM D, YYYY HH:mm');
 };
 
-// Format price
 const formatPrice = (price: number) => {
     return `$${price.toFixed(2)}`;
 };

@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import { ref, computed } from 'vue';
 import { useApiClient } from '~/shared/lib/api/useApiClient';
 
 export interface Product {
@@ -13,6 +14,19 @@ export interface Product {
     category: string;
     thumbnail: string;
     images: string[];
+    tags?: string[];
+    sku?: string;
+    weight?: number;
+    dimensions?: {
+        width: number;
+        height: number;
+        depth: number;
+    };
+    warrantyInformation?: string;
+    shippingInformation?: string;
+    availabilityStatus?: string;
+    returnPolicy?: string;
+    minimumOrderQuantity?: number;
 }
 
 export interface ProductsResponse {
@@ -22,103 +36,229 @@ export interface ProductsResponse {
     limit: number;
 }
 
-export const useProductsStore = defineStore('products', {
-    state: () => ({
-        products: [] as Product[],
-        currentProduct: null as Product | null,
-        total: 0,
-        loading: false,
-        error: null as string | null,
-    }),
+export const useProductsStore = defineStore('products', () => {
+    const products = ref<Product[]>([]);
+    const currentProduct = ref<Product | null>(null);
+    const categories = ref<string[]>([]);
+    const total = ref(0);
+    const loading = ref(false);
+    const error = ref<string | null>(null);
 
-    getters: {
-        getAllProducts: (state) => state.products,
-        getProductById: (state) => (id: number) =>
-            state.products.find((p) => p.id === id),
-        isLoading: (state) => state.loading,
-        hasMore: (state) => state.products.length < state.total,
-    },
+    const getAllProducts = computed(() => products.value);
+    const getProductById = computed(() => (id: number) =>
+        products.value.find((p) => p.id === id)
+    );
+    const isLoading = computed(() => loading.value);
+    const hasMore = computed(() => products.value.length < total.value);
 
-    actions: {
-        async fetchProducts(limit = 20, skip = 0) {
-            this.loading = true;
-            this.error = null;
+    async function fetchProducts(limit = 20, skip = 0) {
+        loading.value = true;
+        error.value = null;
 
-            try {
-                const { client } = useApiClient();
-                const response = await client.get<ProductsResponse>(
-                    `https://dummyjson.com/products?limit=${limit}&skip=${skip}`
-                );
+        try {
+            const { client } = useApiClient();
+            const response = await client.get<ProductsResponse>(
+                `https://dummyjson.com/products?limit=${limit}&skip=${skip}`
+            );
 
-                if (skip === 0) {
-                    this.products = response.products;
-                } else {
-                    this.products = [...this.products, ...response.products];
-                }
-
-                this.total = response.total;
-            } catch (err: any) {
-                this.error = 'Failed to fetch products';
-                console.error('Products fetch error:', err);
-            } finally {
-                this.loading = false;
+            if (skip === 0) {
+                products.value = response.products;
+            } else {
+                products.value = [...products.value, ...response.products];
             }
-        },
 
-        async fetchProductById(id: number) {
-            this.loading = true;
-            this.error = null;
+            total.value = response.total;
+        } catch (err: any) {
+            error.value = 'Failed to fetch products';
+            console.error('Products fetch error:', err);
+        } finally {
+            loading.value = false;
+        }
+    }
 
-            try {
-                const { client } = useApiClient();
-                const product = await client.get<Product>(
-                    `https://dummyjson.com/products/${id}`
-                );
+    async function fetchProductById(id: number) {
+        loading.value = true;
+        error.value = null;
 
-                this.currentProduct = product;
-                return product;
-            } catch (err: any) {
-                this.error = 'Failed to fetch product details';
-                console.error('Product fetch error:', err);
-                return null;
-            } finally {
-                this.loading = false;
-            }
-        },
+        try {
+            const { client } = useApiClient();
+            const product = await client.get<Product>(
+                `https://dummyjson.com/products/${id}`
+            );
 
-        async searchProducts(query: string) {
-            this.loading = true;
-            this.error = null;
+            currentProduct.value = product;
+            return product;
+        } catch (err: any) {
+            error.value = 'Failed to fetch product details';
+            console.error('Product fetch error:', err);
+            return null;
+        } finally {
+            loading.value = false;
+        }
+    }
 
-            try {
-                const { client } = useApiClient();
-                const response = await client.get<ProductsResponse>(
-                    `https://dummyjson.com/products/search?q=${query}`
-                );
+    async function searchProducts(query: string) {
+        loading.value = true;
+        error.value = null;
 
-                this.products = response.products;
-                this.total = response.total;
-            } catch (err: any) {
-                this.error = 'Failed to search products';
-                console.error('Products search error:', err);
-            } finally {
-                this.loading = false;
-            }
-        },
+        try {
+            const { client } = useApiClient();
+            const response = await client.get<ProductsResponse>(
+                `https://dummyjson.com/products/search?q=${query}`
+            );
 
-        updateProduct(product: Product) {
-            this.currentProduct = product;
+            products.value = response.products;
+            total.value = response.total;
+        } catch (err: any) {
+            error.value = 'Failed to search products';
+            console.error('Products search error:', err);
+        } finally {
+            loading.value = false;
+        }
+    }
 
-            // Update in products list if exists
-            const index = this.products.findIndex((p) => p.id === product.id);
+    async function updateProduct(id: number, productData: Partial<Product>) {
+        loading.value = true;
+        error.value = null;
+
+        try {
+            const { client } = useApiClient();
+            const updatedProduct = await client.put<Product>(
+                `https://dummyjson.com/products/${id}`,
+                { body: productData }
+            );
+
+            currentProduct.value = updatedProduct;
+
+            const index = products.value.findIndex((p) => p.id === id);
             if (index > -1) {
-                this.products[index] = product;
+                products.value[index] = updatedProduct;
             }
-        },
 
-        clearProducts() {
-            this.products = [];
-            this.total = 0;
-        },
-    },
+            return updatedProduct;
+        } catch (err: any) {
+            error.value = 'Failed to update product';
+            console.error('Product update error:', err);
+            throw err;
+        } finally {
+            loading.value = false;
+        }
+    }
+
+    async function addProduct(productData: Omit<Product, 'id'>) {
+        loading.value = true;
+        error.value = null;
+
+        try {
+            const { client } = useApiClient();
+            const newProduct = await client.post<Product>(
+                'https://dummyjson.com/products/add',
+                { body: productData }
+            );
+
+            products.value = [newProduct, ...products.value];
+            total.value += 1;
+
+            return newProduct;
+        } catch (err: any) {
+            error.value = 'Failed to add product';
+            console.error('Product add error:', err);
+            throw err;
+        } finally {
+            loading.value = false;
+        }
+    }
+
+    async function deleteProduct(id: number) {
+        loading.value = true;
+        error.value = null;
+
+        try {
+            const { client } = useApiClient();
+            await client.delete(`https://dummyjson.com/products/${id}`);
+
+            products.value = products.value.filter((p) => p.id !== id);
+            total.value -= 1;
+
+            return true;
+        } catch (err: any) {
+            error.value = 'Failed to delete product';
+            console.error('Product delete error:', err);
+            throw err;
+        } finally {
+            loading.value = false;
+        }
+    }
+
+    async function deleteMultipleProducts(ids: number[]) {
+        loading.value = true;
+        error.value = null;
+
+        try {
+            const { client } = useApiClient();
+
+            await Promise.all(
+                ids.map(id => client.delete(`https://dummyjson.com/products/${id}`))
+            );
+
+            products.value = products.value.filter((p) => !ids.includes(p.id));
+            total.value -= ids.length;
+
+            return true;
+        } catch (err: any) {
+            error.value = 'Failed to delete products';
+            console.error('Products bulk delete error:', err);
+            throw err;
+        } finally {
+            loading.value = false;
+        }
+    }
+
+    async function fetchCategories() {
+        loading.value = true;
+        error.value = null;
+
+        try {
+            const { client } = useApiClient();
+            const categoriesData = await client.get<string[]>(
+                'https://dummyjson.com/products/categories'
+            );
+
+            categories.value = categoriesData;
+            return categoriesData;
+        } catch (err: any) {
+            error.value = 'Failed to fetch categories';
+            console.error('Categories fetch error:', err);
+            return [];
+        } finally {
+            loading.value = false;
+        }
+    }
+
+    function clearProducts() {
+        products.value = [];
+        total.value = 0;
+    }
+
+    return {
+        products,
+        currentProduct,
+        categories,
+        total,
+        loading,
+        error,
+        getAllProducts,
+        getProductById,
+        isLoading,
+        hasMore,
+        fetchProducts,
+        fetchProductById,
+        searchProducts,
+        updateProduct,
+        addProduct,
+        deleteProduct,
+        deleteMultipleProducts,
+        fetchCategories,
+        clearProducts,
+    };
 });

@@ -74,15 +74,15 @@ const statCards = computed(() => [
 </script>
 
 <template>
-    <div class="space-y-6">
+    <div class="space-y-4 md:space-y-6">
         <!-- Dashboard Title -->
-        <h1 class="text-3xl font-bold text-light-text-primary dark:text-dark-text-primary">
+        <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-light-text-primary dark:text-dark-text-primary">
             {{ t('dashboard.title') }}
         </h1>
 
         <!-- Statistics Cards -->
         <a-spin :spinning="loading">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
                 <StatCard
                     v-for="(card, index) in statCards"
                     :key="index"

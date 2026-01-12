@@ -22,6 +22,37 @@ export default defineNuxtConfig({
         typeCheck: false,
     },
 
+    // Performance optimizations
+    vite: {
+        build: {
+            rollupOptions: {
+                output: {
+                    manualChunks: {
+                        'ant-design': ['ant-design-vue'],
+                        'swiper': ['swiper'],
+                    },
+                },
+            },
+        },
+        optimizeDeps: {
+            include: ['ant-design-vue', 'swiper'],
+        },
+    },
+
+    // Component auto-import with lazy loading
+    components: {
+        dirs: [
+            {
+                path: '~/components',
+                pathPrefix: false,
+            },
+            {
+                path: '~/widgets',
+                pathPrefix: false,
+            },
+        ],
+    },
+
     css: ["ant-design-vue/dist/reset.css"],
 
     antd: {

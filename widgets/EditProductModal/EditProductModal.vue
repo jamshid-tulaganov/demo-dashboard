@@ -38,14 +38,11 @@ const handleSave = async () => {
     saving.value = true;
 
     try {
-        // Simulate API call (DummyJSON doesn't support PUT, but we'll pretend)
         await new Promise((resolve) => setTimeout(resolve, 1000));
 
-        // Emit the updated product
         emit('save', formData.value);
         emit('update:visible', false);
 
-        // Show success message
         message.success(t('products.editSuccess'));
     } catch (error) {
         console.error('Failed to update product:', error);

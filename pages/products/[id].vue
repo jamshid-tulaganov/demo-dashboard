@@ -5,7 +5,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/thumbs';
-import { Icon } from '~/shared/ui';
+import { Icon, LazyImage } from '~/shared/ui';
 import { useFavoritesStore } from '~/stores/favorites';
 import { useProductsStore } from '~/stores/products';
 import EditProductModal from '~/widgets/EditProductModal/EditProductModal.vue';
@@ -115,10 +115,12 @@ onMounted(async () => {
                     class="main-swiper rounded-lg overflow-hidden"
                 >
                     <SwiperSlide v-for="(image, index) in product.images" :key="index">
-                        <img
+                        <LazyImage
                             :src="image"
                             :alt="`${product.title} - ${index + 1}`"
                             class="w-full h-96 object-cover"
+                            width="600"
+                            height="384"
                         />
                     </SwiperSlide>
                 </Swiper>
@@ -133,10 +135,12 @@ onMounted(async () => {
                     class="thumbs-swiper"
                 >
                     <SwiperSlide v-for="(image, index) in product.images" :key="index">
-                        <img
+                        <LazyImage
                             :src="image"
                             :alt="`${product.title} thumbnail - ${index + 1}`"
                             class="w-full h-20 object-cover rounded-lg cursor-pointer"
+                            width="120"
+                            height="80"
                         />
                     </SwiperSlide>
                 </Swiper>

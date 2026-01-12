@@ -180,11 +180,13 @@
     },
     "products": {
         "title": "Mahsulotlar",
+        "addProduct": "Mahsulot qo'shish",
         "editProduct": "Mahsulotni tahrirlash",
         "addToFavorites": "Sevimlilarga qo'shish",
         "removeFromFavorites": "Sevimlilardan o'chirish",
         "loading": "Mahsulotlar yuklanmoqda...",
         "loadMore": "Ko'proq yuklash",
+        "resultsCount": "{count} ta mahsulot ko'rsatilmoqda",
         "promo": {
             "title1": "Bu yozda bepul uyga yetkazib berish",
             "subtitle1": "Dizayner ko'ylaklari - Zamonaviy dizayner ko'ylaklaridan tanlang",
@@ -205,6 +207,152 @@
             "productName": "Mahsulot nomi",
             "price": "Narx"
         },
+        "table": {
+            "id": "ID",
+            "thumbnail": "Rasm",
+            "title": "Nomi",
+            "category": "Kategoriya",
+            "brand": "Brend",
+            "price": "Narx",
+            "discount": "Chegirma",
+            "rating": "Reyting",
+            "stock": "Zaxira",
+            "availability": "Mavjudlik",
+            "actions": "Amallar",
+            "notSpecified": "Ko'rsatilmagan",
+            "pagination": "{start}-{end} dan {total} ta mahsulot"
+        },
+        "search": {
+            "placeholder": "Mahsulotlarni nomi bo'yicha qidirish..."
+        },
+        "filters": {
+            "selectCategory": "Kategoriyani tanlang",
+            "allCategories": "Barcha kategoriyalar",
+            "priceRange": "Narx oralig'i",
+            "stockStatus": "Zaxira holati",
+            "allStock": "Barcha zaxira darajalari",
+            "inStock": "Mavjud",
+            "lowStock": "Kam zaxira",
+            "outOfStock": "Mavjud emas",
+            "reset": "Filtrlarni tiklash"
+        },
+        "sort": {
+            "label": "Saralash",
+            "placeholder": "Saralash tartibini tanlang",
+            "default": "Standart",
+            "priceLowToHigh": "Narx: Pastdan yuqoriga",
+            "priceHighToLow": "Narx: Yuqoridan pastga",
+            "ratingLowToHigh": "Reyting: Pastdan yuqoriga",
+            "ratingHighToLow": "Reyting: Yuqoridan pastga",
+            "stockLowToHigh": "Zaxira: Pastdan yuqoriga",
+            "stockHighToLow": "Zaxira: Yuqoridan pastga"
+        },
+        "modal": {
+            "addTitle": "Yangi mahsulot qo'shish",
+            "editTitle": "Mahsulotni tahrirlash",
+            "create": "Mahsulot yaratish"
+        },
+        "form": {
+            "title": "Mahsulot nomi",
+            "description": "Tavsif",
+            "category": "Kategoriya",
+            "brand": "Brend",
+            "price": "Narx",
+            "discount": "Chegirma foizi",
+            "stock": "Zaxira",
+            "sku": "Artikul",
+            "availability": "Mavjudlik holati",
+            "minimumOrder": "Minimal buyurtma miqdori",
+            "rating": "Reyting",
+            "weight": "Og'irlik",
+            "width": "Kenglik",
+            "height": "Balandlik",
+            "depth": "Chuqurlik",
+            "warranty": "Kafolat ma'lumoti",
+            "shipping": "Yetkazib berish ma'lumoti",
+            "returnPolicy": "Qaytarish siyosati",
+            "thumbnail": "Kichik rasm URL",
+            "additionalImages": "Qo'shimcha rasmlar",
+            "addImage": "Rasm qo'shish",
+            "addTag": "Teg qo'shish",
+            "sections": {
+                "basicInfo": "Asosiy ma'lumot",
+                "pricingInventory": "Narx va inventar",
+                "rating": "Reyting va sharhlar",
+                "physical": "Jismoniy xususiyatlar",
+                "tags": "Teglar",
+                "images": "Rasmlar",
+                "additional": "Qo'shimcha ma'lumot"
+            },
+            "availability": {
+                "inStock": "Mavjud",
+                "lowStock": "Kam zaxira",
+                "outOfStock": "Mavjud emas"
+            },
+            "placeholders": {
+                "title": "Mahsulot nomini kiriting",
+                "description": "Mahsulot tavsifini kiriting",
+                "category": "Kategoriyani tanlang",
+                "brand": "Brend nomini kiriting",
+                "price": "0.00",
+                "discount": "0",
+                "stock": "0",
+                "sku": "Artikulni kiriting",
+                "availability": "Mavjudlik holatini tanlang",
+                "minimumOrder": "1",
+                "weight": "0.0",
+                "width": "0.0",
+                "height": "0.0",
+                "depth": "0.0",
+                "warranty": "Kafolat ma'lumotini kiriting",
+                "shipping": "Yetkazib berish ma'lumotini kiriting",
+                "returnPolicy": "Qaytarish siyosatini kiriting",
+                "thumbnail": "Kichik rasm URL kiriting",
+                "imageUrl": "Rasm URL kiriting",
+                "addTag": "Teg nomini kiriting"
+            },
+            "validation": {
+                "titleRequired": "Mahsulot nomi majburiy",
+                "titleMin": "Nom kamida 3 ta belgidan iborat bo'lishi kerak",
+                "descriptionRequired": "Tavsif majburiy",
+                "descriptionMin": "Tavsif kamida 10 ta belgidan iborat bo'lishi kerak",
+                "categoryRequired": "Kategoriya majburiy",
+                "priceRequired": "Narx majburiy",
+                "priceMin": "Narx 0 yoki undan ko'p bo'lishi kerak",
+                "stockRequired": "Zaxira majburiy",
+                "stockMin": "Zaxira 0 yoki undan ko'p bo'lishi kerak",
+                "availabilityRequired": "Mavjudlik holati majburiy",
+                "discountRange": "Chegirma 0 dan 100 gacha bo'lishi kerak",
+                "ratingRange": "Reyting 1 dan 5 gacha bo'lishi kerak"
+            }
+        },
+        "delete": {
+            "confirmTitle": "Mahsulotni o'chirish",
+            "confirmMessage": "Haqiqatan ham bu mahsulotni o'chirmoqchimisiz?",
+            "success": "Mahsulot muvaffaqiyatli o'chirildi",
+            "error": "Mahsulotni o'chirib bo'lmadi"
+        },
+        "bulkDelete": {
+            "button": "Tanlanganlarni o'chirish ({count})",
+            "noSelection": "Iltimos, o'chirish uchun mahsulotlarni tanlang",
+            "confirmTitle": "Bir nechta mahsulotni o'chirish",
+            "confirmMessage": "Haqiqatan ham {count} ta mahsulotni o'chirmoqchimisiz?",
+            "success": "{count} ta mahsulot muvaffaqiyatli o'chirildi",
+            "error": "Mahsulotlarni o'chirib bo'lmadi"
+        },
+        "create": {
+            "success": "Mahsulot muvaffaqiyatli yaratildi",
+            "error": "Mahsulot yaratib bo'lmadi"
+        },
+        "update": {
+            "success": "Mahsulot muvaffaqiyatli yangilandi",
+            "error": "Mahsulotni yangilab bo'lmadi"
+        },
+        "export": {
+            "button": "CSV ga eksport qilish",
+            "noData": "Eksport qilish uchun mahsulotlar yo'q",
+            "success": "Mahsulotlar muvaffaqiyatli eksport qilindi"
+        },
         "editSuccess": "Mahsulot muvaffaqiyatli yangilandi"
     },
     "favorites": {
@@ -213,6 +361,237 @@
         "browseProducts": "Mahsulotlarni ko'rish",
         "addedToFavorites": "Sevimlilarga qo'shildi",
         "removedFromFavorites": "Sevimlilardan o'chirildi"
+    },
+    "users": {
+        "title": "Foydalanuvchilar",
+        "addUser": "Foydalanuvchi qo'shish",
+        "resultsCount": "{count} ta foydalanuvchi",
+        "table": {
+            "avatar": "Avatar",
+            "fullName": "To'liq ism",
+            "username": "Foydalanuvchi nomi",
+            "email": "Email",
+            "age": "Yosh",
+            "gender": "Jins",
+            "role": "Rol",
+            "status": "Holat",
+            "company": "Kompaniya",
+            "city": "Shahar",
+            "actions": "Amallar",
+            "pagination": "{start}-{end} dan {total} ta"
+        },
+        "actions": {
+            "view": "Ko'rish"
+        },
+        "search": {
+            "placeholder": "Ism, email yoki username bo'yicha qidirish..."
+        },
+        "filters": {
+            "gender": "Jins",
+            "role": "Rol",
+            "status": "Holat",
+            "ageRange": "Yosh oralig'i",
+            "allGenders": "Barcha jinslar",
+            "allRoles": "Barcha rollar",
+            "allStatuses": "Barcha holatlar",
+            "reset": "Filtrlarni tiklash"
+        },
+        "sort": {
+            "label": "Saralash",
+            "placeholder": "Tartibni tanlang",
+            "default": "Standart",
+            "nameAsc": "Ism: A-Z",
+            "nameDesc": "Ism: Z-A",
+            "ageAsc": "Yosh: Kamdan ko'pga",
+            "ageDesc": "Yosh: Ko'pdan kamga",
+            "emailAsc": "Email: A-Z",
+            "emailDesc": "Email: Z-A"
+        },
+        "status": {
+            "active": "Faol",
+            "inactive": "Nofaol",
+            "suspended": "To'xtatilgan",
+            "toggleSuccess": "Holat yangilandi",
+            "toggleError": "Xatolik yuz berdi"
+        },
+        "modal": {
+            "addTitle": "Yangi foydalanuvchi",
+            "editTitle": "Tahrirlash",
+            "create": "Yaratish"
+        },
+        "form": {
+            "username": "Username",
+            "email": "Email",
+            "password": "Parol",
+            "role": "Rol",
+            "status": "Holat",
+            "image": "Avatar URL",
+            "firstName": "Ism",
+            "lastName": "Familiya",
+            "maidenName": "Qizlik familiyasi",
+            "age": "Yosh",
+            "gender": "Jins",
+            "birthDate": "Tug'ilgan kun",
+            "phone": "Telefon",
+            "height": "Bo'y (sm)",
+            "weight": "Vazn (kg)",
+            "bloodGroup": "Qon guruhi",
+            "eyeColor": "Ko'z rangi",
+            "hairColor": "Soch rangi",
+            "hairType": "Soch turi",
+            "street": "Ko'cha",
+            "city": "Shahar",
+            "state": "Viloyat",
+            "stateCode": "Viloyat kodi",
+            "postalCode": "Pochta indeksi",
+            "country": "Mamlakat",
+            "university": "Universitet",
+            "companyName": "Kompaniya nomi",
+            "department": "Bo'lim",
+            "jobTitle": "Lavozim",
+            "ein": "EIN",
+            "ssn": "SSN",
+            "userAgent": "User Agent",
+            "sections": {
+                "account": "Hisob ma'lumotlari",
+                "personal": "Shaxsiy ma'lumot",
+                "physical": "Jismoniy ma'lumot",
+                "address": "Manzil",
+                "professional": "Kasbiy ma'lumot",
+                "additional": "Qo'shimcha"
+            },
+            "gender": {
+                "male": "Erkak",
+                "female": "Ayol",
+                "other": "Boshqa"
+            },
+            "hair": {
+                "straight": "To'g'ri",
+                "wavy": "To'lqinli",
+                "curly": "Jingalak",
+                "kinky": "Juda jingalak"
+            },
+            "role": {
+                "user": "Foydalanuvchi",
+                "moderator": "Moderator",
+                "admin": "Administrator"
+            },
+            "placeholders": {
+                "username": "Username kiriting",
+                "email": "Email kiriting",
+                "password": "Parol kiriting",
+                "passwordEdit": "Joriy parolni saqlash uchun bo'sh qoldiring",
+                "image": "Avatar URL kiriting",
+                "firstName": "Ism kiriting",
+                "lastName": "Familiya kiriting",
+                "maidenName": "Qizlik familiyasi",
+                "birthDate": "Tug'ilgan kunni tanlang",
+                "phone": "Telefon raqam",
+                "height": "0.0",
+                "weight": "0.0",
+                "street": "Ko'cha manzili",
+                "city": "Shahar",
+                "state": "Viloyat",
+                "stateCode": "Viloyat kodi",
+                "postalCode": "Pochta indeksi",
+                "country": "Mamlakat",
+                "university": "Universitet",
+                "companyName": "Kompaniya",
+                "department": "Bo'lim",
+                "jobTitle": "Lavozim",
+                "ein": "EIN",
+                "ssn": "SSN",
+                "userAgent": "User agent"
+            },
+            "validation": {
+                "firstNameRequired": "Ism majburiy",
+                "firstNameMin": "Kamida 2 ta belgi",
+                "lastNameRequired": "Familiya majburiy",
+                "lastNameMin": "Kamida 2 ta belgi",
+                "emailRequired": "Email majburiy",
+                "emailInvalid": "Noto'g'ri email",
+                "usernameRequired": "Username majburiy",
+                "usernameMin": "Kamida 3 ta belgi",
+                "passwordRequired": "Parol majburiy",
+                "passwordMin": "Kamida 6 ta belgi",
+                "ageRequired": "Yosh majburiy",
+                "ageMin": "Minimal yosh 18",
+                "genderRequired": "Jins majburiy",
+                "roleRequired": "Rol majburiy",
+                "statusRequired": "Holat majburiy"
+            }
+        },
+        "detail": {
+            "title": "Foydalanuvchi ma'lumotlari",
+            "personal": "Shaxsiy ma'lumot",
+            "contact": "Aloqa ma'lumotlari",
+            "physical": "Jismoniy ma'lumot",
+            "address": "Manzil",
+            "professional": "Kasbiy",
+            "age": "Yosh",
+            "gender": "Jins",
+            "birthDate": "Tug'ilgan kun",
+            "bloodGroup": "Qon guruhi",
+            "email": "Email",
+            "phone": "Telefon",
+            "username": "Username",
+            "height": "Bo'y",
+            "weight": "Vazn",
+            "eyeColor": "Ko'z rangi",
+            "hair": "Soch",
+            "street": "Ko'cha",
+            "city": "Shahar",
+            "state": "Viloyat",
+            "postalCode": "Indeks",
+            "country": "Mamlakat",
+            "university": "Universitet",
+            "company": "Kompaniya",
+            "department": "Bo'lim",
+            "jobTitle": "Lavozim"
+        },
+        "delete": {
+            "confirmTitle": "O'chirish",
+            "confirmMessage": "Ishonchingiz komilmi?",
+            "success": "O'chirildi",
+            "error": "Xatolik"
+        },
+        "bulkDelete": {
+            "button": "Tanlanganlarni o'chirish ({count})",
+            "noSelection": "Foydalanuvchilarni tanlang",
+            "confirmTitle": "O'chirish",
+            "confirmMessage": "{count} ta foydalanuvchini o'chirish?",
+            "success": "{count} ta o'chirildi",
+            "error": "Xatolik"
+        },
+        "bulkStatus": {
+            "button": "Holatni o'zgartirish ({count})",
+            "noSelection": "Tanlang",
+            "confirmTitle": "Holatni o'zgartirish",
+            "confirmMessage": "{count} ta foydalanuvchi holatini {status} ga o'zgartirish?",
+            "success": "{count} ta o'zgartirildi",
+            "error": "Xatolik"
+        },
+        "bulkRole": {
+            "button": "Rolni o'zgartirish ({count})",
+            "noSelection": "Tanlang",
+            "confirmTitle": "Rolni o'zgartirish",
+            "confirmMessage": "{count} ta foydalanuvchi rolini {role} ga o'zgartirish?",
+            "success": "{count} ta o'zgartirildi",
+            "error": "Xatolik"
+        },
+        "create": {
+            "success": "Yaratildi",
+            "error": "Xatolik"
+        },
+        "update": {
+            "success": "Yangilandi",
+            "error": "Xatolik"
+        },
+        "export": {
+            "button": "CSV ga eksport",
+            "noData": "Ma'lumot yo'q",
+            "success": "Eksport qilindi"
+        }
     },
     "messages": {
         "updateSuccess": "Muvaffaqiyatli",

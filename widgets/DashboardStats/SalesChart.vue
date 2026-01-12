@@ -5,17 +5,14 @@ import dayjs from 'dayjs';
 import { Icon } from '~/shared/ui';
 import { useDashboardStore } from '~/stores/dashboard';
 
-// Register Chart.js components
 Chart.register(...registerables);
 
 const { t } = useI18n();
 const dashboardStore = useDashboardStore();
 const stats = computed(() => dashboardStore.getStats);
 
-// Selected month filter
 const selectedMonth = ref(dayjs().format('YYYY-MM'));
 
-// Get list of last 6 months for dropdown
 const monthOptions = computed(() => {
     const months = [];
     for (let i = 0; i < 6; i++) {
@@ -28,7 +25,6 @@ const monthOptions = computed(() => {
     return months;
 });
 
-// Generate chart data based on selected month
 const generateChartData = (month: string) => {
     const selectedDate = dayjs(month);
     const daysInMonth = selectedDate.daysInMonth();
@@ -36,7 +32,6 @@ const generateChartData = (month: string) => {
     const ordersData = [];
     const pendingData = [];
 
-    // Generate data points - one per week or specific days
     const dataPoints = Math.min(daysInMonth, 30);
     const step = Math.ceil(daysInMonth / Math.min(dataPoints, 10));
 
@@ -44,7 +39,6 @@ const generateChartData = (month: string) => {
         const date = selectedDate.date(i);
         labels.push(date.format('MMM D'));
 
-        // Generate semi-realistic data based on actual stats
         const baseOrders = stats.value.totalOrders / 30;
         const basePending = stats.value.totalPending / 30;
 
@@ -171,7 +165,6 @@ const chartOptions = computed(() => ({
     },
 }));
 
-// Get theme state
 const isDark = computed(() => {
     if (process.client) {
         return document.documentElement.classList.contains('dark');

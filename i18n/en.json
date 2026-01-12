@@ -180,11 +180,13 @@
     },
     "products": {
         "title": "Products",
+        "addProduct": "Add Product",
         "editProduct": "Edit Product",
         "addToFavorites": "Add to Favorites",
         "removeFromFavorites": "Remove from Favorites",
         "loading": "Loading products...",
         "loadMore": "Load More",
+        "resultsCount": "Showing {count} products",
         "promo": {
             "title1": "Enjoy free home delivery in this summer",
             "subtitle1": "Designer Dresses - Pick from trendy Designer Dress",
@@ -205,6 +207,152 @@
             "productName": "Product Name",
             "price": "Price"
         },
+        "table": {
+            "id": "ID",
+            "thumbnail": "Image",
+            "title": "Title",
+            "category": "Category",
+            "brand": "Brand",
+            "price": "Price",
+            "discount": "Discount",
+            "rating": "Rating",
+            "stock": "Stock",
+            "availability": "Availability",
+            "actions": "Actions",
+            "notSpecified": "Not specified",
+            "pagination": "Showing {start}-{end} of {total} products"
+        },
+        "search": {
+            "placeholder": "Search products by title..."
+        },
+        "filters": {
+            "selectCategory": "Select Category",
+            "allCategories": "All Categories",
+            "priceRange": "Price Range",
+            "stockStatus": "Stock Status",
+            "allStock": "All Stock Levels",
+            "inStock": "In Stock",
+            "lowStock": "Low Stock",
+            "outOfStock": "Out of Stock",
+            "reset": "Reset Filters"
+        },
+        "sort": {
+            "label": "Sort by",
+            "placeholder": "Select sort order",
+            "default": "Default",
+            "priceLowToHigh": "Price: Low to High",
+            "priceHighToLow": "Price: High to Low",
+            "ratingLowToHigh": "Rating: Low to High",
+            "ratingHighToLow": "Rating: High to Low",
+            "stockLowToHigh": "Stock: Low to High",
+            "stockHighToLow": "Stock: High to Low"
+        },
+        "modal": {
+            "addTitle": "Add New Product",
+            "editTitle": "Edit Product",
+            "create": "Create Product"
+        },
+        "form": {
+            "title": "Product Title",
+            "description": "Description",
+            "category": "Category",
+            "brand": "Brand",
+            "price": "Price",
+            "discount": "Discount Percentage",
+            "stock": "Stock",
+            "sku": "SKU",
+            "availability": "Availability Status",
+            "minimumOrder": "Minimum Order Quantity",
+            "rating": "Rating",
+            "weight": "Weight",
+            "width": "Width",
+            "height": "Height",
+            "depth": "Depth",
+            "warranty": "Warranty Information",
+            "shipping": "Shipping Information",
+            "returnPolicy": "Return Policy",
+            "thumbnail": "Thumbnail URL",
+            "additionalImages": "Additional Images",
+            "addImage": "Add Image",
+            "addTag": "Add Tag",
+            "sections": {
+                "basicInfo": "Basic Information",
+                "pricingInventory": "Pricing & Inventory",
+                "rating": "Rating & Reviews",
+                "physical": "Physical Properties",
+                "tags": "Tags",
+                "images": "Images",
+                "additional": "Additional Information"
+            },
+            "availability": {
+                "inStock": "In Stock",
+                "lowStock": "Low Stock",
+                "outOfStock": "Out of Stock"
+            },
+            "placeholders": {
+                "title": "Enter product title",
+                "description": "Enter product description",
+                "category": "Select category",
+                "brand": "Enter brand name",
+                "price": "0.00",
+                "discount": "0",
+                "stock": "0",
+                "sku": "Enter SKU",
+                "availability": "Select availability status",
+                "minimumOrder": "1",
+                "weight": "0.0",
+                "width": "0.0",
+                "height": "0.0",
+                "depth": "0.0",
+                "warranty": "Enter warranty information",
+                "shipping": "Enter shipping information",
+                "returnPolicy": "Enter return policy",
+                "thumbnail": "Enter thumbnail URL",
+                "imageUrl": "Enter image URL",
+                "addTag": "Enter tag name"
+            },
+            "validation": {
+                "titleRequired": "Product title is required",
+                "titleMin": "Title must be at least 3 characters",
+                "descriptionRequired": "Description is required",
+                "descriptionMin": "Description must be at least 10 characters",
+                "categoryRequired": "Category is required",
+                "priceRequired": "Price is required",
+                "priceMin": "Price must be 0 or greater",
+                "stockRequired": "Stock is required",
+                "stockMin": "Stock must be 0 or greater",
+                "availabilityRequired": "Availability status is required",
+                "discountRange": "Discount must be between 0 and 100",
+                "ratingRange": "Rating must be between 1 and 5"
+            }
+        },
+        "delete": {
+            "confirmTitle": "Delete Product",
+            "confirmMessage": "Are you sure you want to delete this product?",
+            "success": "Product deleted successfully",
+            "error": "Failed to delete product"
+        },
+        "bulkDelete": {
+            "button": "Delete Selected ({count})",
+            "noSelection": "Please select products to delete",
+            "confirmTitle": "Delete Multiple Products",
+            "confirmMessage": "Are you sure you want to delete {count} products?",
+            "success": "{count} products deleted successfully",
+            "error": "Failed to delete products"
+        },
+        "create": {
+            "success": "Product created successfully",
+            "error": "Failed to create product"
+        },
+        "update": {
+            "success": "Product updated successfully",
+            "error": "Failed to update product"
+        },
+        "export": {
+            "button": "Export to CSV",
+            "noData": "No products to export",
+            "success": "Products exported successfully"
+        },
         "editSuccess": "Product updated successfully"
     },
     "favorites": {
@@ -213,6 +361,237 @@
         "browseProducts": "Browse Products",
         "addedToFavorites": "Added to favorites",
         "removedFromFavorites": "Removed from favorites"
+    },
+    "users": {
+        "title": "Users",
+        "addUser": "Add User",
+        "resultsCount": "Showing {count} users",
+        "table": {
+            "avatar": "Avatar",
+            "fullName": "Full Name",
+            "username": "Username",
+            "email": "Email",
+            "age": "Age",
+            "gender": "Gender",
+            "role": "Role",
+            "status": "Status",
+            "company": "Company",
+            "city": "City",
+            "actions": "Actions",
+            "pagination": "Showing {start}-{end} of {total} users"
+        },
+        "actions": {
+            "view": "View"
+        },
+        "search": {
+            "placeholder": "Search by name, email, or username..."
+        },
+        "filters": {
+            "gender": "Gender",
+            "role": "Role",
+            "status": "Status",
+            "ageRange": "Age Range",
+            "allGenders": "All Genders",
+            "allRoles": "All Roles",
+            "allStatuses": "All Statuses",
+            "reset": "Reset Filters"
+        },
+        "sort": {
+            "label": "Sort by",
+            "placeholder": "Select sort order",
+            "default": "Default",
+            "nameAsc": "Name: A-Z",
+            "nameDesc": "Name: Z-A",
+            "ageAsc": "Age: Low to High",
+            "ageDesc": "Age: High to Low",
+            "emailAsc": "Email: A-Z",
+            "emailDesc": "Email: Z-A"
+        },
+        "status": {
+            "active": "Active",
+            "inactive": "Inactive",
+            "suspended": "Suspended",
+            "toggleSuccess": "User status updated successfully",
+            "toggleError": "Failed to update user status"
+        },
+        "modal": {
+            "addTitle": "Add New User",
+            "editTitle": "Edit User",
+            "create": "Create User"
+        },
+        "form": {
+            "username": "Username",
+            "email": "Email",
+            "password": "Password",
+            "role": "Role",
+            "status": "Status",
+            "image": "Avatar URL",
+            "firstName": "First Name",
+            "lastName": "Last Name",
+            "maidenName": "Maiden Name",
+            "age": "Age",
+            "gender": "Gender",
+            "birthDate": "Birth Date",
+            "phone": "Phone",
+            "height": "Height (cm)",
+            "weight": "Weight (kg)",
+            "bloodGroup": "Blood Group",
+            "eyeColor": "Eye Color",
+            "hairColor": "Hair Color",
+            "hairType": "Hair Type",
+            "street": "Street Address",
+            "city": "City",
+            "state": "State",
+            "stateCode": "State Code",
+            "postalCode": "Postal Code",
+            "country": "Country",
+            "university": "University",
+            "companyName": "Company Name",
+            "department": "Department",
+            "jobTitle": "Job Title",
+            "ein": "EIN",
+            "ssn": "SSN",
+            "userAgent": "User Agent",
+            "sections": {
+                "account": "Account Information",
+                "personal": "Personal Information",
+                "physical": "Physical Attributes",
+                "address": "Address",
+                "professional": "Professional",
+                "additional": "Additional Information"
+            },
+            "gender": {
+                "male": "Male",
+                "female": "Female",
+                "other": "Other"
+            },
+            "hair": {
+                "straight": "Straight",
+                "wavy": "Wavy",
+                "curly": "Curly",
+                "kinky": "Kinky"
+            },
+            "role": {
+                "user": "User",
+                "moderator": "Moderator",
+                "admin": "Admin"
+            },
+            "placeholders": {
+                "username": "Enter username",
+                "email": "Enter email address",
+                "password": "Enter password",
+                "passwordEdit": "Leave blank to keep current password",
+                "image": "Enter avatar URL",
+                "firstName": "Enter first name",
+                "lastName": "Enter last name",
+                "maidenName": "Enter maiden name",
+                "birthDate": "Select birth date",
+                "phone": "Enter phone number",
+                "height": "0.0",
+                "weight": "0.0",
+                "street": "Enter street address",
+                "city": "Enter city",
+                "state": "Enter state",
+                "stateCode": "Enter state code",
+                "postalCode": "Enter postal code",
+                "country": "Enter country",
+                "university": "Enter university name",
+                "companyName": "Enter company name",
+                "department": "Enter department",
+                "jobTitle": "Enter job title",
+                "ein": "Enter EIN",
+                "ssn": "Enter SSN",
+                "userAgent": "Enter user agent"
+            },
+            "validation": {
+                "firstNameRequired": "First name is required",
+                "firstNameMin": "First name must be at least 2 characters",
+                "lastNameRequired": "Last name is required",
+                "lastNameMin": "Last name must be at least 2 characters",
+                "emailRequired": "Email is required",
+                "emailInvalid": "Invalid email address",
+                "usernameRequired": "Username is required",
+                "usernameMin": "Username must be at least 3 characters",
+                "passwordRequired": "Password is required",
+                "passwordMin": "Password must be at least 6 characters",
+                "ageRequired": "Age is required",
+                "ageMin": "Age must be at least 18",
+                "genderRequired": "Gender is required",
+                "roleRequired": "Role is required",
+                "statusRequired": "Status is required"
+            }
+        },
+        "detail": {
+            "title": "User Details",
+            "personal": "Personal Information",
+            "contact": "Contact Information",
+            "physical": "Physical Attributes",
+            "address": "Address",
+            "professional": "Professional",
+            "age": "Age",
+            "gender": "Gender",
+            "birthDate": "Birth Date",
+            "bloodGroup": "Blood Group",
+            "email": "Email",
+            "phone": "Phone",
+            "username": "Username",
+            "height": "Height",
+            "weight": "Weight",
+            "eyeColor": "Eye Color",
+            "hair": "Hair",
+            "street": "Street",
+            "city": "City",
+            "state": "State",
+            "postalCode": "Postal Code",
+            "country": "Country",
+            "university": "University",
+            "company": "Company",
+            "department": "Department",
+            "jobTitle": "Job Title"
+        },
+        "delete": {
+            "confirmTitle": "Delete User",
+            "confirmMessage": "Are you sure you want to delete this user?",
+            "success": "User deleted successfully",
+            "error": "Failed to delete user"
+        },
+        "bulkDelete": {
+            "button": "Delete Selected ({count})",
+            "noSelection": "Please select users to delete",
+            "confirmTitle": "Delete Multiple Users",
+            "confirmMessage": "Are you sure you want to delete {count} users?",
+            "success": "{count} users deleted successfully",
+            "error": "Failed to delete users"
+        },
+        "bulkStatus": {
+            "button": "Change Status ({count})",
+            "noSelection": "Please select users to change status",
+            "confirmTitle": "Change Users Status",
+            "confirmMessage": "Are you sure you want to change status for {count} users to {status}?",
+            "success": "Status changed for {count} users",
+            "error": "Failed to change status"
+        },
+        "bulkRole": {
+            "button": "Change Role ({count})",
+            "noSelection": "Please select users to change role",
+            "confirmTitle": "Change Users Role",
+            "confirmMessage": "Are you sure you want to change role for {count} users to {role}?",
+            "success": "Role changed for {count} users",
+            "error": "Failed to change role"
+        },
+        "create": {
+            "success": "User created successfully",
+            "error": "Failed to create user"
+        },
+        "update": {
+            "success": "User updated successfully",
+            "error": "Failed to update user"
+        },
+        "export": {
+            "button": "Export to CSV",
+            "noData": "No users to export",
+            "success": "Users exported successfully"
+        }
     },
     "messages": {
         "updateSuccess": "Success",

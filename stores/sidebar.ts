@@ -1,30 +1,37 @@
 import { defineStore } from 'pinia';
+import { ref } from 'vue';
 
-export const useSidebarStore = defineStore('sidebar', {
-    state: () => ({
-        collapsed: false,
-        mobileMenuOpen: false,
-    }),
+export const useSidebarStore = defineStore('sidebar', () => {
+    const collapsed = ref(false);
+    const mobileMenuOpen = ref(false);
 
-    actions: {
-        toggleCollapsed() {
-            this.collapsed = !this.collapsed;
-        },
+    function toggleCollapsed() {
+        collapsed.value = !collapsed.value;
+    }
 
-        toggleMobileMenu() {
-            this.mobileMenuOpen = !this.mobileMenuOpen;
-        },
+    function toggleMobileMenu() {
+        mobileMenuOpen.value = !mobileMenuOpen.value;
+    }
 
-        closeMobileMenu() {
-            this.mobileMenuOpen = false;
-        },
+    function closeMobileMenu() {
+        mobileMenuOpen.value = false;
+    }
 
-        setCollapsed(value: boolean) {
-            this.collapsed = value;
-        },
+    function setCollapsed(value: boolean) {
+        collapsed.value = value;
+    }
 
-        setMobileMenuOpen(value: boolean) {
-            this.mobileMenuOpen = value;
-        },
-    },
+    function setMobileMenuOpen(value: boolean) {
+        mobileMenuOpen.value = value;
+    }
+
+    return {
+        collapsed,
+        mobileMenuOpen,
+        toggleCollapsed,
+        toggleMobileMenu,
+        closeMobileMenu,
+        setCollapsed,
+        setMobileMenuOpen,
+    };
 });

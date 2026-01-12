@@ -13,7 +13,7 @@ const { collapsed, mobileMenuOpen } = storeToRefs(sidebarStore);
 interface MenuItem {
     key: string;
     label: string;
-    icon: string; // Icon name from /public/icons
+    icon: string;
     path: string;
 }
 
@@ -27,6 +27,7 @@ const menuSections: MenuSection[] = [
         items: [
             { key: 'dashboard', label: 'Dashboard', icon: 'dashboard', path: '/' },
             { key: 'products', label: 'Products', icon: 'products', path: '/products' },
+            { key: 'users', label: 'Users', icon: 'team', path: '/users' },
             { key: 'favourites', label: 'Favourites', icon: 'favourites', path: '/favourites' },
             { key: 'inbox', label: 'Inbox', icon: 'inbox', path: '/inbox' },
             { key: 'order-lists', label: 'Order Lists', icon: 'orderLists', path: '/orders' },
@@ -58,13 +59,25 @@ const isActive = (path: string) => {
     return route.path.startsWith(path);
 };
 
+const showLogoutModal = ref(false);
+
 const handleNavigation = (item: MenuItem) => {
     if (item.key === 'logout') {
-        router.push('/login');
+        showLogoutModal.value = true;
     } else {
         router.push(item.path);
+        sidebarStore.closeMobileMenu();
     }
+};
+
+const handleLogout = () => {
+    showLogoutModal.value = false;
     sidebarStore.closeMobileMenu();
+    if (process.client) {
+        localStorage.removeItem('user');
+        localStorage.removeItem('token');
+    }
+    router.push('/login');
 };
 </script>
 
@@ -182,4 +195,16 @@ const handleNavigation = (item: MenuItem) => {
             </nav>
         </div>
     </aside>
+
+    <!-- Logout Confirmation Modal -->
+    <a-modal
+        v-model:open="showLogoutModal"
+        :title="t('auth.logout.title')"
+        :ok-text="t('common.yes')"
+        :cancel-text="t('common.no')"
+        @ok="handleLogout"
+        ok-type="danger"
+    >
+        <p>{{ t('auth.logout.confirm') }}</p>
+    </a-modal>
 </template>

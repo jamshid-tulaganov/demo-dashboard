@@ -1,6 +1,9 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
-import { Icon } from '~/shared/ui';
+import { ref, computed, watch, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import { Icon, LazyImage } from '~/shared/ui';
+import { useSearchStore } from '~/stores/search';
+import { debounce } from '~/shared/lib';
 
 const props = defineProps<{
     visible: boolean;
@@ -11,56 +14,104 @@ const emit = defineEmits<{
 }>();
 
 const { t } = useI18n();
+const router = useRouter();
+const searchStore = useSearchStore();
+
 const searchQuery = ref('');
+const showResults = ref(false);
 
-// Recent searches from localStorage
-const recentSearches = ref<string[]>([
-    'Product inventory',
-    'Customer analytics',
-    'Sales report',
-]);
+onMounted(() => {
+    searchStore.loadRecentSearches();
+});
 
-// Popular/Most searched items
-const popularSearches = ref<string[]>([
-    'Dashboard overview',
-    'Monthly revenue',
-    'User management',
-    'Invoice template',
-]);
+const recentSearches = computed(() => searchStore.getRecentSearches);
+const searchResults = computed(() => searchStore.getSearchResults);
+const isSearching = computed(() => searchStore.isLoading);
+const popularSearches = computed(() => searchStore.getPopularSearches());
+const quickLinks = computed(() => searchStore.getQuickLinks());
 
-// Sample quick links
-const quickLinks = ref([
-    { title: 'Create New Product', icon: 'products', path: '/products/new' },
-    { title: 'View Analytics', icon: 'line-chart', path: '/analytics' },
-    { title: 'Team Members', icon: 'team', path: '/team' },
-    { title: 'Settings', icon: 'settings', path: '/settings' },
-]);
+const groupedResults = computed(() => {
+    const groups: Record<string, typeof searchResults.value> = {
+        products: [],
+        users: [],
+        pages: [],
+    };
+
+    searchResults.value.forEach(result => {
+        if (groups[result.type + 's']) {
+            groups[result.type + 's'].push(result);
+        }
+    });
+
+    return groups;
+});
+
+const hasResults = computed(() => searchResults.value.length > 0);
+
+const debouncedSearch = debounce(async (query: string) => {
+    if (query.trim().length >= 2) {
+        await searchStore.performSearch(query);
+        showResults.value = true;
+    } else {
+        showResults.value = false;
+        searchStore.searchResults = [];
+    }
+}, 300);
+
+watch(searchQuery, (newQuery) => {
+    debouncedSearch(newQuery);
+});
+
+watch(() => props.visible, (isVisible) => {
+    if (isVisible) {
+        searchStore.loadRecentSearches();
+    } else {
+        setTimeout(() => {
+            searchQuery.value = '';
+            showResults.value = false;
+            searchStore.searchResults = [];
+        }, 200);
+    }
+});
 
 const handleClose = () => {
     emit('update:visible', false);
 };
 
-const handleSearch = (query: string) => {
+const handleSearch = async (query: string) => {
     if (query.trim()) {
-        // Add to recent searches
-        if (!recentSearches.value.includes(query)) {
-            recentSearches.value.unshift(query);
-            if (recentSearches.value.length > 5) {
-                recentSearches.value.pop();
-            }
-        }
         searchQuery.value = query;
-        console.log('Searching for:', query);
-        // Implement actual search logic here
+        await searchStore.performSearch(query);
+        showResults.value = true;
     }
 };
 
+const handleResultClick = (result: any) => {
+    searchStore.addToRecentSearches(searchQuery.value);
+    router.push(result.path);
+    handleClose();
+};
+
+const handleQuickLinkClick = (link: any) => {
+    router.push(link.path);
+    handleClose();
+};
+
 const removeRecentSearch = (index: number) => {
-    recentSearches.value.splice(index, 1);
+    searchStore.removeRecentSearch(index);
 };
 
 const clearAllRecent = () => {
-    recentSearches.value = [];
+    searchStore.clearRecentSearches();
+};
+
+const getResultTypeLabel = (type: string) => {
+    const labels: Record<string, string> = {
+        products: t('sidebar.menu.products'),
+        users: t('navigation.users'),
+        pages: 'Pages',
+    };
+    return labels[type] || type;
 };
 </script>
 
@@ -69,7 +120,7 @@ const clearAllRecent = () => {
         :open="visible"
         :footer="null"
         :closable="false"
-        :width="640"
+        :width="680"
         @cancel="handleClose"
         wrap-class-name="search-modal"
     >
@@ -100,81 +151,191 @@ const clearAllRecent = () => {
                 </a-input>
             </div>
 
-            <!-- Recent Searches -->
-            <div v-if="recentSearches.length > 0" class="mb-6">
-                <div class="flex items-center justify-between mb-3">
-                    <h3 class="text-sm font-semibold text-light-text-primary dark:text-dark-text-primary">
-                        {{ t('search.recentSearches') }}
-                    </h3>
-                    <a-button
-                        type="text"
-                        size="small"
-                        @click="clearAllRecent"
-                        class="text-xs text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
-                    >
-                        {{ t('search.clearAll') }}
-                    </a-button>
+            <!-- Search Results -->
+            <div v-if="showResults && searchQuery" class="mb-6">
+                <!-- Loading State -->
+                <div v-if="isSearching" class="flex items-center justify-center py-8">
+                    <a-spin size="large" />
                 </div>
-                <div class="space-y-2">
-                    <div
-                        v-for="(item, index) in recentSearches"
-                        :key="index"
-                        class="flex items-center justify-between p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-dark-quaternary cursor-pointer group"
-                        @click="handleSearch(item)"
-                    >
-                        <div class="flex items-center gap-3">
-                            <Icon name="reset-time" :size="16" class="text-gray-400" />
-                            <span class="text-sm text-light-text-secondary dark:text-dark-text-secondary">
-                                {{ item }}
-                            </span>
+
+                <!-- Results -->
+                <div v-else-if="hasResults" class="space-y-4 max-h-96 overflow-y-auto">
+                    <!-- Products -->
+                    <div v-if="groupedResults.products.length > 0">
+                        <h3 class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase mb-2">
+                            {{ t('sidebar.menu.products') }}
+                        </h3>
+                        <div class="space-y-1">
+                            <div
+                                v-for="result in groupedResults.products"
+                                :key="`product-${result.id}`"
+                                @click="handleResultClick(result)"
+                                class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-dark-quaternary cursor-pointer transition-colors"
+                            >
+                                <LazyImage
+                                    v-if="result.image"
+                                    :src="result.image"
+                                    :alt="result.title"
+                                    class="w-12 h-12 object-cover rounded"
+                                    width="48"
+                                    height="48"
+                                />
+                                <Icon v-else :name="result.icon || 'products'" :size="20" class="text-primary" />
+                                <div class="flex-1 min-w-0">
+                                    <div class="font-medium text-sm text-light-text-primary dark:text-dark-text-primary truncate">
+                                        {{ result.title }}
+                                    </div>
+                                    <div class="text-xs text-light-text-secondary dark:text-dark-text-secondary truncate">
+                                        {{ result.description }}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                    </div>
+
+                    <!-- Users -->
+                    <div v-if="groupedResults.users.length > 0">
+                        <h3 class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase mb-2">
+                            {{ t('navigation.users') }}
+                        </h3>
+                        <div class="space-y-1">
+                            <div
+                                v-for="result in groupedResults.users"
+                                :key="`user-${result.id}`"
+                                @click="handleResultClick(result)"
+                                class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-dark-quaternary cursor-pointer transition-colors"
+                            >
+                                <LazyImage
+                                    v-if="result.image"
+                                    :src="result.image"
+                                    :alt="result.title"
+                                    class="w-10 h-10 object-cover rounded-full"
+                                    width="40"
+                                    height="40"
+                                />
+                                <Icon v-else :name="result.icon || 'user'" :size="20" class="text-primary" />
+                                <div class="flex-1 min-w-0">
+                                    <div class="font-medium text-sm text-light-text-primary dark:text-dark-text-primary truncate">
+                                        {{ result.title }}
+                                    </div>
+                                    <div class="text-xs text-light-text-secondary dark:text-dark-text-secondary truncate">
+                                        {{ result.description }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pages -->
+                    <div v-if="groupedResults.pages.length > 0">
+                        <h3 class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase mb-2">
+                            Pages
+                        </h3>
+                        <div class="space-y-1">
+                            <div
+                                v-for="result in groupedResults.pages"
+                                :key="`page-${result.id}`"
+                                @click="handleResultClick(result)"
+                                class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-dark-quaternary cursor-pointer transition-colors"
+                            >
+                                <Icon :name="result.icon || 'dashboard'" :size="20" class="text-primary" />
+                                <div class="flex-1 min-w-0">
+                                    <div class="font-medium text-sm text-light-text-primary dark:text-dark-text-primary truncate">
+                                        {{ result.title }}
+                                    </div>
+                                    <div class="text-xs text-light-text-secondary dark:text-dark-text-secondary truncate">
+                                        {{ result.description }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- No Results -->
+                <div v-else class="text-center py-8">
+                    <Icon name="search" :size="48" class="text-gray-300 dark:text-gray-600 mx-auto mb-3" />
+                    <p class="text-sm text-gray-500 dark:text-gray-400">No results found for "{{ searchQuery }}"</p>
+                </div>
+            </div>
+
+            <!-- Default View (when not searching) -->
+            <div v-else>
+                <!-- Recent Searches -->
+                <div v-if="recentSearches.length > 0" class="mb-6">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-sm font-semibold text-light-text-primary dark:text-dark-text-primary">
+                            {{ t('search.recentSearches') }}
+                        </h3>
                         <a-button
                             type="text"
                             size="small"
-                            @click.stop="removeRecentSearch(index)"
-                            class="opacity-0 group-hover:opacity-100 transition-opacity"
+                            @click="clearAllRecent"
+                            class="text-xs text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
                         >
-                            <span class="text-gray-400">✕</span>
+                            {{ t('search.clearAll') }}
                         </a-button>
                     </div>
+                    <div class="space-y-1">
+                        <div
+                            v-for="(item, index) in recentSearches"
+                            :key="index"
+                            class="flex items-center justify-between p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-dark-quaternary cursor-pointer group"
+                            @click="handleSearch(item)"
+                        >
+                            <div class="flex items-center gap-3">
+                                <Icon name="reset-time" :size="16" class="text-gray-400" />
+                                <span class="text-sm text-light-text-secondary dark:text-dark-text-secondary">
+                                    {{ item }}
+                                </span>
+                            </div>
+                            <a-button
+                                type="text"
+                                size="small"
+                                @click.stop="removeRecentSearch(index)"
+                                class="opacity-0 group-hover:opacity-100 transition-opacity"
+                            >
+                                <span class="text-gray-400">✕</span>
+                            </a-button>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Popular Searches -->
-            <div class="mb-6">
-                <h3 class="text-sm font-semibold text-light-text-primary dark:text-dark-text-primary mb-3">
-                    {{ t('search.popular') }}
-                </h3>
-                <div class="flex flex-wrap gap-2">
-                    <a-tag
-                        v-for="(item, index) in popularSearches"
-                        :key="index"
-                        @click="handleSearch(item)"
-                        class="cursor-pointer hover:bg-primary hover:text-white transition-colors px-3 py-1"
-                    >
-                        {{ item }}
-                    </a-tag>
+                <!-- Popular Searches -->
+                <div class="mb-6">
+                    <h3 class="text-sm font-semibold text-light-text-primary dark:text-dark-text-primary mb-3">
+                        {{ t('search.popular') }}
+                    </h3>
+                    <div class="flex flex-wrap gap-2">
+                        <a-tag
+                            v-for="(item, index) in popularSearches"
+                            :key="index"
+                            @click="handleSearch(item)"
+                            class="cursor-pointer hover:bg-primary hover:text-white transition-colors px-3 py-1"
+                        >
+                            {{ item }}
+                        </a-tag>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Quick Links -->
-            <div>
-                <h3 class="text-sm font-semibold text-light-text-primary dark:text-dark-text-primary mb-3">
-                    {{ t('search.quickLinks') }}
-                </h3>
-                <div class="grid grid-cols-2 gap-2">
-                    <a
-                        v-for="(link, index) in quickLinks"
-                        :key="index"
-                        :href="link.path"
-                        class="flex items-center gap-3 p-3 rounded-lg border border-gray-200 dark:border-dark-quaternary hover:border-primary hover:bg-primary/5 transition-all"
-                        @click="handleClose"
-                    >
-                        <Icon :name="link.icon" :size="20" class="text-primary" />
-                        <span class="text-sm text-light-text-primary dark:text-dark-text-primary">
-                            {{ link.title }}
-                        </span>
-                    </a>
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-sm font-semibold text-light-text-primary dark:text-dark-text-primary mb-3">
+                        {{ t('search.quickLinks') }}
+                    </h3>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div
+                            v-for="(link, index) in quickLinks"
+                            :key="index"
+                            @click="handleQuickLinkClick(link)"
+                            class="flex items-center gap-3 p-3 rounded-lg border border-gray-200 dark:border-dark-quaternary hover:border-primary hover:bg-primary/5 transition-all cursor-pointer"
+                        >
+                            <Icon :name="link.icon" :size="20" class="text-primary" />
+                            <span class="text-sm text-light-text-primary dark:text-dark-text-primary">
+                                {{ link.title }}
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
 

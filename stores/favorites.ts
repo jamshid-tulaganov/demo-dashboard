@@ -1,84 +1,84 @@
 import { defineStore } from 'pinia';
+import { ref, computed } from 'vue';
 import type { Product } from '~/composables/useProducts';
 
-export const useFavoritesStore = defineStore('favorites', {
-    state: () => ({
-        favorites: [] as Product[],
-    }),
+export const useFavoritesStore = defineStore('favorites', () => {
+    const favorites = ref<Product[]>([]);
 
-    getters: {
-        isFavorite: (state) => (productId: number) => {
-            return state.favorites.some((p) => p.id === productId);
-        },
+    const isFavorite = computed(() => (productId: number) => {
+        return favorites.value.some((p) => p.id === productId);
+    });
 
-        favoritesCount: (state) => state.favorites.length,
+    const favoritesCount = computed(() => favorites.value.length);
 
-        getFavorites: (state) => state.favorites,
-    },
+    const getFavorites = computed(() => favorites.value);
 
-    actions: {
-        toggleFavorite(product: Product) {
-            const index = this.favorites.findIndex((p) => p.id === product.id);
+    function toggleFavorite(product: Product) {
+        const index = favorites.value.findIndex((p) => p.id === product.id);
 
-            if (index > -1) {
-                this.favorites.splice(index, 1);
-            } else {
-                this.favorites.push(product);
-            }
+        if (index > -1) {
+            favorites.value.splice(index, 1);
+        } else {
+            favorites.value.push(product);
+        }
 
-            // Save to localStorage
+        if (process.client) {
+            localStorage.setItem('favorites', JSON.stringify(favorites.value));
+        }
+    }
+
+    function addToFavorites(product: Product) {
+        if (!isFavorite.value(product.id)) {
+            favorites.value.push(product);
+
             if (process.client) {
-                localStorage.setItem('favorites', JSON.stringify(this.favorites));
+                localStorage.setItem('favorites', JSON.stringify(favorites.value));
             }
-        },
+        }
+    }
 
-        addToFavorites(product: Product) {
-            if (!this.isFavorite(product.id)) {
-                this.favorites.push(product);
+    function removeFromFavorites(productId: number) {
+        const index = favorites.value.findIndex((p) => p.id === productId);
 
-                if (process.client) {
-                    localStorage.setItem(
-                        'favorites',
-                        JSON.stringify(this.favorites)
-                    );
+        if (index > -1) {
+            favorites.value.splice(index, 1);
+
+            if (process.client) {
+                localStorage.setItem('favorites', JSON.stringify(favorites.value));
+            }
+        }
+    }
+
+    function loadFavorites() {
+        if (process.client) {
+            const stored = localStorage.getItem('favorites');
+            if (stored) {
+                try {
+                    favorites.value = JSON.parse(stored);
+                } catch (error) {
+                    console.error('Failed to parse favorites:', error);
+                    favorites.value = [];
                 }
             }
-        },
+        }
+    }
 
-        removeFromFavorites(productId: number) {
-            const index = this.favorites.findIndex((p) => p.id === productId);
+    function clearFavorites() {
+        favorites.value = [];
+        if (process.client) {
+            localStorage.removeItem('favorites');
+        }
+    }
 
-            if (index > -1) {
-                this.favorites.splice(index, 1);
-
-                if (process.client) {
-                    localStorage.setItem(
-                        'favorites',
-                        JSON.stringify(this.favorites)
-                    );
-                }
-            }
-        },
-
-        loadFavorites() {
-            if (process.client) {
-                const stored = localStorage.getItem('favorites');
-                if (stored) {
-                    try {
-                        this.favorites = JSON.parse(stored);
-                    } catch (error) {
-                        console.error('Failed to parse favorites:', error);
-                        this.favorites = [];
-                    }
-                }
-            }
-        },
-
-        clearFavorites() {
-            this.favorites = [];
-            if (process.client) {
-                localStorage.removeItem('favorites');
-            }
-        },
-    },
+    return {
+        favorites,
+        isFavorite,
+        favoritesCount,
+        getFavorites,
+        toggleFavorite,
+        addToFavorites,
+        removeFromFavorites,
+        loadFavorites,
+        clearFavorites,
+    };
 });

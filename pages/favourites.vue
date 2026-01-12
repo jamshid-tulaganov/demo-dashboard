@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import ProductCard from '~/widgets/ProductCard/ProductCard.vue';
 import { useFavoritesStore } from '~/stores/favorites';
-import { Icon } from '~/shared/ui';
+import { Icon, CardSkeleton } from '~/shared/ui';
 
 definePageMeta({
     layout: 'default',
@@ -11,10 +11,16 @@ definePageMeta({
 const { t } = useI18n();
 const router = useRouter();
 const favoritesStore = useFavoritesStore();
+const loading = ref(true);
 
 // Load favorites on mount
-onMounted(() => {
-    favoritesStore.loadFavorites();
+onMounted(async () => {
+    loading.value = true;
+    await favoritesStore.loadFavorites();
+    // Small delay to show the skeleton
+    setTimeout(() => {
+        loading.value = false;
+    }, 300);
 });
 
 const favorites = computed(() => favoritesStore.getFavorites);
@@ -26,14 +32,14 @@ const goToProducts = () => {
 </script>
 
 <template>
-    <div class="space-y-6">
+    <div class="space-y-4 md:space-y-6">
         <!-- Page Title with Count -->
         <div class="flex items-center justify-between">
-            <h1 class="text-3xl font-bold text-light-text-primary dark:text-dark-text-primary">
+            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-light-text-primary dark:text-dark-text-primary">
                 {{ t('sidebar.menu.favourites') }}
                 <span
                     v-if="hasFavorites"
-                    class="text-xl text-light-text-secondary dark:text-dark-text-secondary ml-2"
+                    class="text-lg sm:text-xl text-light-text-secondary dark:text-dark-text-secondary ml-2"
                 >
                     ({{ favorites.length }})
                 </span>
@@ -41,8 +47,9 @@ const goToProducts = () => {
         </div>
 
         <!-- Favorites Grid -->
-        <div v-if="hasFavorites">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <CardSkeleton v-if="loading" :count="8" :cols="4" />
+        <div v-else-if="hasFavorites">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 sm:gap-5 lg:gap-6">
                 <ProductCard
                     v-for="product in favorites"
                     :key="product.id"
