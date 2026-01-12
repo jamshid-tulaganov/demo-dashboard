@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { useRouter, useRoute } from 'vue-router';
 import { Logo, Icon } from '~/shared/ui';
+import { useAuth } from '~/shared/lib';
 import { useSidebarStore } from '~/stores/sidebar';
 import { storeToRefs } from 'pinia';
 
 const { t } = useI18n();
+const { logout } = useAuth();
 const router = useRouter();
 const route = useRoute();
 const sidebarStore = useSidebarStore();
@@ -70,14 +72,10 @@ const handleNavigation = (item: MenuItem) => {
     }
 };
 
-const handleLogout = () => {
+const handleLogout = async () => {
     showLogoutModal.value = false;
     sidebarStore.closeMobileMenu();
-    if (process.client) {
-        localStorage.removeItem('user');
-        localStorage.removeItem('token');
-    }
-    router.push('/login');
+    await logout();
 };
 </script>
 

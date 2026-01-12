@@ -16,9 +16,11 @@ const router = useRouter();
 const sidebarStore = useSidebarStore();
 
 const searchModalVisible = ref(false);
+const showLogoutModal = ref(false);
 const notificationCount = ref(5);
 
 const handleLogout = async () => {
+    showLogoutModal.value = false;
     await logout();
 };
 
@@ -32,7 +34,7 @@ const handleProfileMenuClick = (key: string) => {
     } else if (key === 'settings') {
         router.push('/settings');
     } else if (key === 'logout') {
-        handleLogout();
+        showLogoutModal.value = true;
     }
 };
 </script>
@@ -207,4 +209,16 @@ const handleProfileMenuClick = (key: string) => {
 
     <!-- Search Modal -->
     <SearchModal v-model:visible="searchModalVisible" />
+
+    <!-- Logout Confirmation Modal -->
+    <a-modal
+        v-model:open="showLogoutModal"
+        :title="t('auth.logout.title')"
+        :ok-text="t('common.yes')"
+        :cancel-text="t('common.no')"
+        @ok="handleLogout"
+        ok-type="danger"
+    >
+        <p>{{ t('auth.logout.confirm') }}</p>
+    </a-modal>
 </template>
