@@ -22,9 +22,14 @@ export default defineConfig({
         },
     },
     resolve: {
-        alias: {
-            '~': fileURLToPath(new URL('./', import.meta.url)),
-            '@': fileURLToPath(new URL('./', import.meta.url)),
-        },
+        alias: [
+            { find: '~/shared', replacement: fileURLToPath(new URL('./shared', import.meta.url)) },
+            { find: '~/widgets', replacement: fileURLToPath(new URL('./widgets', import.meta.url)) },
+            { find: '~/features', replacement: fileURLToPath(new URL('./features', import.meta.url)) },
+            { find: '~/entities', replacement: fileURLToPath(new URL('./entities', import.meta.url)) },
+            { find: '~/app', replacement: fileURLToPath(new URL('./app', import.meta.url)) },
+            { find: '~', replacement: fileURLToPath(new URL('./', import.meta.url)) },
+            { find: '@', replacement: fileURLToPath(new URL('./', import.meta.url)) },
+        ],
     },
 });
