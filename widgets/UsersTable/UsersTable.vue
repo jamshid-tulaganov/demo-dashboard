@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { EyeOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons-vue';
 import type { User } from '~/stores/users';
 import { LazyImage } from '~/shared/ui';
 
@@ -99,7 +100,7 @@ const columns = computed(() => [
     {
         title: t('users.table.actions'),
         key: 'actions',
-        width: 200,
+        width: 150,
         fixed: 'right',
         align: 'center',
     },
@@ -241,27 +242,39 @@ const getGenderIcon = (gender: string): string => {
 
                 <template v-else-if="column.key === 'actions'">
                     <div class="flex gap-2 justify-center">
-                        <a-button
-                            type="default"
-                            size="small"
-                            @click="handleView(record)"
-                        >
-                            {{ t('users.actions.view') }}
-                        </a-button>
-                        <a-button
-                            type="primary"
-                            size="small"
-                            @click="handleEdit(record)"
-                        >
-                            {{ t('common.edit') }}
-                        </a-button>
-                        <a-button
-                            danger
-                            size="small"
-                            @click="handleDelete(record.id)"
-                        >
-                            {{ t('common.delete') }}
-                        </a-button>
+                        <a-tooltip :title="t('users.actions.view')">
+                            <a-button
+                                type="default"
+                                size="small"
+                                @click="handleView(record)"
+                            >
+                                <template #icon>
+                                    <EyeOutlined />
+                                </template>
+                            </a-button>
+                        </a-tooltip>
+                        <a-tooltip :title="t('common.edit')">
+                            <a-button
+                                type="primary"
+                                size="small"
+                                @click="handleEdit(record)"
+                            >
+                                <template #icon>
+                                    <EditOutlined />
+                                </template>
+                            </a-button>
+                        </a-tooltip>
+                        <a-tooltip :title="t('common.delete')">
+                            <a-button
+                                danger
+                                size="small"
+                                @click="handleDelete(record.id)"
+                            >
+                                <template #icon>
+                                    <DeleteOutlined />
+                                </template>
+                            </a-button>
+                        </a-tooltip>
                     </div>
                 </template>
             </template>
