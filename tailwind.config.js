@@ -42,6 +42,11 @@ export default {
                     DEFAULT: '#BA29FF',
                     light: 'rgba(186, 41, 255, 0.2)',
                 },
+                yellow: {
+                    DEFAULT: '#FEC53D',
+                    light: 'rgba(254, 197, 61, 0.2)',
+                },
+                // Neutral colors
                 // Chart colors
                 chart: {
                     purple: '#8280FF',
@@ -50,6 +55,12 @@ export default {
                     orange: '#FF9066',
                     pink: '#F93C65',
                     teal: '#00B69B',
+                    purpleLight: 'rgba(130, 128, 255, 0.2)',
+                    yellowLight: 'rgba(254, 197, 61, 0.2)',
+                    greenLight: 'rgba(74, 217, 145, 0.2)',
+                    orangeLight: 'rgba(255, 144, 102, 0.2)',
+                    pinkLight: 'rgba(249, 60, 101, 0.2)',
+                    tealLight: 'rgba(0, 182, 155, 0.2)',
                 },
                 // Dark mode colors
                 dark: {

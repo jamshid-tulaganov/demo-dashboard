@@ -25,9 +25,9 @@ const statCards = computed(() => [
     {
         label: t('dashboard.totalUsers'),
         value: stats.value.totalUsers,
-        icon: 'user',
-        iconColor: 'text-primary',
-        iconBgColor: 'bg-primary/10',
+        icon: 'users',
+        iconColor: '!text-purple',
+        iconBgColor: 'bg-purple-light',
         growth: {
             value: 8.5,
             isPositive: true,
@@ -37,9 +37,9 @@ const statCards = computed(() => [
     {
         label: t('dashboard.totalOrders'),
         value: stats.value.totalOrders,
-        icon: 'orderlist',
-        iconColor: 'text-orange',
-        iconBgColor: 'bg-orange-light',
+        icon: 'product',
+        iconColor: '!text-chart-yellow',
+        iconBgColor: 'bg-yellow-light',
         growth: {
             value: 5.2,
             isPositive: true,
@@ -50,8 +50,8 @@ const statCards = computed(() => [
         label: t('dashboard.totalSales'),
         value: `$${stats.value.totalSales.toLocaleString()}`,
         icon: 'line-chart',
-        iconColor: 'text-green',
-        iconBgColor: 'bg-green-light',
+        iconColor: '!text-chart-green',
+        iconBgColor: '!bg-green-light',
         growth: {
             value: 12.3,
             isPositive: true,
@@ -62,8 +62,8 @@ const statCards = computed(() => [
         label: t('dashboard.totalPending'),
         value: stats.value.totalPending,
         icon: 'reset-time',
-        iconColor: 'text-purple',
-        iconBgColor: 'bg-purple-light',
+        iconColor: '!text-chart-orange',
+        iconBgColor: '!bg-orange-light',
         growth: {
             value: 3.1,
             isPositive: false,
@@ -83,23 +83,14 @@ const statCards = computed(() => [
         <!-- Statistics Cards -->
         <a-spin :spinning="loading">
             <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
-                <StatCard
-                    v-for="(card, index) in statCards"
-                    :key="index"
-                    :label="card.label"
-                    :value="card.value"
-                    :icon="card.icon"
-                    :icon-color="card.iconColor"
-                    :icon-bg-color="card.iconBgColor"
-                    :growth="card.growth"
-                />
+                <StatCard v-for="(card, index) in statCards" :key="index" :label="card.label" :value="card.value"
+                    :icon="card.icon" :icon-color="card.iconColor" :icon-bg-color="card.iconBgColor"
+                    :growth="card.growth" />
             </div>
         </a-spin>
 
-        <!-- Sales Chart -->
-        <SalesChart />
+        <SalesChart class="mb-4" />
 
-        <!-- Orders Table -->
         <OrdersTable />
     </div>
 </template>

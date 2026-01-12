@@ -129,6 +129,7 @@
         "menu": {
             "dashboard": "Dashboard",
             "products": "Products",
+            "users": "Users",
             "favourites": "Favourites",
             "inbox": "Inbox",
             "order-lists": "Order Lists",

@@ -28,58 +28,39 @@ const formattedValue = computed(() => {
 </script>
 
 <template>
-    <a-card
-        :bordered="false"
-        class="stat-card hover:shadow-lg transition-shadow duration-300"
-    >
+    <a-card :bordered="false" class="stat-card hover:shadow-lg transition-shadow duration-300">
         <div class="flex items-center justify-between">
             <div class="flex-1">
-                <p
-                    class="text-sm font-medium text-light-text-secondary dark:text-dark-text-secondary mb-2"
-                >
+                <p class="text-sm font-medium text-light-text-secondary dark:text-dark-text-secondary mb-2">
                     {{ label }}
                 </p>
-                <h3
-                    class="text-2xl font-bold text-light-text-primary dark:text-dark-text-primary mb-3"
-                >
+                <h3 class="text-2xl font-bold text-light-text-primary dark:text-dark-text-primary mb-3">
                     {{ formattedValue }}
                 </h3>
-
-                <!-- Growth indicator -->
-                <div v-if="growth" class="flex items-center gap-1">
-                    <Icon
-                        :name="growth.isPositive ? 'arrow-right' : 'arrow-left'"
-                        :size="16"
-                        :class="[
-                            'transform',
-                            growth.isPositive
-                                ? 'rotate-[-45deg] text-green'
-                                : 'rotate-[45deg] text-red',
-                        ]"
-                    />
-                    <span
-                        :class="[
-                            'text-sm font-semibold',
-                            growth.isPositive ? 'text-green' : 'text-red',
-                        ]"
-                    >
-                        {{ growth.value }}%
-                    </span>
-                    <span class="text-xs text-light-text-tertiary dark:text-dark-text-secondary">
-                        {{ growth.label }}
-                    </span>
-                </div>
             </div>
 
             <!-- Icon -->
-            <div
-                :class="[
-                    'w-14 h-14 rounded-xl flex items-center justify-center',
-                    iconBgColor,
-                ]"
-            >
+            <div :class="[
+                'w-14 h-14 rounded-xl flex items-center justify-center',
+                iconBgColor,
+            ]">
                 <Icon :name="icon" :size="28" :class="iconColor" />
             </div>
+        </div>
+
+        <!-- Growth indicator -->
+        <div v-if="growth" class="flex items-center gap-1">
+            <Icon :name="growth.isPositive ? 'increase' : 'decrease'" :size="16"
+                :class="growth.isPositive ? '!text-green' : '!text-red'" />
+            <span :class="[
+                'text-sm font-semibold',
+                growth.isPositive ? 'text-green' : 'text-red',
+            ]">
+                {{ growth.value }}%
+            </span>
+            <span class="text-xs text-light-text-tertiary dark:text-dark-text-secondary">
+                {{ growth.label }}
+            </span>
         </div>
     </a-card>
 </template>

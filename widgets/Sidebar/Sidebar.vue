@@ -5,7 +5,7 @@ import { useAuth } from '~/shared/lib';
 import { useSidebarStore } from '~/stores/sidebar';
 import { storeToRefs } from 'pinia';
 
-const { t } = useI18n();
+const { t, locale } = useI18n();
 const { logout } = useAuth();
 const router = useRouter();
 const route = useRoute();
@@ -29,7 +29,7 @@ const menuSections: MenuSection[] = [
         items: [
             { key: 'dashboard', label: 'Dashboard', icon: 'dashboard', path: '/' },
             { key: 'products', label: 'Products', icon: 'products', path: '/products' },
-            { key: 'users', label: 'Users', icon: 'team', path: '/users' },
+            { key: 'users', label: 'Users', icon: 'users', path: '/users' },
             { key: 'favourites', label: 'Favourites', icon: 'favourites', path: '/favourites' },
             { key: 'inbox', label: 'Inbox', icon: 'inbox', path: '/inbox' },
             { key: 'order-lists', label: 'Order Lists', icon: 'orderLists', path: '/orders' },
@@ -138,7 +138,7 @@ const handleLogout = async () => {
                 <nav class="space-y-1 px-2">
                     <button
                         v-for="item in section.items"
-                        :key="item.key"
+                        :key="`${item.key}-${locale}`"
                         @click="handleNavigation(item)"
                         :class="[
                             'w-full flex items-center px-3 py-2.5 rounded-lg transition-all duration-500 ease-in-out relative overflow-hidden',
@@ -167,7 +167,7 @@ const handleLogout = async () => {
             <nav class="space-y-1">
                 <button
                     v-for="item in bottomItems"
-                    :key="item.key"
+                    :key="`${item.key}-${locale}`"
                     @click="handleNavigation(item)"
                     :class="[
                         'w-full flex items-center px-3 py-2.5 rounded-lg transition-all duration-500 ease-in-out relative overflow-hidden',
