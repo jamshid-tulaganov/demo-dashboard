@@ -6,11 +6,11 @@ import { useSearchStore } from '~/stores/search';
 import { debounce } from '~/shared/lib';
 
 const props = defineProps<{
-    visible: boolean;
+    open: boolean;
 }>();
 
 const emit = defineEmits<{
-    (e: 'update:visible', value: boolean): void;
+    (e: 'update:open', value: boolean): void;
 }>();
 
 const { t } = useI18n();
@@ -62,7 +62,7 @@ watch(searchQuery, (newQuery) => {
     debouncedSearch(newQuery);
 });
 
-watch(() => props.visible, (isVisible) => {
+watch(() => props.open, (isVisible) => {
     if (isVisible) {
         searchStore.loadRecentSearches();
     } else {
@@ -75,7 +75,7 @@ watch(() => props.visible, (isVisible) => {
 });
 
 const handleClose = () => {
-    emit('update:visible', false);
+    emit('update:open', false);
 };
 
 const handleSearch = async (query: string) => {
@@ -117,7 +117,7 @@ const getResultTypeLabel = (type: string) => {
 
 <template>
     <a-modal
-        :open="visible"
+        :open="open"
         :footer="null"
         :closable="false"
         :width="680"

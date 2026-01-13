@@ -6,7 +6,7 @@ import type { Product } from '~/stores/products';
 import ProductForm from '~/widgets/ProductForm/ProductForm.vue';
 
 interface Props {
-    visible: boolean;
+    open: boolean;
     product?: Product | null;
     categories?: string[];
     loading?: boolean;
@@ -19,7 +19,7 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const emit = defineEmits<{
-    'update:visible': [value: boolean];
+    'update:open': [value: boolean];
     save: [formData: Partial<Product>];
 }>();
 
@@ -35,7 +35,7 @@ const modalTitle = computed(() =>
 );
 
 const handleCancel = () => {
-    emit('update:visible', false);
+    emit('update:open', false);
 };
 
 const handleOk = async () => {
@@ -53,7 +53,7 @@ const handleFormSubmit = (formData: Partial<Product>) => {
 
 <template>
     <a-modal
-        :visible="visible"
+        :open="open"
         :title="modalTitle"
         :width="800"
         :confirm-loading="loading"

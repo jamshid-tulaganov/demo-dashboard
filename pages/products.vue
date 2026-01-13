@@ -436,7 +436,7 @@ const exportToCSV = () => {
 
         <!-- Product Modal -->
         <ProductModal
-            v-model:visible="modalVisible"
+            v-model:open="modalVisible"
             :product="currentProduct"
             :categories="categories"
             :loading="modalLoading"

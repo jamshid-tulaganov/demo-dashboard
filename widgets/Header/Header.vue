@@ -208,7 +208,7 @@ const handleProfileMenuClick = (key: string) => {
     </header>
 
     <!-- Search Modal -->
-    <SearchModal v-model:visible="searchModalVisible" />
+    <SearchModal v-model:open="searchModalVisible" />
 
     <!-- Logout Confirmation Modal -->
     <a-modal

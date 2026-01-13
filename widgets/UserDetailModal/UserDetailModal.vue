@@ -5,7 +5,7 @@ import type { User } from '~/stores/users';
 import { LazyImage } from '~/shared/ui';
 
 interface Props {
-    visible: boolean;
+    open: boolean;
     user: User | null;
 }
 
@@ -14,13 +14,13 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const emit = defineEmits<{
-    'update:visible': [value: boolean];
+    'update:open': [value: boolean];
 }>();
 
 const { t } = useI18n();
 
 const handleClose = () => {
-    emit('update:visible', false);
+    emit('update:open', false);
 };
 
 const fullName = computed(() => {
@@ -45,7 +45,7 @@ const getStatusColor = (status?: string): string => {
 
 <template>
     <a-modal
-        :visible="visible"
+        :open="open"
         :title="t('users.detail.title')"
         :width="800"
         :footer="null"

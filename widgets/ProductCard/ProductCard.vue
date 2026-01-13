@@ -159,7 +159,7 @@ const renderStars = (rating: number) => {
 
         <!-- Image Modal -->
         <ImageModal
-            v-model:visible="showImageModal"
+            v-model:open="showImageModal"
             :images="product.images"
             :initial-index="selectedImageIndex"
         />

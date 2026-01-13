@@ -9,7 +9,7 @@ import 'swiper/css/zoom';
 interface ImageModalProps {
     images: string[];
     initialIndex?: number;
-    visible: boolean;
+    open: boolean;
 }
 
 const props = withDefaults(defineProps<ImageModalProps>(), {
@@ -17,19 +17,19 @@ const props = withDefaults(defineProps<ImageModalProps>(), {
 });
 
 const emit = defineEmits<{
-    (e: 'update:visible', value: boolean): void;
+    (e: 'update:open', value: boolean): void;
 }>();
 
 const modules = [Navigation, Pagination, Zoom];
 
 const closeModal = () => {
-    emit('update:visible', false);
+    emit('update:open', false);
 };
 </script>
 
 <template>
     <a-modal
-        :open="visible"
+        :open="open"
         :footer="null"
         :width="900"
         centered

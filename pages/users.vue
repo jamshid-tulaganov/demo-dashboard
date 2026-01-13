@@ -569,7 +569,7 @@ const exportToCSV = () => {
 
         <!-- User Modal -->
         <UserModal
-            v-model:visible="modalVisible"
+            v-model:open="modalVisible"
             :user="currentUser"
             :loading="modalLoading"
             @save="handleModalSave"
@@ -577,7 +577,7 @@ const exportToCSV = () => {
 
         <!-- User Detail Modal -->
         <UserDetailModal
-            v-model:visible="detailModalVisible"
+            v-model:open="detailModalVisible"
             :user="viewingUser"
         />
     </div>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { EyeOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons-vue';
+import { EyeOutlined, EditOutlined, DeleteOutlined, MoreOutlined } from '@ant-design/icons-vue';
 import type { User } from '~/stores/users';
 import { LazyImage } from '~/shared/ui';
 
@@ -241,40 +241,36 @@ const getGenderIcon = (gender: string): string => {
                 </template>
 
                 <template v-else-if="column.key === 'actions'">
-                    <div class="flex gap-2 justify-center">
-                        <a-tooltip :title="t('users.actions.view')">
-                            <a-button
-                                type="default"
-                                size="small"
-                                @click="handleView(record)"
-                            >
+                    <div class="flex justify-center">
+                        <a-dropdown placement="bottomRight" :trigger="['click']">
+                            <a-button type="text" size="small">
                                 <template #icon>
-                                    <EyeOutlined />
+                                    <MoreOutlined class="text-lg" />
                                 </template>
                             </a-button>
-                        </a-tooltip>
-                        <a-tooltip :title="t('common.edit')">
-                            <a-button
-                                type="primary"
-                                size="small"
-                                @click="handleEdit(record)"
-                            >
-                                <template #icon>
-                                    <EditOutlined />
-                                </template>
-                            </a-button>
-                        </a-tooltip>
-                        <a-tooltip :title="t('common.delete')">
-                            <a-button
-                                danger
-                                size="small"
-                                @click="handleDelete(record.id)"
-                            >
-                                <template #icon>
-                                    <DeleteOutlined />
-                                </template>
-                            </a-button>
-                        </a-tooltip>
+                            <template #overlay>
+                                <a-menu>
+                                    <a-menu-item @click="handleView(record)">
+                                        <div class="flex items-center gap-2">
+                                            <EyeOutlined />
+                                            <span>{{ t('users.actions.view') }}</span>
+                                        </div>
+                                    </a-menu-item>
+                                    <a-menu-item @click="handleEdit(record)">
+                                        <div class="flex items-center gap-2">
+                                            <EditOutlined />
+                                            <span>{{ t('common.edit') }}</span>
+                                        </div>
+                                    </a-menu-item>
+                                    <a-menu-item @click="handleDelete(record.id)" class="text-red-500">
+                                        <div class="flex items-center gap-2">
+                                            <DeleteOutlined />
+                                            <span>{{ t('common.delete') }}</span>
+                                        </div>
+                                    </a-menu-item>
+                                </a-menu>
+                            </template>
+                        </a-dropdown>
                     </div>
                 </template>
             </template>
@@ -283,42 +279,126 @@ const getGenderIcon = (gender: string): string => {
 </template>
 
 <style scoped>
+/* Table styling */
 .users-table :deep(.ant-table) {
-    background: transparent;
+    @apply bg-transparent;
 }
 
 .users-table :deep(.ant-table-thead > tr > th) {
-    background: var(--bg-light-background-secondary);
-    color: var(--text-light-text-primary);
-    font-weight: 600;
-}
-
-.dark .users-table :deep(.ant-table-thead > tr > th) {
-    background: var(--bg-dark-background-secondary);
-    color: var(--text-dark-text-primary);
-}
-
-.users-table :deep(.ant-table-tbody > tr) {
-    background: var(--bg-light-background);
-}
-
-.dark .users-table :deep(.ant-table-tbody > tr) {
-    background: var(--bg-dark-background);
-}
-
-.users-table :deep(.ant-table-tbody > tr:hover) {
-    background: var(--bg-light-background-secondary);
-}
-
-.dark .users-table :deep(.ant-table-tbody > tr:hover) {
-    background: var(--bg-dark-background-secondary);
+    @apply bg-light-menu dark:bg-dark-secondary;
+    @apply text-light-text-primary dark:text-dark-text-primary;
+    @apply font-semibold;
+    @apply border-b border-light-text-tertiary/10 dark:border-dark-quaternary/30;
 }
 
 .users-table :deep(.ant-table-tbody > tr > td) {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    @apply border-b border-light-text-tertiary/10 dark:border-dark-quaternary/30;
+    @apply bg-light-menu dark:bg-dark-secondary;
+    @apply text-light-text-primary dark:text-dark-text-primary;
 }
 
-.dark .users-table :deep(.ant-table-tbody > tr > td) {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+.users-table :deep(.ant-table-tbody > tr:hover > td) {
+    @apply bg-light-bg dark:bg-dark-tertiary;
+}
+
+/* Pagination styling */
+.users-table :deep(.ant-pagination) {
+    @apply mt-4;
+}
+
+.users-table :deep(.ant-pagination-item) {
+    @apply bg-light-menu dark:bg-dark-secondary;
+    @apply border-light-text-tertiary/20 dark:border-dark-quaternary/30;
+}
+
+.users-table :deep(.ant-pagination-item a) {
+    @apply text-light-text-primary dark:text-dark-text-primary;
+}
+
+.users-table :deep(.ant-pagination-item-active) {
+    @apply bg-primary border-primary;
+}
+
+.users-table :deep(.ant-pagination-item-active a) {
+    @apply text-white;
+}
+
+.users-table :deep(.ant-pagination-prev .ant-pagination-item-link),
+.users-table :deep(.ant-pagination-next .ant-pagination-item-link) {
+    @apply bg-light-menu dark:bg-dark-secondary;
+    @apply border-light-text-tertiary/20 dark:border-dark-quaternary/30;
+    @apply text-light-text-primary dark:text-dark-text-primary;
+}
+
+.users-table :deep(.ant-select-selector) {
+    @apply bg-light-menu dark:bg-dark-secondary !important;
+    @apply border-light-text-tertiary/20 dark:border-dark-quaternary/30 !important;
+    @apply text-light-text-primary dark:text-dark-text-primary !important;
+}
+
+.users-table :deep(.ant-select-arrow) {
+    @apply text-light-text-primary dark:text-dark-text-primary;
+}
+
+.users-table :deep(.ant-pagination-options-quick-jumper input) {
+    @apply bg-light-menu dark:bg-dark-secondary;
+    @apply border-light-text-tertiary/20 dark:border-dark-quaternary/30;
+    @apply text-light-text-primary dark:text-dark-text-primary;
+}
+
+/* Checkbox styling */
+.users-table :deep(.ant-checkbox-wrapper) {
+    @apply text-light-text-primary dark:text-dark-text-primary;
+}
+
+.users-table :deep(.ant-checkbox-inner) {
+    @apply bg-light-menu dark:bg-dark-secondary;
+    @apply border-light-text-tertiary/20 dark:border-dark-quaternary/30;
+}
+
+.users-table :deep(.ant-checkbox-checked .ant-checkbox-inner) {
+    @apply bg-primary border-primary;
+}
+
+/* Empty state */
+.users-table :deep(.ant-empty-description) {
+    @apply text-light-text-tertiary dark:text-dark-text-secondary;
+}
+
+/* Scrollbar styling */
+.users-table :deep(.ant-table-body)::-webkit-scrollbar {
+    @apply w-2 h-2;
+}
+
+.users-table :deep(.ant-table-body)::-webkit-scrollbar-track {
+    @apply bg-light-bg dark:bg-dark-primary;
+}
+
+.users-table :deep(.ant-table-body)::-webkit-scrollbar-thumb {
+    @apply bg-light-text-tertiary/20 dark:bg-dark-text-secondary/20 rounded;
+}
+
+.users-table :deep(.ant-table-body)::-webkit-scrollbar-thumb:hover {
+    @apply bg-light-text-tertiary/30 dark:bg-dark-text-secondary/30;
+}
+
+/* Dropdown menu styling */
+.users-table :deep(.ant-dropdown) {
+    @apply min-w-[160px];
+}
+
+.users-table :deep(.ant-dropdown-menu) {
+    @apply bg-light-menu dark:bg-dark-secondary;
+    @apply border border-light-text-tertiary/10 dark:border-dark-quaternary/30;
+    @apply shadow-lg;
+}
+
+.users-table :deep(.ant-dropdown-menu-item) {
+    @apply text-light-text-primary dark:text-dark-text-primary;
+    @apply hover:bg-light-bg dark:hover:bg-dark-tertiary;
+}
+
+.users-table :deep(.ant-dropdown-menu-item:hover) {
+    @apply bg-light-bg dark:bg-dark-tertiary;
 }
 </style>

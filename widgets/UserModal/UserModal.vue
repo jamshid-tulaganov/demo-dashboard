@@ -5,7 +5,7 @@ import type { User } from '~/stores/users';
 import UserForm from '~/widgets/UserForm/UserForm.vue';
 
 interface Props {
-    visible: boolean;
+    open: boolean;
     user?: User | null;
     loading?: boolean;
 }
@@ -16,7 +16,7 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const emit = defineEmits<{
-    'update:visible': [value: boolean];
+    'update:open': [value: boolean];
     save: [formData: Partial<User>];
 }>();
 
@@ -32,7 +32,7 @@ const modalTitle = computed(() =>
 );
 
 const handleCancel = () => {
-    emit('update:visible', false);
+    emit('update:open', false);
 };
 
 const handleOk = async () => {
@@ -50,7 +50,7 @@ const handleFormSubmit = (formData: Partial<User>) => {
 
 <template>
     <a-modal
-        :visible="visible"
+        :open="open"
         :title="modalTitle"
         :width="900"
         :confirm-loading="loading"
