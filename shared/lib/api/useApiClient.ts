@@ -86,10 +86,12 @@ export const useApiClient = () => {
     }
 
     // Client-side methods using $fetch (for mutations/actions)
-    function createFetchOptions(options?: FetchOptions): FetchOptions {
+    function createFetchOptions(url: string, options?: FetchOptions): FetchOptions {
+        const isAbsoluteUrl = url.startsWith('http://') || url.startsWith('https://')
+
         return {
             ...options,
-            baseURL,
+            baseURL: isAbsoluteUrl ? undefined : baseURL,
             headers: getHeaders(options?.headers as HeadersInit),
             onRequest({ options }) {
                 loading.value = true
@@ -107,23 +109,23 @@ export const useApiClient = () => {
 
     const client = {
         async get<T = any>(url: string, options?: FetchOptions): Promise<T> {
-            return $fetch<T>(url, createFetchOptions({ ...options, method: 'GET' }))
+            return $fetch<T>(url, createFetchOptions(url, { ...options, method: 'GET' }))
         },
 
         async post<T = any>(url: string, options?: FetchOptions): Promise<T> {
-            return $fetch<T>(url, createFetchOptions({ ...options, method: 'POST' }))
+            return $fetch<T>(url, createFetchOptions(url, { ...options, method: 'POST' }))
         },
 
         async put<T = any>(url: string, options?: FetchOptions): Promise<T> {
-            return $fetch<T>(url, createFetchOptions({ ...options, method: 'PUT' }))
+            return $fetch<T>(url, createFetchOptions(url, { ...options, method: 'PUT' }))
         },
 
         async patch<T = any>(url: string, options?: FetchOptions): Promise<T> {
-            return $fetch<T>(url, createFetchOptions({ ...options, method: 'PATCH' }))
+            return $fetch<T>(url, createFetchOptions(url, { ...options, method: 'PATCH' }))
         },
 
         async delete<T = any>(url: string, options?: FetchOptions): Promise<T> {
-            return $fetch<T>(url, createFetchOptions({ ...options, method: 'DELETE' }))
+            return $fetch<T>(url, createFetchOptions(url, { ...options, method: 'DELETE' }))
         },
     }
 

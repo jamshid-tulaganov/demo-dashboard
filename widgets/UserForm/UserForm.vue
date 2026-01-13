@@ -152,6 +152,46 @@ watch(
                 },
             };
         } else {
+            formData.value = {
+                firstName: '',
+                lastName: '',
+                maidenName: '',
+                age: 18,
+                gender: 'male',
+                email: '',
+                phone: '',
+                username: '',
+                password: '',
+                birthDate: '',
+                image: '',
+                bloodGroup: '',
+                height: 0,
+                weight: 0,
+                eyeColor: '',
+                hair: {
+                    color: '',
+                    type: '',
+                },
+                address: {
+                    address: '',
+                    city: '',
+                    state: '',
+                    stateCode: '',
+                    postalCode: '',
+                    country: '',
+                },
+                university: '',
+                company: {
+                    name: '',
+                    department: '',
+                    title: '',
+                },
+                ein: '',
+                ssn: '',
+                userAgent: '',
+                role: 'user',
+                status: 'active',
+            };
             formRef.value?.resetFields();
         }
     },
@@ -511,14 +551,51 @@ defineExpose({
 .form-section {
     margin-bottom: 24px;
     padding-bottom: 24px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-}
-
-.dark .form-section {
-    border-bottom-color: rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid;
+    @apply border-light-text-tertiary/10 dark:border-dark-quaternary/30;
 }
 
 .form-section:last-child {
     border-bottom: none;
+}
+
+.user-form :deep(.ant-form-item-label > label) {
+    @apply text-light-text-primary dark:text-dark-text-primary;
+}
+
+.user-form :deep(.ant-input),
+.user-form :deep(.ant-input-number),
+.user-form :deep(.ant-select-selector),
+.user-form :deep(.ant-input-password),
+.user-form :deep(.ant-picker) {
+    @apply bg-light-menu dark:bg-dark-secondary;
+    @apply border-light-text-tertiary/20 dark:border-dark-quaternary/30;
+    @apply text-light-text-primary dark:text-dark-text-primary;
+}
+
+.user-form :deep(.ant-input::placeholder),
+.user-form :deep(.ant-input-number-input::placeholder),
+.user-form :deep(.ant-input-password input::placeholder) {
+    @apply text-light-text-tertiary dark:text-dark-text-secondary;
+}
+
+.user-form :deep(.ant-select-arrow),
+.user-form :deep(.ant-input-number-handler-wrap),
+.user-form :deep(.ant-picker-suffix) {
+    @apply text-light-text-primary dark:text-dark-text-primary;
+}
+
+.user-form :deep(.ant-radio-wrapper),
+.user-form :deep(.ant-radio-wrapper span) {
+    @apply text-light-text-primary dark:text-dark-text-primary;
+}
+
+.user-form :deep(.ant-radio-inner) {
+    @apply bg-light-menu dark:bg-dark-secondary;
+    @apply border-light-text-tertiary/20 dark:border-dark-quaternary/30;
+}
+
+.user-form :deep(.ant-radio-checked .ant-radio-inner) {
+    @apply bg-primary border-primary;
 }
 </style>

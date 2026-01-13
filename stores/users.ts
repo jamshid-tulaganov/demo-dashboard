@@ -71,6 +71,7 @@ export const useUsersStore = defineStore('users', () => {
     const total = ref(0);
     const loading = ref(false);
     const error = ref<string | null>(null);
+    const newlyCreatedIds = ref<Set<number>>(new Set());
 
     const getAllUsers = computed(() => users.value);
     const getUserById = computed(() => (id: number) =>
@@ -182,6 +183,8 @@ export const useUsersStore = defineStore('users', () => {
                 { body: userData }
             );
 
+            newlyCreatedIds.value.add(newUser.id);
+
             users.value = [newUser, ...users.value];
             total.value += 1;
 
@@ -200,20 +203,37 @@ export const useUsersStore = defineStore('users', () => {
         error.value = null;
 
         try {
+            const index = users.value.findIndex((u) => u.id === id);
+
+            if (newlyCreatedIds.value.has(id)) {
+                const currentUserData = users.value[index];
+                const updatedUser = { ...currentUserData, ...userData };
+
+                if (index > -1) {
+                    users.value[index] = updatedUser;
+                }
+                currentUser.value = updatedUser;
+
+                return updatedUser;
+            }
+
             const { client } = useApiClient();
-            const updatedUser = await client.put<User>(
+            const updatedUser = await client.patch<User>(
                 `https://dummyjson.com/users/${id}`,
                 { body: userData }
             );
 
-            currentUser.value = updatedUser;
+            const mergedUser = index > -1
+                ? { ...users.value[index], ...updatedUser }
+                : updatedUser;
 
-            const index = users.value.findIndex((u) => u.id === id);
+            currentUser.value = mergedUser;
+
             if (index > -1) {
-                users.value[index] = { ...users.value[index], ...updatedUser };
+                users.value[index] = mergedUser;
             }
 
-            return updatedUser;
+            return mergedUser;
         } catch (err: any) {
             error.value = 'Failed to update user';
             console.error('User update error:', err);
@@ -228,7 +248,15 @@ export const useUsersStore = defineStore('users', () => {
         error.value = null;
 
         try {
-            const { client } = useApiClient();
+            if (newlyCreatedIds.value.has(id)) {
+                users.value = users.value.filter((u) => u.id !== id);
+                total.value -= 1;
+                newlyCreatedIds.value.delete(id);
+
+                return true;
+            }
+
+            const { client} = useApiClient();
             await client.delete(`https://dummyjson.com/users/${id}`);
 
             users.value = users.value.filter((u) => u.id !== id);
@@ -251,9 +279,16 @@ export const useUsersStore = defineStore('users', () => {
         try {
             const { client } = useApiClient();
 
-            await Promise.all(
-                ids.map(id => client.delete(`https://dummyjson.com/users/${id}`))
-            );
+            const realUserIds = ids.filter(id => !newlyCreatedIds.value.has(id));
+            const newUserIds = ids.filter(id => newlyCreatedIds.value.has(id));
+
+            if (realUserIds.length > 0) {
+                await Promise.all(
+                    realUserIds.map(id => client.delete(`https://dummyjson.com/users/${id}`))
+                );
+            }
+
+            newUserIds.forEach(id => newlyCreatedIds.value.delete(id));
 
             users.value = users.value.filter((u) => !ids.includes(u.id));
             total.value -= ids.length;

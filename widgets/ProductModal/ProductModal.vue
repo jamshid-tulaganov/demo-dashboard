@@ -2,13 +2,13 @@
 import { ref, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { message } from 'ant-design-vue';
-import type { Product } from '~/stores/products';
+import type { Product, Category } from '~/stores/products';
 import ProductForm from '~/widgets/ProductForm/ProductForm.vue';
 
 interface Props {
     open: boolean;
     product?: Product | null;
-    categories?: string[];
+    categories?: Category[];
     loading?: boolean;
 }
 

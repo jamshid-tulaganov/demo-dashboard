@@ -36,13 +36,19 @@ export interface ProductsResponse {
     limit: number;
 }
 
+export interface Category {
+    slug: string;
+    name: string;
+}
+
 export const useProductsStore = defineStore('products', () => {
     const products = ref<Product[]>([]);
     const currentProduct = ref<Product | null>(null);
-    const categories = ref<string[]>([]);
+    const categories = ref<Category[]>([]);
     const total = ref(0);
     const loading = ref(false);
     const error = ref<string | null>(null);
+    const newlyCreatedIds = ref<Set<number>>(new Set());
 
     const getAllProducts = computed(() => products.value);
     const getProductById = computed(() => (id: number) =>
@@ -122,20 +128,37 @@ export const useProductsStore = defineStore('products', () => {
         error.value = null;
 
         try {
+            const index = products.value.findIndex((p) => p.id === id);
+
+            if (newlyCreatedIds.value.has(id)) {
+                const currentProductData = products.value[index];
+                const updatedProduct = { ...currentProductData, ...productData };
+
+                if (index > -1) {
+                    products.value[index] = updatedProduct;
+                }
+                currentProduct.value = updatedProduct;
+
+                return updatedProduct;
+            }
+
             const { client } = useApiClient();
-            const updatedProduct = await client.put<Product>(
+            const updatedProduct = await client.patch<Product>(
                 `https://dummyjson.com/products/${id}`,
                 { body: productData }
             );
 
-            currentProduct.value = updatedProduct;
+            const mergedProduct = index > -1
+                ? { ...products.value[index], ...updatedProduct }
+                : updatedProduct;
 
-            const index = products.value.findIndex((p) => p.id === id);
+            currentProduct.value = mergedProduct;
+
             if (index > -1) {
-                products.value[index] = updatedProduct;
+                products.value[index] = mergedProduct;
             }
 
-            return updatedProduct;
+            return mergedProduct;
         } catch (err: any) {
             error.value = 'Failed to update product';
             console.error('Product update error:', err);
@@ -156,6 +179,8 @@ export const useProductsStore = defineStore('products', () => {
                 { body: productData }
             );
 
+            newlyCreatedIds.value.add(newProduct.id);
+
             products.value = [newProduct, ...products.value];
             total.value += 1;
 
@@ -174,6 +199,14 @@ export const useProductsStore = defineStore('products', () => {
         error.value = null;
 
         try {
+            if (newlyCreatedIds.value.has(id)) {
+                products.value = products.value.filter((p) => p.id !== id);
+                total.value -= 1;
+                newlyCreatedIds.value.delete(id);
+
+                return true;
+            }
+
             const { client } = useApiClient();
             await client.delete(`https://dummyjson.com/products/${id}`);
 
@@ -197,9 +230,16 @@ export const useProductsStore = defineStore('products', () => {
         try {
             const { client } = useApiClient();
 
-            await Promise.all(
-                ids.map(id => client.delete(`https://dummyjson.com/products/${id}`))
-            );
+            const realProductIds = ids.filter(id => !newlyCreatedIds.value.has(id));
+            const newProductIds = ids.filter(id => newlyCreatedIds.value.has(id));
+
+            if (realProductIds.length > 0) {
+                await Promise.all(
+                    realProductIds.map(id => client.delete(`https://dummyjson.com/products/${id}`))
+                );
+            }
+
+            newProductIds.forEach(id => newlyCreatedIds.value.delete(id));
 
             products.value = products.value.filter((p) => !ids.includes(p.id));
             total.value -= ids.length;
@@ -220,12 +260,22 @@ export const useProductsStore = defineStore('products', () => {
 
         try {
             const { client } = useApiClient();
-            const categoriesData = await client.get<string[]>(
+            const categoriesData = await client.get<Array<string | Category>>(
                 'https://dummyjson.com/products/categories'
             );
 
-            categories.value = categoriesData;
-            return categoriesData;
+            // Transform to Category objects if they're strings
+            categories.value = categoriesData.map(cat => {
+                if (typeof cat === 'string') {
+                    return {
+                        slug: cat,
+                        name: cat.charAt(0).toUpperCase() + cat.slice(1).replace(/-/g, ' ')
+                    };
+                }
+                return cat;
+            });
+
+            return categories.value;
         } catch (err: any) {
             error.value = 'Failed to fetch categories';
             console.error('Categories fetch error:', err);

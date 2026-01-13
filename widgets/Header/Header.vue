@@ -45,46 +45,33 @@ const handleProfileMenuClick = (key: string) => {
             <!-- Left Side: Burger Menu & Search -->
             <div class="flex items-center gap-2 lg:gap-4 flex-1 min-w-0">
                 <!-- Sidebar Toggle (Desktop - Collapse/Expand) -->
-                <a-button
-                    type="text"
-                    size="large"
-                    @click="sidebarStore.toggleCollapsed"
-                    class="hidden lg:flex items-center justify-center hover:bg-gray-100 dark:hover:bg-dark-quaternary transition-all duration-300 p-2"
-                >
-                    <Icon
-                        name="burger-menu"
-                        :size="24"
-                        class="text-light-text-secondary dark:text-dark-text-secondary transition-all duration-300"
-                    />
+                <a-button type="text" size="large" @click="sidebarStore.toggleCollapsed"
+                    class="hidden lg:flex items-center justify-center hover:bg-gray-100 dark:hover:bg-dark-quaternary transition-all duration-300 p-2">
+                    <Icon name="burger-menu" :size="24"
+                        class="text-light-text-secondary dark:text-dark-text-secondary transition-all duration-300" />
                 </a-button>
 
                 <!-- Sidebar Toggle (Mobile - Open/Close) -->
-                <a-button
-                    type="text"
-                    size="large"
-                    @click="sidebarStore.toggleMobileMenu"
-                    class="lg:hidden flex items-center justify-center hover:bg-gray-100 dark:hover:bg-dark-quaternary transition-all duration-300 p-2"
-                >
-                    <Icon
-                        name="burger-menu"
-                        :size="24"
-                        class="text-light-text-secondary dark:text-dark-text-secondary transition-all duration-300"
-                    />
+                <a-button type="text" size="large" @click="sidebarStore.toggleMobileMenu"
+                    class="lg:hidden flex items-center justify-center hover:bg-gray-100 dark:hover:bg-dark-quaternary transition-all duration-300 p-2">
+                    <Icon name="burger-menu" :size="24"
+                        class="text-light-text-secondary dark:text-dark-text-secondary transition-all duration-300" />
                 </a-button>
 
                 <!-- Desktop Search Bar (Click to open modal) -->
                 <div class="hidden md:block flex-1 max-w-md">
-                    <div
-                        @click="openSearchModal"
-                        class="flex items-center gap-2 px-4 py-2.5 rounded-lg border border-gray-200 dark:border-dark-quaternary hover:border-primary cursor-pointer transition-all bg-gray-50 dark:bg-dark-tertiary"
-                    >
-                        <Icon name="search" :size="18" class="text-gray-400" />
-                        <span class="text-sm text-gray-400">{{ t('header.search.placeholder') }}</span>
+                    <div @click="openSearchModal"
+                        class="flex items-center gap-2 px-4 py-2.5 rounded-lg border border-gray-200 dark:border-dark-quaternary hover:border-primary cursor-pointer transition-all bg-gray-50 dark:bg-dark-tertiary">
+                        <Icon name="search" :size="18" class="text-gray-400 !dark:text-dark-text-secondary" />
+                        <span class="text-sm text-gray-400 dark:text-dark-text-secondary">{{
+                            t('header.search.placeholder') }}</span>
                         <div class="ml-auto flex items-center gap-1">
-                            <kbd class="hidden lg:inline-block px-2 py-0.5 text-xs bg-white dark:bg-dark-quaternary rounded border border-gray-200 dark:border-dark-quaternary">
+                            <kbd
+                                class="hidden lg:inline-block px-2 py-0.5 text-xs bg-white dark:bg-dark-quaternary rounded border border-gray-200 dark:border-dark-quaternary dark:text-dark-text-primary">
                                 Ctrl
                             </kbd>
-                            <kbd class="hidden lg:inline-block px-2 py-0.5 text-xs bg-white dark:bg-dark-quaternary rounded border border-gray-200 dark:border-dark-quaternary">
+                            <kbd
+                                class="hidden lg:inline-block px-2 py-0.5 text-xs bg-white dark:bg-dark-quaternary rounded border border-gray-200 dark:border-dark-quaternary dark:text-dark-text-primary">
                                 K
                             </kbd>
                         </div>
@@ -92,22 +79,17 @@ const handleProfileMenuClick = (key: string) => {
                 </div>
             </div>
 
-            <!-- Right Side: Actions -->
             <div class="flex items-center gap-1 lg:gap-2">
-                <!-- Mobile/Tablet Search Icon -->
-                <a-button
-                    type="text"
-                    size="large"
-                    @click="openSearchModal"
-                    class="md:hidden flex items-center justify-center p-2"
-                >
+                <a-button type="text" size="large" @click="openSearchModal"
+                    class="md:hidden flex items-center justify-center p-2">
                     <Icon name="search" :size="20" class="text-light-text-secondary dark:text-dark-text-secondary" />
                 </a-button>
 
                 <!-- Notifications -->
                 <a-badge :count="notificationCount" :overflow-count="99">
                     <a-button type="text" size="large" class="flex items-center justify-center p-2">
-                        <Icon name="notification" :size="20" class="text-light-text-secondary dark:text-dark-text-secondary" />
+                        <Icon name="notification" :size="20"
+                            class="text-light-text-secondary dark:text-dark-text-secondary" />
                     </a-button>
                 </a-badge>
 
@@ -166,7 +148,8 @@ const handleProfileMenuClick = (key: string) => {
 
                                 <!-- Theme Switcher in Menu (Mobile/Tablet) -->
                                 <div class="px-4 py-3">
-                                    <div class="text-xs font-semibold text-light-text-primary dark:text-dark-text-primary mb-2">
+                                    <div
+                                        class="text-xs font-semibold text-light-text-primary dark:text-dark-text-primary mb-2">
                                         {{ t('header.profile.theme') }}
                                     </div>
                                     <ThemeSwitcherCompact />
@@ -174,7 +157,8 @@ const handleProfileMenuClick = (key: string) => {
 
                                 <!-- Language Switcher in Menu (Mobile/Tablet) -->
                                 <div class="px-4 py-3">
-                                    <div class="text-xs font-semibold text-light-text-primary dark:text-dark-text-primary mb-2">
+                                    <div
+                                        class="text-xs font-semibold text-light-text-primary dark:text-dark-text-primary mb-2">
                                         {{ t('header.profile.language') }}
                                     </div>
                                     <LanguageSwitcherCompact />
@@ -211,14 +195,8 @@ const handleProfileMenuClick = (key: string) => {
     <SearchModal v-model:open="searchModalVisible" />
 
     <!-- Logout Confirmation Modal -->
-    <a-modal
-        v-model:open="showLogoutModal"
-        :title="t('auth.logout.title')"
-        :ok-text="t('common.yes')"
-        :cancel-text="t('common.no')"
-        @ok="handleLogout"
-        ok-type="danger"
-    >
+    <a-modal v-model:open="showLogoutModal" :title="t('auth.logout.title')" :ok-text="t('common.yes')"
+        :cancel-text="t('common.no')" @ok="handleLogout" ok-type="danger">
         <p>{{ t('auth.logout.confirm') }}</p>
     </a-modal>
 </template>

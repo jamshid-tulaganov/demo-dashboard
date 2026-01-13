@@ -243,9 +243,9 @@ const getGenderIcon = (gender: string): string => {
                 <template v-else-if="column.key === 'actions'">
                     <div class="flex justify-center">
                         <a-dropdown placement="bottomRight" :trigger="['click']">
-                            <a-button type="text" size="small">
+                            <a-button type="text">
                                 <template #icon>
-                                    <MoreOutlined class="text-lg" />
+                                    <MoreOutlined />
                                 </template>
                             </a-button>
                             <template #overlay>
@@ -262,7 +262,7 @@ const getGenderIcon = (gender: string): string => {
                                             <span>{{ t('common.edit') }}</span>
                                         </div>
                                     </a-menu-item>
-                                    <a-menu-item @click="handleDelete(record.id)" class="text-red-500">
+                                    <a-menu-item @click="handleDelete(record.id)" class="delete-menu-item">
                                         <div class="flex items-center gap-2">
                                             <DeleteOutlined />
                                             <span>{{ t('common.delete') }}</span>

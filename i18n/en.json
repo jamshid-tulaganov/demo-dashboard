@@ -262,7 +262,6 @@
             "discount": "Discount Percentage",
             "stock": "Stock",
             "sku": "SKU",
-            "availability": "Availability Status",
             "minimumOrder": "Minimum Order Quantity",
             "rating": "Rating",
             "weight": "Weight",

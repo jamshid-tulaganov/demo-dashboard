@@ -300,16 +300,44 @@ const handleAddUser = () => {
 };
 
 // Modal save handler
+const getChangedFields = (original: User, updated: Partial<User>): Partial<User> => {
+    const changes: Partial<User> = {};
+
+    Object.keys(updated).forEach((key) => {
+        const k = key as keyof User;
+        const originalValue = original[k];
+        const updatedValue = updated[k];
+
+        if (typeof updatedValue === 'object' && updatedValue !== null && !Array.isArray(updatedValue)) {
+            if (JSON.stringify(originalValue) !== JSON.stringify(updatedValue)) {
+                changes[k] = updatedValue as any;
+            }
+        } else if (Array.isArray(updatedValue)) {
+            if (JSON.stringify(originalValue) !== JSON.stringify(updatedValue)) {
+                changes[k] = updatedValue as any;
+            }
+        } else if (originalValue !== updatedValue) {
+            changes[k] = updatedValue as any;
+        }
+    });
+
+    return changes;
+};
+
 const handleModalSave = async (formData: Partial<User>) => {
     modalLoading.value = true;
 
     try {
         if (currentUser.value) {
-            // Edit mode
-            await usersStore.updateUser(currentUser.value.id, formData);
-            message.success(t('users.update.success'));
+            const changedFields = getChangedFields(currentUser.value, formData);
+
+            if (Object.keys(changedFields).length > 0) {
+                await usersStore.updateUser(currentUser.value.id, changedFields);
+                message.success(t('users.update.success'));
+            } else {
+                message.info('No changes detected');
+            }
         } else {
-            // Add mode
             await usersStore.addUser(formData as Omit<User, 'id'>);
             message.success(t('users.create.success'));
         }
@@ -328,6 +356,12 @@ const handleModalSave = async (formData: Partial<User>) => {
 };
 
 // Export to CSV
+watch(modalVisible, (newValue) => {
+    if (!newValue) {
+        currentUser.value = null;
+    }
+});
+
 const exportToCSV = () => {
     const data = filteredAndSortedUsers.value;
 

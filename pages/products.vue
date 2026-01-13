@@ -2,6 +2,7 @@
 import { ref, computed, onMounted, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { message, Modal } from 'ant-design-vue';
+import { PlusOutlined } from '@ant-design/icons-vue';
 import { useProductsStore, type Product } from '~/stores/products';
 import ProductsTable from '~/widgets/ProductsTable/ProductsTable.vue';
 import ProductModal from '~/widgets/ProductModal/ProductModal.vue';
@@ -92,10 +93,10 @@ const pagination = computed(() => ({
 
 const hasActiveFilters = computed(() => {
     return selectedCategory.value ||
-           stockStatusFilter.value ||
-           priceRange.value[0] !== 0 ||
-           priceRange.value[1] !== 10000 ||
-           searchQuery.value;
+        stockStatusFilter.value ||
+        priceRange.value[0] !== 0 ||
+        priceRange.value[1] !== 10000 ||
+        searchQuery.value;
 });
 
 // Stock status options
@@ -117,7 +118,6 @@ const sortOptions = [
     { label: t('products.sort.stockHighToLow'), value: 'stock-desc' },
 ];
 
-// Initialize data
 onMounted(async () => {
     await Promise.all([
         productsStore.fetchProducts(100, 0),
@@ -125,7 +125,6 @@ onMounted(async () => {
     ]);
 });
 
-// Search handler with debounce
 watch(searchQuery, (newValue) => {
     if (searchDebounceTimer.value) {
         clearTimeout(searchDebounceTimer.value);
@@ -141,7 +140,6 @@ watch(searchQuery, (newValue) => {
     }, 500);
 });
 
-// Reset filters
 const resetFilters = async () => {
     searchQuery.value = '';
     selectedCategory.value = undefined;
@@ -152,7 +150,6 @@ const resetFilters = async () => {
     await productsStore.fetchProducts(100, 0);
 };
 
-// Table handlers
 const handleEdit = (product: Product) => {
     currentProduct.value = product;
     modalVisible.value = true;
@@ -218,16 +215,44 @@ const handleAddProduct = () => {
 };
 
 // Modal save handler
+const getChangedFields = (original: Product, updated: Partial<Product>): Partial<Product> => {
+    const changes: Partial<Product> = {};
+
+    Object.keys(updated).forEach((key) => {
+        const k = key as keyof Product;
+        const originalValue = original[k];
+        const updatedValue = updated[k];
+
+        if (typeof updatedValue === 'object' && updatedValue !== null && !Array.isArray(updatedValue)) {
+            if (JSON.stringify(originalValue) !== JSON.stringify(updatedValue)) {
+                changes[k] = updatedValue as any;
+            }
+        } else if (Array.isArray(updatedValue)) {
+            if (JSON.stringify(originalValue) !== JSON.stringify(updatedValue)) {
+                changes[k] = updatedValue as any;
+            }
+        } else if (originalValue !== updatedValue) {
+            changes[k] = updatedValue as any;
+        }
+    });
+
+    return changes;
+};
+
 const handleModalSave = async (formData: Partial<Product>) => {
     modalLoading.value = true;
 
     try {
         if (currentProduct.value) {
-            // Edit mode
-            await productsStore.updateProduct(currentProduct.value.id, formData);
-            message.success(t('products.update.success'));
+            const changedFields = getChangedFields(currentProduct.value, formData);
+
+            if (Object.keys(changedFields).length > 0) {
+                await productsStore.updateProduct(currentProduct.value.id, changedFields);
+                message.success(t('products.update.success'));
+            } else {
+                message.info('No changes detected');
+            }
         } else {
-            // Add mode
             await productsStore.addProduct(formData as Omit<Product, 'id'>);
             message.success(t('products.create.success'));
         }
@@ -245,9 +270,20 @@ const handleModalSave = async (formData: Partial<Product>) => {
     }
 };
 
+watch(modalVisible, (newValue) => {
+    if (!newValue) {
+        currentProduct.value = null;
+    }
+});
+
 // Export to CSV
 const exportToCSV = () => {
-    const data = filteredAndSortedProducts.value;
+    // Export selected products if any are selected, otherwise export all filtered products
+    let data = filteredAndSortedProducts.value;
+
+    if (selectedRowKeys.value.length > 0) {
+        data = filteredAndSortedProducts.value.filter(p => selectedRowKeys.value.includes(p.id));
+    }
 
     if (data.length === 0) {
         message.warning(t('products.export.noData'));
@@ -280,7 +316,6 @@ const exportToCSV = () => {
         p.thumbnail
     ]);
 
-    // Create CSV content
     const csvContent = [
         headers.join(','),
         ...rows.map(row => row.join(','))
@@ -299,7 +334,10 @@ const exportToCSV = () => {
     link.click();
     document.body.removeChild(link);
 
-    message.success(t('products.export.success'));
+    const successMessage = selectedRowKeys.value.length > 0
+        ? `${selectedRowKeys.value.length} selected products exported successfully`
+        : t('products.export.success');
+    message.success(successMessage);
 };
 </script>
 
@@ -310,35 +348,28 @@ const exportToCSV = () => {
             <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-light-text-primary dark:text-dark-text-primary">
                 {{ t('products.title') }}
             </h1>
-            <a-button type="primary" size="large" @click="handleAddProduct" class="w-full sm:w-auto">
-                {{ t('products.addProduct') }}
+            <a-button type="primary" size="large" @click="handleAddProduct"
+                class="w-full sm:w-auto d-flex items-center justify-center">
+                <div class="d-flex items-center">
+                    <PlusOutlined class="mr-1" />
+                    {{ t('products.addProduct') }}
+                </div>
             </a-button>
         </div>
 
-        <!-- Filters Section -->
         <a-card class="bg-light-background dark:bg-dark-background">
             <div class="space-y-4">
-                <!-- Search and Category -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <a-input-search
-                        v-model:value="searchQuery"
-                        :placeholder="t('products.search.placeholder')"
-                        size="large"
-                        allow-clear
-                    />
+                    <a-input-search v-model:value="searchQuery" :placeholder="t('products.search.placeholder')"
+                        size="large" allow-clear />
 
-                    <a-select
-                        v-model:value="selectedCategory"
-                        :placeholder="t('products.filters.selectCategory')"
-                        size="large"
-                        allow-clear
-                        show-search
-                    >
+                    <a-select v-model:value="selectedCategory" :placeholder="t('products.filters.selectCategory')"
+                        size="large" allow-clear show-search>
                         <a-select-option :value="undefined">
                             {{ t('products.filters.allCategories') }}
                         </a-select-option>
-                        <a-select-option v-for="cat in categories" :key="cat" :value="cat">
-                            {{ cat }}
+                        <a-select-option v-for="cat in categories" :key="cat" :value="cat.slug">
+                            {{ cat.name }}
                         </a-select-option>
                     </a-select>
                 </div>
@@ -346,29 +377,17 @@ const exportToCSV = () => {
                 <!-- Price Range and Stock Status -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-sm font-medium mb-2 text-light-text-primary dark:text-dark-text-primary">
+                        <label
+                            class="block text-sm font-medium mb-2 text-light-text-primary dark:text-dark-text-primary">
                             {{ t('products.filters.priceRange') }}: ${{ priceRange[0] }} - ${{ priceRange[1] }}
                         </label>
-                        <a-slider
-                            v-model:value="priceRange"
-                            range
-                            :min="0"
-                            :max="10000"
-                            :step="100"
-                        />
+                        <a-slider v-model:value="priceRange" range :min="0" :max="10000" :step="100" />
                     </div>
 
-                    <a-select
-                        v-model:value="stockStatusFilter"
-                        :placeholder="t('products.filters.stockStatus')"
-                        size="large"
-                        allow-clear
-                    >
-                        <a-select-option
-                            v-for="option in stockStatusOptions"
-                            :key="option.value || 'all'"
-                            :value="option.value"
-                        >
+                    <a-select v-model:value="stockStatusFilter" :placeholder="t('products.filters.stockStatus')"
+                        size="large" allow-clear>
+                        <a-select-option v-for="option in stockStatusOptions" :key="option.value || 'all'"
+                            :value="option.value">
                             {{ option.label }}
                         </a-select-option>
                     </a-select>
@@ -380,16 +399,9 @@ const exportToCSV = () => {
                         <span class="text-sm font-medium text-light-text-primary dark:text-dark-text-primary">
                             {{ t('products.sort.label') }}:
                         </span>
-                        <a-select
-                            v-model:value="sortBy"
-                            :placeholder="t('products.sort.placeholder')"
-                            class="w-full sm:w-48"
-                        >
-                            <a-select-option
-                                v-for="option in sortOptions"
-                                :key="option.value"
-                                :value="option.value"
-                            >
+                        <a-select v-model:value="sortBy" :placeholder="t('products.sort.placeholder')"
+                            class="w-full sm:w-48">
+                            <a-select-option v-for="option in sortOptions" :key="option.value" :value="option.value">
                                 {{ option.label }}
                             </a-select-option>
                         </a-select>
@@ -400,14 +412,10 @@ const exportToCSV = () => {
                             {{ t('products.filters.reset') }}
                         </a-button>
                         <a-button type="primary" @click="exportToCSV" class="flex-1 sm:flex-none">
-                            {{ t('products.export.button') }}
+                            {{ selectedRowKeys.length > 0 ? `Export ${selectedRowKeys.length} Selected` : t('products.export.button') }}
                         </a-button>
-                        <a-button
-                            v-if="selectedRowKeys.length > 0"
-                            danger
-                            @click="handleBulkDelete"
-                            class="flex-1 sm:flex-none"
-                        >
+                        <a-button v-if="selectedRowKeys.length > 0" danger @click="handleBulkDelete"
+                            class="flex-1 sm:flex-none">
                             {{ t('products.bulkDelete.button', { count: selectedRowKeys.length }) }}
                         </a-button>
                     </div>
@@ -422,26 +430,13 @@ const exportToCSV = () => {
 
         <!-- Products Table -->
         <TableSkeleton v-if="loading && paginatedProducts.length === 0" :rows="10" :columns="11" />
-        <ProductsTable
-            v-else
-            :products="paginatedProducts"
-            :loading="loading"
-            :selected-row-keys="selectedRowKeys"
-            :pagination="pagination"
-            @edit="handleEdit"
-            @delete="handleDelete"
-            @selection-change="handleSelectionChange"
-            @page-change="handlePageChange"
-        />
+        <ProductsTable v-else :products="paginatedProducts" :loading="loading" :selected-row-keys="selectedRowKeys"
+            :pagination="pagination" @edit="handleEdit" @delete="handleDelete" @selection-change="handleSelectionChange"
+            @page-change="handlePageChange" />
 
         <!-- Product Modal -->
-        <ProductModal
-            v-model:open="modalVisible"
-            :product="currentProduct"
-            :categories="categories"
-            :loading="modalLoading"
-            @save="handleModalSave"
-        />
+        <ProductModal v-model:open="modalVisible" :product="currentProduct" :categories="categories"
+            :loading="modalLoading" @save="handleModalSave" />
     </div>
 </template>
 

@@ -214,9 +214,9 @@ const getAvailabilityColor = (status?: string): string => {
                 <template v-else-if="column.key === 'actions'">
                     <div class="flex justify-center">
                         <a-dropdown placement="bottomRight" :trigger="['click']">
-                            <a-button type="text" size="small">
+                            <a-button type="text">
                                 <template #icon>
-                                    <MoreOutlined class="text-lg" />
+                                    <MoreOutlined />
                                 </template>
                             </a-button>
                             <template #overlay>
@@ -227,7 +227,7 @@ const getAvailabilityColor = (status?: string): string => {
                                             <span>{{ t('common.edit') }}</span>
                                         </div>
                                     </a-menu-item>
-                                    <a-menu-item @click="handleDelete(record.id)" class="text-red-500">
+                                    <a-menu-item @click="handleDelete(record.id)" class="delete-menu-item">
                                         <div class="flex items-center gap-2">
                                             <DeleteOutlined />
                                             <span>{{ t('common.delete') }}</span>
@@ -365,5 +365,18 @@ const getAvailabilityColor = (status?: string): string => {
 
 .products-table :deep(.ant-dropdown-menu-item:hover) {
     @apply bg-light-bg dark:bg-dark-tertiary;
+}
+
+.products-table :deep(.ant-dropdown-menu .delete-menu-item) {
+    @apply text-red-500 dark:text-red-400 !important;
+}
+
+.products-table :deep(.ant-dropdown-menu .delete-menu-item:hover) {
+    @apply bg-red-50 dark:bg-red-950/30 !important;
+    @apply text-red-600 dark:text-red-400 !important;
+}
+
+.products-table :deep(.ant-dropdown-menu .delete-menu-item .flex) {
+    @apply text-red-500 dark:text-red-400;
 }
 </style>
