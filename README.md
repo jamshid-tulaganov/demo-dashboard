@@ -16,7 +16,6 @@
 - [Documentation](#documentation)
 - [Development](#development)
 - [Testing](#testing)
-- [Contributing](#contributing)
 
 ## Features
 
@@ -146,10 +145,7 @@ demo-dashboard/
 │   ├── shared/              # Composable tests
 │   └── stores/              # Store tests
 ├── docs/                    # Documentation
-│   ├── ARCHITECTURE.md      # Architecture overview
-│   ├── API.md               # API integration guide
-│   ├── COMPONENTS.md        # Component documentation
-│   └── CONTRIBUTING.md      # Contributing guide
+│   └── README.md            # Project documentation
 ├── nuxt.config.ts           # Nuxt configuration
 ├── tailwind.config.js       # Tailwind configuration
 ├── vitest.config.ts         # Test configuration
@@ -158,12 +154,7 @@ demo-dashboard/
 
 ## Documentation
 
-Comprehensive documentation is available in the [docs/](docs/) directory:
-
-- **[Architecture Guide](docs/ARCHITECTURE.md)** - System design and architecture patterns
-- **[API Integration](docs/API.md)** - API client usage and patterns
-- **[Component Guide](docs/COMPONENTS.md)** - Component usage and creation
-- **[Contributing Guide](docs/CONTRIBUTING.md)** - Development workflow and standards
+Additional documentation is available in the [docs/README.md](docs/README.md) file.
 
 ## Development
 
@@ -231,42 +222,6 @@ Current test coverage:
 - Utility functions (debounce, throttle)
 - UI components (Icon, Logo)
 - Store logic (sidebar, products, users)
-
-## Contributing
-
-We welcome contributions! Please see [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md) for:
-
-- Development workflow
-- Coding standards
-- Commit message conventions
-- Pull request process
-
-### Quick Guidelines
-
-1. **Branch Naming**: `feature/`, `fix/`, `docs/`, `refactor/`
-2. **Commit Messages**: Follow conventional commits
-3. **Code Style**: Follow ESLint/Prettier rules
-4. **Tests**: Add tests for new features
-5. **Documentation**: Update docs for API changes
-
-## Architecture Highlights
-
-### Authentication Flow
-1. User submits credentials at `/login`
-2. JWT tokens stored in HTTP-only cookies
-3. Access token (1h) + Refresh token (30d)
-4. Automatic token refresh on 401 responses
-5. Protected routes via middleware
-
-### State Management
-- Pinia stores for centralized state
-- Composables for shared logic
-- Reactive updates with Vue 3 reactivity
-
-### API Client
-Two-pattern approach:
-- **useFetch** - SSR-friendly data fetching
-- **$fetch** - Client-side mutations
 
 ## Browser Support
 
