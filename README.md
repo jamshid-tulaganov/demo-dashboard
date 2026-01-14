@@ -103,53 +103,97 @@ Password: emilyspass
 
 ```
 demo-dashboard/
-├── pages/                    # Application routes (auto-routed)
-│   ├── index.vue            # Dashboard home
-│   ├── login.vue            # Authentication
-│   ├── products.vue         # Product management
-│   ├── users.vue            # User management
-│   ├── orders.vue           # Order listing
-│   └── ...                  # Other feature pages
+├── pages/                        # Application routes (auto-routed)
+│   ├── index.vue                 # Dashboard home
+│   ├── login.vue                 # Authentication
+│   ├── products.vue              # Product listing
+│   ├── products/[id].vue         # Product detail page
+│   ├── users.vue                 # User management
+│   ├── orders.vue                # Order listing
+│   ├── favourites.vue            # Favorites page
+│   ├── profile.vue               # User profile
+│   ├── settings.vue              # Settings page
+│   ├── inbox.vue                 # Inbox page
+│   ├── calendar.vue              # Calendar page
+│   ├── todo.vue                  # Todo page
+│   ├── team.vue                  # Team page
+│   ├── invoice.vue               # Invoice page
+│   ├── stock.vue                 # Stock page
+│   ├── pricing.vue               # Pricing page
+│   └── contact.vue               # Contact page
 ├── layouts/
-│   ├── default.vue          # Main layout with sidebar + header
-│   └── auth.vue             # Authentication layout
-├── widgets/                 # Complex UI components
-│   ├── Header/              # Top navigation bar
-│   ├── Sidebar/             # Side navigation menu
-│   ├── ThemeSwitcher/       # Theme toggle component
-│   ├── ProductsTable/       # Products data table
-│   ├── UsersTable/          # Users data table
-│   └── ...
-├── shared/                  # Shared utilities and UI
-│   ├── lib/                 # Composables and utilities
-│   │   ├── auth/            # Authentication composable
-│   │   ├── api/             # API client wrapper
-│   │   ├── theme/           # Theme management
-│   │   └── utils/           # Utility functions
-│   └── ui/                  # Reusable UI components
-│       ├── Icon/            # SVG icon component
-│       ├── Logo/            # Theme-aware logo
-│       └── ...
-├── stores/                  # Pinia state stores
-│   ├── dashboard.ts         # Dashboard statistics
-│   ├── products.ts          # Products state & actions
-│   ├── users.ts             # Users state & actions
-│   └── ...
+│   ├── default.vue               # Main layout with sidebar + header
+│   └── auth.vue                  # Authentication layout
+├── components/                   # UI Components
+│   ├── Common/                   # Reusable base components
+│   │   ├── Button/               # Custom button
+│   │   ├── Icon/                 # SVG icon component
+│   │   ├── Logo/                 # Theme-aware logo
+│   │   ├── LazyImage/            # Lazy loading image
+│   │   ├── ImageModal/           # Full-screen image modal
+│   │   ├── StatusChip/           # Status badge component
+│   │   ├── Skeleton/             # Loading skeletons
+│   │   └── ThemeTransition/      # Theme transition wrapper
+│   ├── Header/                   # Top navigation bar
+│   ├── Sidebar/                  # Side navigation menu
+│   ├── ThemeSwitcher/            # Theme toggle components
+│   ├── LanguageSwitcher/         # Language selector
+│   ├── SearchModal/              # Global search modal
+│   ├── NotificationsModal/       # Notifications dropdown
+│   ├── DashboardStats/           # Dashboard charts & cards
+│   ├── ProductsTable/            # Products data table
+│   ├── ProductCard/              # Product card component
+│   ├── ProductForm/              # Product create/edit form
+│   ├── ProductModal/             # Product quick view modal
+│   ├── EditProductModal/         # Product edit modal
+│   ├── UsersTable/               # Users data table
+│   ├── UserForm/                 # User create/edit form
+│   ├── UserModal/                # User quick view modal
+│   ├── UserDetailModal/          # User detail modal
+│   ├── OrdersTable/              # Orders data table
+│   └── PromoSwiper/              # Promotional carousel
+├── composables/                  # Vue composables
+│   ├── useAuth.ts                # Authentication logic
+│   ├── useTokenService.ts        # Token management & refresh queue
+│   ├── useApiClient.ts           # HTTP client with 401 handling
+│   ├── useTheme.ts               # Theme management
+│   └── useSidebar.ts             # Sidebar state
+├── stores/                       # Pinia state stores
+│   ├── dashboard.ts              # Dashboard statistics
+│   ├── products.ts               # Products state & actions
+│   ├── users.ts                  # Users state & actions
+│   ├── orders.ts                 # Orders state & actions
+│   ├── favorites.ts              # Favorites state
+│   ├── search.ts                 # Search state
+│   └── sidebar.ts                # Sidebar state
 ├── middleware/
-│   └── auth.ts              # Route protection & token refresh
-├── i18n/                    # Translation files
-│   ├── en.json              # English
-│   ├── ru.json              # Russian
-│   └── uz.json              # Uzbek
-├── tests/                   # Unit tests
-│   ├── shared/              # Composable tests
-│   └── stores/              # Store tests
-├── docs/                    # Documentation
-│   └── README.md            # Project documentation
-├── nuxt.config.ts           # Nuxt configuration
-├── tailwind.config.js       # Tailwind configuration
-├── vitest.config.ts         # Test configuration
-└── tsconfig.json            # TypeScript configuration
+│   └── auth.ts                   # Route protection & token refresh
+├── plugins/
+│   └── dayjs.client.ts           # Day.js initialization
+├── utils/                        # Utility functions
+│   ├── index.ts                  # Utils exports
+│   └── debounce.ts               # Debounce helper
+├── i18n/                         # Translation files
+│   ├── en.json                   # English
+│   ├── ru.json                   # Russian
+│   └── uz.json                   # Uzbek
+├── tests/                        # Unit tests
+│   ├── shared/                   # Composable & component tests
+│   │   ├── useAuth.test.ts
+│   │   ├── Icon.test.ts
+│   │   └── debounce.test.ts
+│   └── stores/                   # Store tests
+│       └── sidebar.test.ts
+├── providers/                    # Context providers
+│   └── LocaleProvider.vue        # Locale context
+├── types/                        # TypeScript declarations
+│   └── json.d.ts                 # JSON module types
+├── assets/                       # Static assets
+│   └── css/                      # Global styles
+├── nuxt.config.ts                # Nuxt configuration
+├── tailwind.config.js            # Tailwind configuration
+├── vitest.config.ts              # Test configuration
+└── tsconfig.json                 # TypeScript configuration
 ```
 
 ## Documentation
