@@ -1,12 +1,10 @@
-import type { FetchOptions } from 'ofetch'
-
 interface LoginCredentials {
     username: string
     password: string
     expiresInMins?: number
 }
 
-interface AuthResponse {
+interface AuthUser {
     id: number
     username: string
     email: string
@@ -14,11 +12,9 @@ interface AuthResponse {
     lastName: string
     gender: string
     image: string
-    accessToken: string
-    refreshToken: string
 }
 
-interface RefreshResponse {
+interface AuthResponse extends AuthUser {
     accessToken: string
     refreshToken: string
 }
@@ -26,22 +22,19 @@ interface RefreshResponse {
 export const useAuth = () => {
     const config = useRuntimeConfig()
     const router = useRouter()
-    const accessToken = useCookie('access', {
-        maxAge: 60 * 60, // 1 hour
-        sameSite: 'lax',
-    })
-    const refreshToken = useCookie('refresh', {
-        maxAge: 60 * 60 * 24 * 30, // 30 days
-        sameSite: 'lax',
-    })
-    const user = useState<AuthResponse | null>('auth-user', () => null)
+    const tokenService = useTokenService()
+
+    const user = useState<AuthUser | null>('auth-user', () => null)
     const loading = ref(false)
+    const error = ref<string | null>(null)
 
     /**
      * Login with username and password
      */
-    async function login(credentials: LoginCredentials) {
+    async function login(credentials: LoginCredentials): Promise<AuthUser> {
         loading.value = true
+        error.value = null
+
         try {
             const response = await $fetch<AuthResponse>('/auth/login', {
                 baseURL: config.public.apiBaseUrl,
@@ -53,117 +46,117 @@ export const useAuth = () => {
                 },
             })
 
-            // Store tokens
-            accessToken.value = response.accessToken
-            refreshToken.value = response.refreshToken
+            // Store tokens via token service
+            tokenService.setTokens(response.accessToken, response.refreshToken)
 
-            // Store user data
-            user.value = response
+            // Store user data (without tokens)
+            const userData: AuthUser = {
+                id: response.id,
+                username: response.username,
+                email: response.email,
+                firstName: response.firstName,
+                lastName: response.lastName,
+                gender: response.gender,
+                image: response.image,
+            }
+            user.value = userData
 
-            return response
-        } catch (error: any) {
-            console.error('Login failed:', error)
-            throw error
+            return userData
+        } catch (err: any) {
+            error.value = err?.data?.message || 'Login failed'
+            throw err
         } finally {
             loading.value = false
         }
     }
 
     /**
-     * Refresh access token using refresh token
+     * Refresh access token using token service
      */
-    async function refresh() {
-        if (!refreshToken.value) {
-            throw new Error('No refresh token available')
-        }
-
-        try {
-            const response = await $fetch<RefreshResponse>('/auth/refresh', {
-                baseURL: config.public.apiBaseUrl,
-                method: 'POST',
-                body: {
-                    refreshToken: refreshToken.value,
-                    expiresInMins: 60,
-                },
-            })
-
-            // Update access token
-            accessToken.value = response.accessToken
-            refreshToken.value = response.refreshToken
-
-            return response
-        } catch (error: any) {
-            console.error('Token refresh failed:', error)
-            // If refresh fails, logout user
-            await logout()
-            throw error
-        }
+    async function refresh(): Promise<string> {
+        return tokenService.refreshAccessToken()
     }
 
     /**
      * Get current authenticated user
      */
-    async function getCurrentUser() {
-        if (!accessToken.value) {
+    async function getCurrentUser(): Promise<AuthUser | null> {
+        if (!tokenService.hasAccessToken()) {
             return null
         }
 
         try {
-            const response = await $fetch<AuthResponse>('/auth/me', {
+            const response = await $fetch<AuthUser>('/auth/me', {
                 baseURL: config.public.apiBaseUrl,
                 method: 'GET',
                 headers: {
-                    Authorization: `Bearer ${accessToken.value}`,
+                    Authorization: `Bearer ${tokenService.getAccessToken()}`,
                 },
             })
 
             user.value = response
             return response
-        } catch (error: any) {
-            console.error('Failed to get current user:', error)
-
+        } catch (err: any) {
             // If unauthorized, try to refresh token
-            if (error.status === 401 && refreshToken.value) {
+            if (err.status === 401 && tokenService.hasRefreshToken()) {
                 try {
                     await refresh()
-                    // Retry getting user
+                    // Retry getting user with new token
                     return await getCurrentUser()
-                } catch (refreshError) {
+                } catch {
                     await logout()
-                    throw refreshError
+                    return null
                 }
             }
 
-            throw error
+            throw err
         }
     }
 
     /**
-     * Logout user
+     * Logout user and clear all auth state
      */
-    async function logout() {
-        accessToken.value = null
-        refreshToken.value = null
+    async function logout(): Promise<void> {
+        tokenService.clearTokens()
         user.value = null
+        error.value = null
 
-        // Redirect to login
         await router.push('/login')
     }
 
     /**
      * Check if user is authenticated
      */
-    function isAuthenticated() {
-        return !!accessToken.value
+    function isAuthenticated(): boolean {
+        return tokenService.hasAccessToken()
+    }
+
+    /**
+     * Initialize auth state on app start
+     * Call this in a plugin or layout
+     */
+    async function initAuth(): Promise<void> {
+        if (tokenService.hasAccessToken() && !user.value) {
+            try {
+                await getCurrentUser()
+            } catch {
+                // Silent fail - user will be redirected by middleware if needed
+            }
+        }
     }
 
     return {
+        // State
         user: readonly(user),
         loading: readonly(loading),
-        isAuthenticated,
+        error: readonly(error),
+
+        // Methods
         login,
         logout,
         refresh,
         getCurrentUser,
+        isAuthenticated,
+        initAuth,
     }
 }

@@ -5,19 +5,46 @@ export const useApiClient = () => {
     const config = useRuntimeConfig()
     const baseURL = config.public.apiBaseUrl || '/api'
     const locale = useCookie('locale')
-    const accessToken = useCookie('access')
+    const tokenService = useTokenService()
     const loading = ref(false)
 
-    // Common headers function
-    function getHeaders(customHeaders?: HeadersInit) {
+    /**
+     * Build headers with auth token and locale
+     */
+    function getHeaders(customHeaders?: HeadersInit): Record<string, string> {
+        const token = tokenService.getAccessToken()
         return {
-            ...customHeaders,
+            ...(customHeaders as Record<string, string>),
             'Accept-Language': locale.value || 'uz',
-            ...(accessToken.value
-                ? {
-                      Authorization: `Bearer ${accessToken.value}`,
-                  }
-                : {}),
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        }
+    }
+
+    /**
+     * Handle 401 response - refresh token and retry request
+     */
+    async function handleUnauthorized<T>(
+        requestFn: () => Promise<T>,
+        retried = false
+    ): Promise<T> {
+        try {
+            return await requestFn()
+        } catch (error: any) {
+            // Only retry once and only on 401
+            if (error.status === 401 && !retried && tokenService.hasRefreshToken()) {
+                try {
+                    await tokenService.refreshAccessToken()
+                    // Retry the original request with new token
+                    return await handleUnauthorized(requestFn, true)
+                } catch {
+                    // Refresh failed, redirect to login
+                    const router = useRouter()
+                    tokenService.clearTokens()
+                    await router.push('/login')
+                    throw new Error('Session expired')
+                }
+            }
+            throw error
         }
     }
 
@@ -32,7 +59,7 @@ export const useApiClient = () => {
                 onRequest({ options }) {
                     options.headers = getHeaders(options.headers as HeadersInit)
                 },
-                credentials: 'include'
+                credentials: 'include',
             })
         },
 
@@ -85,7 +112,9 @@ export const useApiClient = () => {
         },
     }
 
-    // Client-side methods using $fetch (for mutations/actions)
+    /**
+     * Create fetch options with interceptors
+     */
     function createFetchOptions(url: string, options?: FetchOptions): FetchOptions {
         const isAbsoluteUrl = url.startsWith('http://') || url.startsWith('https://')
 
@@ -107,25 +136,36 @@ export const useApiClient = () => {
         }
     }
 
+    // Client-side methods using $fetch with automatic 401 handling
     const client = {
         async get<T = any>(url: string, options?: FetchOptions): Promise<T> {
-            return $fetch<T>(url, createFetchOptions(url, { ...options, method: 'GET' }))
+            return handleUnauthorized(() =>
+                $fetch<T>(url, createFetchOptions(url, { ...options, method: 'GET' }))
+            )
         },
 
         async post<T = any>(url: string, options?: FetchOptions): Promise<T> {
-            return $fetch<T>(url, createFetchOptions(url, { ...options, method: 'POST' }))
+            return handleUnauthorized(() =>
+                $fetch<T>(url, createFetchOptions(url, { ...options, method: 'POST' }))
+            )
         },
 
         async put<T = any>(url: string, options?: FetchOptions): Promise<T> {
-            return $fetch<T>(url, createFetchOptions(url, { ...options, method: 'PUT' }))
+            return handleUnauthorized(() =>
+                $fetch<T>(url, createFetchOptions(url, { ...options, method: 'PUT' }))
+            )
         },
 
         async patch<T = any>(url: string, options?: FetchOptions): Promise<T> {
-            return $fetch<T>(url, createFetchOptions(url, { ...options, method: 'PATCH' }))
+            return handleUnauthorized(() =>
+                $fetch<T>(url, createFetchOptions(url, { ...options, method: 'PATCH' }))
+            )
         },
 
         async delete<T = any>(url: string, options?: FetchOptions): Promise<T> {
-            return $fetch<T>(url, createFetchOptions(url, { ...options, method: 'DELETE' }))
+            return handleUnauthorized(() =>
+                $fetch<T>(url, createFetchOptions(url, { ...options, method: 'DELETE' }))
+            )
         },
     }
 

@@ -1,9 +1,11 @@
-export default defineNuxtRouteMiddleware(async (to, from) => {
-    const accessToken = useCookie('access')
-    const refreshToken = useCookie('refresh')
+export default defineNuxtRouteMiddleware(async (to) => {
+    const tokenService = useTokenService()
+
+    const hasAccess = tokenService.hasAccessToken()
+    const hasRefresh = tokenService.hasRefreshToken()
 
     // If trying to access login page while authenticated, redirect to home
-    if (to.path === '/login' && accessToken.value) {
+    if (to.path === '/login' && hasAccess) {
         return navigateTo('/')
     }
 
@@ -14,33 +16,15 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     }
 
     // Check if user has access token
-    if (!accessToken.value) {
-        if (refreshToken.value) {
+    if (!hasAccess) {
+        // Try to refresh if we have a refresh token
+        if (hasRefresh) {
             try {
-                const config = useRuntimeConfig()
-                const response = await $fetch<{ accessToken: string; refreshToken: string }>(
-                    '/auth/refresh',
-                    {
-                        baseURL: config.public.apiBaseUrl,
-                        method: 'POST',
-                        body: {
-                            refreshToken: refreshToken.value,
-                            expiresInMins: 60,
-                        },
-                    }
-                )
-
-                // Update tokens
-                accessToken.value = response.accessToken
-                refreshToken.value = response.refreshToken
-
-                // Allow navigation
+                await tokenService.refreshAccessToken()
+                // Token refreshed successfully, allow navigation
                 return
-            } catch (error) {
-                console.error('Token refresh failed in middleware:', error)
-                // Clear invalid tokens
-                accessToken.value = null
-                refreshToken.value = null
+            } catch {
+                // Refresh failed, tokens already cleared by service
             }
         }
 
