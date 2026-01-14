@@ -10,19 +10,12 @@ export default defineNuxtConfig({
      * -------------------------------------------------- */
     nitro: {
         preset: 'netlify-static',
-        externals: {
-            inline: [
-                /shared/,
-                /features/,
-                /entities/,
-            ],
-        },
         rollupConfig: {
             plugins: [],
         },
     },
 
-    /* ----------------------------------------------------
+    /* ---------------------------------------------------
      * MODULES
      * -------------------------------------------------- */
     modules: [
@@ -33,22 +26,11 @@ export default defineNuxtConfig({
     ],
 
     /* ----------------------------------------------------
-     * FSD ALIASES
-     * -------------------------------------------------- */
-    alias: {
-        shared: resolve(__dirname, './shared'),
-        features: resolve(__dirname, './features'),
-        entities: resolve(__dirname, './entities'),
-    },
-
-    /* ----------------------------------------------------
      * AUTO COMPONENT REGISTRATION
      * -------------------------------------------------- */
     components: {
         dirs: [
             { path: '~/components', pathPrefix: false },
-            { path: '~/features', pathPrefix: false },
-            { path: '~/entities', pathPrefix: false },
         ],
     },
 
@@ -59,10 +41,7 @@ export default defineNuxtConfig({
         ssr: {
             noExternal: [
                 'ant-design-vue',
-                'swiper',
-                /shared/,
-                /features/,
-                /entities/,
+                'swiper'
             ],
         }
     },

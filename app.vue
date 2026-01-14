@@ -52,4 +52,12 @@ import { ThemeProvider, LocaleProvider } from '~/providers';
 .dark *::-webkit-scrollbar-thumb:hover {
     background-color: rgba(255, 255, 255, 0.3);
 }
+
+[v-cloak] {
+    display: none;
+}
+
+#teleports {
+    display: none;
+}
 </style>
