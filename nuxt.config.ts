@@ -1,5 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import { defineNuxtConfig } from "nuxt/config";
+import { resolve } from "path";
 
 export default defineNuxtConfig({
     compatibilityDate: "2026-01-10",
@@ -38,6 +39,23 @@ export default defineNuxtConfig({
         optimizeDeps: {
             include: ['ant-design-vue', 'swiper'],
         },
+        server: {
+            fs: {
+                // Allow Vite to read the shared folder
+                allow: [resolve(__dirname, 'shared')],
+            },
+        },
+        ssr: {
+            // Ensure modules from shared are not treated as external by SSR bundling
+            noExternal: [/^shared(\/|$)/],
+        },
+    },
+
+    // Nitro configuration for shared folder
+    nitro: {
+        externals: {
+            inline: [/^shared(\/|$)/],
+        },
     },
 
     // Component auto-import with lazy loading
@@ -58,6 +76,7 @@ export default defineNuxtConfig({
 
     css: ["ant-design-vue/dist/reset.css"],
 
+    // @ts-ignore - Ant Design Vue module configuration
     antd: {
         extractStyle: true,
     },
