@@ -424,14 +424,12 @@
             "username": "Username",
             "email": "Email",
             "password": "Parol",
-            "role": "Rol",
             "status": "Holat",
             "image": "Avatar URL",
             "firstName": "Ism",
             "lastName": "Familiya",
-            "maidenName": "Qizlik familiyasi",
+            "middleName": "Otasining ismi",
             "age": "Yosh",
-            "gender": "Jins",
             "birthDate": "Tug'ilgan kun",
             "phone": "Telefon",
             "height": "Bo'y (sm)",
@@ -477,6 +475,10 @@
                 "moderator": "Moderator",
                 "admin": "Administrator"
             },
+            "label": {
+                "role": "Foydalanuvchi rolini tanlang",
+                "gender": "Jinsini tanlang"
+            },
             "placeholders": {
                 "username": "Username kiriting",
                 "email": "Email kiriting",
@@ -485,7 +487,7 @@
                 "image": "Avatar URL kiriting",
                 "firstName": "Ism kiriting",
                 "lastName": "Familiya kiriting",
-                "maidenName": "Qizlik familiyasi",
+                "middleName": "Otasining ismi",
                 "birthDate": "Tug'ilgan kunni tanlang",
                 "phone": "Telefon raqam",
                 "height": "0.0",

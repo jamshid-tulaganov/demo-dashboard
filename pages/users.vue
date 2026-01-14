@@ -93,11 +93,11 @@ const pagination = computed(() => ({
 
 const hasActiveFilters = computed(() => {
     return selectedGender.value ||
-           selectedRole.value ||
-           selectedStatus.value ||
-           ageRange.value[0] !== 18 ||
-           ageRange.value[1] !== 100 ||
-           searchQuery.value;
+        selectedRole.value ||
+        selectedStatus.value ||
+        ageRange.value[0] !== 18 ||
+        ageRange.value[1] !== 100 ||
+        searchQuery.value;
 });
 
 // Filter options
@@ -425,7 +425,10 @@ const exportToCSV = () => {
                 {{ t('users.title') }}
             </h1>
             <a-button type="primary" size="large" @click="handleAddUser" class="w-full sm:w-auto">
-                {{ t('users.addUser') }}
+                <div class="d-flex items-center">
+                    <PlusOutlined class="mr-1" />
+                    {{ t('users.addUser') }}
+                </div>
             </a-button>
         </div>
 
@@ -433,56 +436,31 @@ const exportToCSV = () => {
         <a-card class="bg-light-background dark:bg-dark-background">
             <div class="space-y-4">
                 <!-- Search -->
-                <a-input-search
-                    v-model:value="searchQuery"
-                    :placeholder="t('users.search.placeholder')"
-                    size="large"
-                    allow-clear
-                />
+                <a-input-search v-model:value="searchQuery" :placeholder="t('users.search.placeholder')" size="large"
+                    allow-clear />
 
                 <!-- Filters Row 1 -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <a-select
-                        v-model:value="selectedGender"
-                        :placeholder="t('users.filters.gender')"
-                        size="large"
-                        allow-clear
-                    >
-                        <a-select-option
-                            v-for="option in genderOptions"
-                            :key="option.value || 'all'"
-                            :value="option.value"
-                        >
+                    <a-select v-model:value="selectedGender" :placeholder="t('users.filters.gender')" size="large"
+                        allow-clear>
+                        <a-select-option v-for="option in genderOptions" :key="option.value || 'all'"
+                            :value="option.value">
                             {{ option.label }}
                         </a-select-option>
                     </a-select>
 
-                    <a-select
-                        v-model:value="selectedRole"
-                        :placeholder="t('users.filters.role')"
-                        size="large"
-                        allow-clear
-                    >
-                        <a-select-option
-                            v-for="option in roleOptions"
-                            :key="option.value || 'all'"
-                            :value="option.value"
-                        >
+                    <a-select v-model:value="selectedRole" :placeholder="t('users.filters.role')" size="large"
+                        allow-clear>
+                        <a-select-option v-for="option in roleOptions" :key="option.value || 'all'"
+                            :value="option.value">
                             {{ option.label }}
                         </a-select-option>
                     </a-select>
 
-                    <a-select
-                        v-model:value="selectedStatus"
-                        :placeholder="t('users.filters.status')"
-                        size="large"
-                        allow-clear
-                    >
-                        <a-select-option
-                            v-for="option in statusOptions"
-                            :key="option.value || 'all'"
-                            :value="option.value"
-                        >
+                    <a-select v-model:value="selectedStatus" :placeholder="t('users.filters.status')" size="large"
+                        allow-clear>
+                        <a-select-option v-for="option in statusOptions" :key="option.value || 'all'"
+                            :value="option.value">
                             {{ option.label }}
                         </a-select-option>
                     </a-select>
@@ -493,13 +471,7 @@ const exportToCSV = () => {
                     <label class="block text-sm font-medium mb-2 text-light-text-primary dark:text-dark-text-primary">
                         {{ t('users.filters.ageRange') }}: {{ ageRange[0] }} - {{ ageRange[1] }}
                     </label>
-                    <a-slider
-                        v-model:value="ageRange"
-                        range
-                        :min="18"
-                        :max="100"
-                        :step="1"
-                    />
+                    <a-slider v-model:value="ageRange" range :min="18" :max="100" :step="1" />
                 </div>
 
                 <!-- Sort and Actions -->
@@ -508,16 +480,9 @@ const exportToCSV = () => {
                         <span class="text-sm font-medium text-light-text-primary dark:text-dark-text-primary">
                             {{ t('users.sort.label') }}:
                         </span>
-                        <a-select
-                            v-model:value="sortBy"
-                            :placeholder="t('users.sort.placeholder')"
-                            class="w-full sm:w-48"
-                        >
-                            <a-select-option
-                                v-for="option in sortOptions"
-                                :key="option.value"
-                                :value="option.value"
-                            >
+                        <a-select v-model:value="sortBy" :placeholder="t('users.sort.placeholder')"
+                            class="w-full sm:w-48">
+                            <a-select-option v-for="option in sortOptions" :key="option.value" :value="option.value">
                                 {{ option.label }}
                             </a-select-option>
                         </a-select>
@@ -587,33 +552,16 @@ const exportToCSV = () => {
 
         <!-- Users Table -->
         <TableSkeleton v-if="loading && paginatedUsers.length === 0" :rows="10" :columns="11" />
-        <UsersTable
-            v-else
-            :users="paginatedUsers"
-            :loading="loading"
-            :selected-row-keys="selectedRowKeys"
-            :pagination="pagination"
-            @view="handleView"
-            @edit="handleEdit"
-            @delete="handleDelete"
-            @toggle-status="handleToggleStatus"
-            @selection-change="handleSelectionChange"
-            @page-change="handlePageChange"
-        />
+        <UsersTable v-else :users="paginatedUsers" :loading="loading" :selected-row-keys="selectedRowKeys"
+            :pagination="pagination" @view="handleView" @edit="handleEdit" @delete="handleDelete"
+            @toggle-status="handleToggleStatus" @selection-change="handleSelectionChange"
+            @page-change="handlePageChange" />
 
         <!-- User Modal -->
-        <UserModal
-            v-model:open="modalVisible"
-            :user="currentUser"
-            :loading="modalLoading"
-            @save="handleModalSave"
-        />
+        <UserModal v-model:open="modalVisible" :user="currentUser" :loading="modalLoading" @save="handleModalSave" />
 
         <!-- User Detail Modal -->
-        <UserDetailModal
-            v-model:open="detailModalVisible"
-            :user="viewingUser"
-        />
+        <UserDetailModal v-model:open="detailModalVisible" :user="viewingUser" />
     </div>
 </template>
 

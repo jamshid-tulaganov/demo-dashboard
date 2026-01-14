@@ -27,6 +27,7 @@ export interface User {
     firstName: string;
     lastName: string;
     maidenName?: string;
+    middleName?: string;
     age: number;
     gender: string;
     email: string;
@@ -304,7 +305,47 @@ export const useUsersStore = defineStore('users', () => {
     }
 
     async function toggleUserStatus(id: number, status: string) {
-        return updateUser(id, { status });
+        loading.value = true;
+        error.value = null;
+
+        const index = users.value.findIndex((u) => u.id === id);
+
+        // Get old status - if user doesn't have a status field, default to 'active'
+        const oldStatus = index > -1 ? (users.value[index].status || 'active') : 'active';
+
+        // Optimistically update the UI first
+        if (index > -1) {
+            users.value[index] = { ...users.value[index], status };
+        }
+
+        try {
+            // For newly created users, just update locally
+            if (newlyCreatedIds.value.has(id)) {
+                return users.value[index];
+            }
+
+            // Use PATCH to send only the status field
+            const { client } = useApiClient();
+            await client.patch<User>(
+                `https://dummyjson.com/users/${id}`,
+                { body: { status } }
+            );
+
+            // API doesn't return status in response, so keep our optimistic update
+            // The status is already set in the users.value[index] above
+
+            return users.value[index];
+        } catch (err: any) {
+            // Revert the optimistic update on error
+            if (index > -1) {
+                users.value[index] = { ...users.value[index], status: oldStatus };
+            }
+            error.value = 'Failed to toggle user status';
+            console.error('User status toggle error:', err);
+            throw err;
+        } finally {
+            loading.value = false;
+        }
     }
 
     async function updateUserRole(id: number, role: string) {

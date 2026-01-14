@@ -126,7 +126,8 @@ const handleDelete = (id: number) => {
 };
 
 const handleStatusToggle = (user: User) => {
-    const currentStatus = user.status || 'active';
+    // If user doesn't have a status, default to 'active' for existing users
+    const currentStatus = user.status !== undefined ? user.status : 'active';
     const newStatus = currentStatus === 'active' ? 'inactive' : 'active';
     emit('toggleStatus', user.id, newStatus);
 };
@@ -216,7 +217,7 @@ const getGenderIcon = (gender: string): string => {
 
                 <template v-else-if="column.key === 'status'">
                     <a-switch
-                        :checked="record.status === 'active'"
+                        :checked="(record.status || 'active') === 'active'"
                         :checked-children="t('users.status.active')"
                         :un-checked-children="t('users.status.inactive')"
                         @change="handleStatusToggle(record)"
