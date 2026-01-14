@@ -4,6 +4,12 @@ definePageMeta({
     middleware: ['auth'],
 });
 
+useSeo({
+    title: 'Invoice',
+    description: 'View and manage your invoices and billing history.',
+    keywords: 'invoice, billing, payments, receipts, financial',
+});
+
 const { t } = useI18n();
 </script>
 

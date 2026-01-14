@@ -4,6 +4,12 @@ definePageMeta({
     middleware: ['auth'],
 });
 
+useSeo({
+    title: 'To-Do',
+    description: 'Manage your tasks and to-do items. Stay organized and productive.',
+    keywords: 'todo, tasks, task management, productivity, checklist',
+});
+
 const { t } = useI18n();
 </script>
 

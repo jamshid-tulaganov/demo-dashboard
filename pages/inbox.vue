@@ -4,6 +4,12 @@ definePageMeta({
     middleware: ['auth'],
 });
 
+useSeo({
+    title: 'Inbox',
+    description: 'View and manage your messages and notifications.',
+    keywords: 'inbox, messages, notifications, communication',
+});
+
 const { t } = useI18n();
 </script>
 

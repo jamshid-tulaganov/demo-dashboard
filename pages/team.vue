@@ -4,6 +4,12 @@ definePageMeta({
     middleware: ['auth'],
 });
 
+useSeo({
+    title: 'Team',
+    description: 'View and manage your team members and their roles.',
+    keywords: 'team, members, staff, employees, organization',
+});
+
 const { t } = useI18n();
 </script>
 

@@ -7,6 +7,12 @@ definePageMeta({
     middleware: ['auth'],
 });
 
+useSeo({
+    title: 'Login',
+    description: 'Sign in to your DashStack account to access your dashboard and manage your business.',
+    keywords: 'login, sign in, authentication, access',
+});
+
 const router = useRouter();
 const { t, setLocale, locales, locale } = useI18n();
 const { login, loading } = useAuth();

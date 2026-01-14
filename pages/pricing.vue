@@ -4,6 +4,12 @@ definePageMeta({
     middleware: ['auth'],
 });
 
+useSeo({
+    title: 'Pricing',
+    description: 'View pricing plans and subscription options for your business.',
+    keywords: 'pricing, plans, subscription, pricing tiers',
+});
+
 const { t } = useI18n();
 </script>
 

@@ -4,6 +4,12 @@ definePageMeta({
     middleware: ['auth'],
 });
 
+useSeo({
+    title: 'Contact',
+    description: 'Get in touch with us. View contact information and send messages.',
+    keywords: 'contact, support, help, reach us, communication',
+});
+
 const { t } = useI18n();
 </script>
 

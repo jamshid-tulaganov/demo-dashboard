@@ -4,6 +4,12 @@ definePageMeta({
     middleware: ['auth'],
 });
 
+useSeo({
+    title: 'Product Stock',
+    description: 'Monitor and manage your product inventory and stock levels.',
+    keywords: 'stock, inventory, product stock, warehouse, levels',
+});
+
 const { t } = useI18n();
 </script>
 

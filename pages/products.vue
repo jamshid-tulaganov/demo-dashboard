@@ -2,13 +2,19 @@
 import { ref, computed, onMounted, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { message, Modal } from 'ant-design-vue';
-import { PlusOutlined } from '@ant-design/icons-vue';
+import { PlusOutlined } from '@ant-design-icons-vue';
 import { useProductsStore, type Product } from '~/stores/products';
 import { useFavoritesStore } from '~/stores/favorites';
 
 definePageMeta({
     layout: 'default',
     middleware: ['auth'],
+});
+
+useSeo({
+    title: 'Products',
+    description: 'Manage your product catalog, inventory, and pricing. Add, edit, and organize products efficiently.',
+    keywords: 'products, inventory, catalog, pricing, stock management',
 });
 
 const { t } = useI18n();

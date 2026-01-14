@@ -4,6 +4,12 @@ definePageMeta({
     middleware: ['auth'],
 });
 
+useSeo({
+    title: 'Orders',
+    description: 'Track and manage customer orders. View order history and status updates.',
+    keywords: 'orders, order management, order history, tracking',
+});
+
 const { t } = useI18n();
 </script>
 

@@ -4,6 +4,12 @@ definePageMeta({
     middleware: ['auth'],
 });
 
+useSeo({
+    title: 'Settings',
+    description: 'Configure your application settings and preferences.',
+    keywords: 'settings, preferences, configuration, customize',
+});
+
 const { t } = useI18n();
 </script>
 

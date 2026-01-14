@@ -19,6 +19,19 @@ const route = useRoute();
 const router = useRouter();
 const { t } = useI18n();
 const productsStore = useProductsStore();
+
+// Dynamic SEO for product page
+const productTitle = computed(() => productsStore.currentProduct?.title || 'Product Details');
+const productDescription = computed(() => productsStore.currentProduct?.description || 'View product details, pricing, and availability.');
+const productImage = computed(() => productsStore.currentProduct?.thumbnail);
+
+useSeo({
+    title: productTitle.value,
+    description: productDescription.value,
+    image: productImage.value,
+    keywords: 'product, details, pricing, buy, shop',
+});
+
 const favoritesStore = useFavoritesStore();
 
 const product = computed(() => productsStore.currentProduct);

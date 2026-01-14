@@ -9,6 +9,12 @@ definePageMeta({
     middleware: ['auth'],
 });
 
+useSeo({
+    title: 'Profile',
+    description: 'View and edit your personal profile information and account settings.',
+    keywords: 'profile, account, personal information, settings',
+});
+
 const { t } = useI18n();
 const { user: authUser, getCurrentUser } = useAuth();
 const { client } = useApiClient();

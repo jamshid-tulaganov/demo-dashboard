@@ -6,6 +6,12 @@ definePageMeta({
     middleware: ['auth'],
 });
 
+useSeo({
+    title: 'Dashboard',
+    description: 'View your dashboard analytics, statistics, and key metrics at a glance.',
+    keywords: 'dashboard, analytics, statistics, metrics, overview',
+});
+
 const { t } = useI18n();
 const dashboardStore = useDashboardStore();
 

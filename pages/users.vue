@@ -9,6 +9,12 @@ definePageMeta({
     middleware: ['auth'],
 });
 
+useSeo({
+    title: 'Users',
+    description: 'Manage user accounts, roles, and permissions. View and edit user profiles.',
+    keywords: 'users, accounts, user management, roles, permissions',
+});
+
 const { t } = useI18n();
 const usersStore = useUsersStore();
 

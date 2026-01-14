@@ -4,6 +4,12 @@ definePageMeta({
     middleware: ['auth'],
 });
 
+useSeo({
+    title: 'Calendar',
+    description: 'View and manage your schedule, events, and appointments.',
+    keywords: 'calendar, schedule, events, appointments, planning',
+});
+
 const { t } = useI18n();
 </script>
 

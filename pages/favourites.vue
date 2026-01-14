@@ -8,6 +8,12 @@ definePageMeta({
     middleware: ['auth'],
 });
 
+useSeo({
+    title: 'Favourites',
+    description: 'View and manage your favorite products and items.',
+    keywords: 'favourites, favorites, saved items, wishlist',
+});
+
 const { t } = useI18n();
 const router = useRouter();
 const favoritesStore = useFavoritesStore();
