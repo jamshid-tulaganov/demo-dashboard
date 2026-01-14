@@ -10,6 +10,17 @@ export default defineNuxtConfig({
      * -------------------------------------------------- */
     nitro: {
         preset: 'netlify-static',
+        externals: {
+            inline: [
+                /shared/,
+                /widgets/,
+                /features/,
+                /entities/,
+            ],
+        },
+        rollupConfig: {
+            plugins: [],
+        },
     },
 
     /* ----------------------------------------------------
@@ -57,10 +68,7 @@ export default defineNuxtConfig({
                 /features/,
                 /entities/,
             ],
-        },
-        optimizeDeps: {
-            include: ['ant-design-vue', 'swiper'],
-        },
+        }
     },
 
     /* ----------------------------------------------------
