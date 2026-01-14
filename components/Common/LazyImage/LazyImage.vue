@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { ref, onMounted, onBeforeUnmount, watch } from 'vue';
 
 interface Props {
     src: string;
@@ -17,14 +17,13 @@ const props = withDefaults(defineProps<Props>(), {
 
 const imageRef = ref<HTMLImageElement | null>(null);
 const isLoaded = ref(false);
-const isInView = ref(false);
 const hasError = ref(false);
 const currentSrc = ref(props.placeholder);
 
 let observer: IntersectionObserver | null = null;
 
 const loadImage = () => {
-    if (isLoaded.value || hasError.value) return;
+    if (isLoaded.value || hasError.value || !props.src) return;
 
     const img = new Image();
     img.onload = () => {
@@ -37,37 +36,52 @@ const loadImage = () => {
     img.src = props.src;
 };
 
-onMounted(() => {
+const setupObserver = () => {
     if (!imageRef.value) return;
 
     // Check if IntersectionObserver is supported
-    if ('IntersectionObserver' in window) {
+    if (typeof window !== 'undefined' && 'IntersectionObserver' in window) {
         observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
-                    if (entry.isIntersecting && !isInView.value) {
-                        isInView.value = true;
+                    if (entry.isIntersecting) {
                         loadImage();
                         observer?.unobserve(entry.target);
                     }
                 });
             },
             {
-                rootMargin: '50px', // Start loading 50px before entering viewport
+                rootMargin: '100px',
+                threshold: 0,
             }
         );
 
         observer.observe(imageRef.value);
     } else {
-        // Fallback for browsers without IntersectionObserver
+        // Fallback: load immediately
+        loadImage();
+    }
+};
+
+// Watch for src changes
+watch(() => props.src, (newSrc) => {
+    if (newSrc && newSrc !== currentSrc.value) {
+        isLoaded.value = false;
+        hasError.value = false;
+        currentSrc.value = props.placeholder;
         loadImage();
     }
 });
 
+onMounted(() => {
+    // Small delay to ensure DOM is ready after hydration
+    setTimeout(setupObserver, 0);
+});
+
 onBeforeUnmount(() => {
-    if (observer && imageRef.value) {
-        observer.unobserve(imageRef.value);
+    if (observer) {
         observer.disconnect();
+        observer = null;
     }
 });
 </script>
@@ -85,6 +99,7 @@ onBeforeUnmount(() => {
                 { 'loaded': isLoaded, 'loading': !isLoaded && !hasError, 'error': hasError }
             ]"
             loading="lazy"
+            referrerpolicy="no-referrer"
         />
 
         <!-- Loading spinner -->

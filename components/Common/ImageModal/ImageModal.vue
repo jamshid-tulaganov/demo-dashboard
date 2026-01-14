@@ -54,6 +54,7 @@ const closeModal = () => {
                         :src="image"
                         :alt="`Product image ${index + 1}`"
                         class="w-full h-auto max-h-[70vh] object-contain"
+                        referrerpolicy="no-referrer"
                     />
                 </div>
             </SwiperSlide>

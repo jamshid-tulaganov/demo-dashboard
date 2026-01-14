@@ -313,7 +313,7 @@ defineExpose({
                     <div v-if="formData.images && formData.images.length > 0"
                         class="grid grid-cols-2 md:grid-cols-4 gap-2 mt-2">
                         <div v-for="(img, index) in formData.images" :key="index" class="relative group">
-                            <img :src="img" :alt="`Image ${index + 1}`" class="w-full h-24 object-cover rounded" />
+                            <img :src="img" :alt="`Image ${index + 1}`" class="w-full h-24 object-cover rounded" referrerpolicy="no-referrer" />
                             <button type="button"
                                 class="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
                                 @click="removeImage(index)">

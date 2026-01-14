@@ -142,10 +142,12 @@ export default defineNuxtConfig({
             meta: [
                 { charset: 'utf-8' },
                 { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+                { name: 'referrer', content: 'no-referrer-when-downgrade' },
             ],
             link: [
                 { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
                 { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
+                { rel: 'preconnect', href: 'https://cdn.dummyjson.com' },
             ],
         },
     },

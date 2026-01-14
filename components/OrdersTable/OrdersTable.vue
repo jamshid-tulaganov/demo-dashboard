@@ -134,6 +134,7 @@ const formatPrice = (price: number) => {
                             :src="record.productImage"
                             :alt="record.productName"
                             class="w-10 h-10 rounded-lg object-cover"
+                            referrerpolicy="no-referrer"
                         />
                         <span
                             class="font-medium text-light-text-primary dark:text-dark-text-primary"
