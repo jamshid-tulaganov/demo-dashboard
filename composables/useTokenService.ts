@@ -46,39 +46,24 @@ export const useTokenService = () => {
         return refreshToken.value ?? null
     }
 
-    /**
-     * Set tokens after login
-     */
     function setTokens(access: string, refresh: string): void {
         accessToken.value = access
         refreshToken.value = refresh
     }
 
-    /**
-     * Clear all tokens (logout)
-     */
     function clearTokens(): void {
         accessToken.value = null
         refreshToken.value = null
     }
 
-    /**
-     * Check if user has valid access token
-     */
     function hasAccessToken(): boolean {
         return !!accessToken.value
     }
 
-    /**
-     * Check if user has refresh token
-     */
     function hasRefreshToken(): boolean {
         return !!refreshToken.value
     }
 
-    /**
-     * Process queued requests after successful refresh
-     */
     function processQueue(error: Error | null, token: string | null): void {
         state.failedQueue.forEach((promise) => {
             if (error) {
@@ -90,11 +75,6 @@ export const useTokenService = () => {
         state.failedQueue = []
     }
 
-    /**
-     * Refresh access token with queue management
-     * Ensures only one refresh request is made at a time
-     * Multiple concurrent 401s will wait for the same refresh
-     */
     async function refreshAccessToken(): Promise<string> {
         // If no refresh token, reject immediately
         if (!refreshToken.value) {
