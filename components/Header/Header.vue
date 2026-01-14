@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router';
 import { useSidebarStore } from '~/stores/sidebar';
 
 const { t } = useI18n();
-const { logout, user } = useAuth();
+const { logout, user, getCurrentUser } = useAuth();
 const router = useRouter();
 const sidebarStore = useSidebarStore();
 
@@ -35,6 +35,8 @@ const handleProfileMenuClick = (key: string) => {
         showLogoutModal.value = true;
     }
 };
+
+onMounted(() => getCurrentUser())
 </script>
 
 <template>
@@ -85,7 +87,8 @@ const handleProfileMenuClick = (key: string) => {
 
                 <!-- Notifications -->
                 <a-badge :count="notificationCount" :overflow-count="99">
-                    <a-button type="text" size="large" @click="openNotificationsModal" class="flex items-center justify-center p-2">
+                    <a-button type="text" size="large" @click="openNotificationsModal"
+                        class="flex items-center justify-center p-2">
                         <Icon name="notification" :size="20"
                             class="text-light-text-secondary dark:text-dark-text-secondary" />
                     </a-button>
