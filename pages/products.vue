@@ -2,7 +2,7 @@
 import { ref, computed, onMounted, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { message, Modal } from 'ant-design-vue';
-import { PlusOutlined } from '@ant-design-icons-vue';
+import { PlusOutlined } from '@ant-design/icons-vue';
 import { useProductsStore, type Product } from '~/stores/products';
 import { useFavoritesStore } from '~/stores/favorites';
 
@@ -427,7 +427,8 @@ const exportToCSV = () => {
                             {{ t('products.filters.reset') }}
                         </a-button>
                         <a-button type="primary" @click="exportToCSV" class="flex-1 sm:flex-none">
-                            {{ selectedRowKeys.length > 0 ? `Export ${selectedRowKeys.length} Selected` : t('products.export.button') }}
+                            {{ selectedRowKeys.length > 0 ? `Export ${selectedRowKeys.length} Selected` :
+                                t('products.export.button') }}
                         </a-button>
                         <a-button v-if="selectedRowKeys.length > 0" danger @click="handleBulkDelete"
                             class="flex-1 sm:flex-none">
@@ -445,19 +446,10 @@ const exportToCSV = () => {
 
         <!-- Products Table -->
         <TableSkeleton v-if="loading && paginatedProducts.length === 0" :rows="10" :columns="11" />
-        <ProductsTable
-            v-else
-            :products="paginatedProducts"
-            :loading="loading"
-            :selected-row-keys="selectedRowKeys"
-            :pagination="pagination"
-            :is-favorite="favoritesStore.isFavorite"
-            @edit="handleEdit"
-            @delete="handleDelete"
-            @toggle-favorite="handleToggleFavorite"
-            @selection-change="handleSelectionChange"
-            @page-change="handlePageChange"
-        />
+        <ProductsTable v-else :products="paginatedProducts" :loading="loading" :selected-row-keys="selectedRowKeys"
+            :pagination="pagination" :is-favorite="favoritesStore.isFavorite" @edit="handleEdit" @delete="handleDelete"
+            @toggle-favorite="handleToggleFavorite" @selection-change="handleSelectionChange"
+            @page-change="handlePageChange" />
 
         <!-- Product Modal -->
         <ProductModal v-model:open="modalVisible" :product="currentProduct" :categories="categories"
