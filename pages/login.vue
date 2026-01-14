@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
-import { useAuth } from '~/shared/lib';
-import { Logo } from '~/shared/ui';
 import { message } from 'ant-design-vue';
-import { ThemeSwitcher } from '~/widgets/ThemeSwitcher';
 
 definePageMeta({
     layout: 'auth',

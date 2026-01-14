@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ConfigProvider, theme } from 'ant-design-vue';
-import { useTheme } from '~/shared/lib/theme';
 
 const { isDark, themeConfig } = useTheme();
 </script>

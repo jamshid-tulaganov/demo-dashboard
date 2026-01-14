@@ -44,14 +44,14 @@ export default defineNuxtConfig({
     },
 
     /* ----------------------------------------------------
-     * AUTO COMPONENT REGISTRATION (FSD)
+     * AUTO COMPONENT REGISTRATION
      * -------------------------------------------------- */
     components: {
         dirs: [
+            { path: '~/components', pathPrefix: false },
             { path: '~/widgets', pathPrefix: false },
             { path: '~/features', pathPrefix: false },
             { path: '~/entities', pathPrefix: false },
-            { path: '~/shared/ui', pathPrefix: false },
         ],
     },
 

@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
 import dayjs from 'dayjs';
-import { useApiClient } from '~/shared/lib/api/useApiClient';
+import { useApiClient } from '~/composables/useApiClient';
 
 export interface Order {
     id: number;

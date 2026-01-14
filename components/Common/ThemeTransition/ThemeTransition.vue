@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useTheme } from '~/shared/lib/theme';
-
 const { isDark, toggleTheme } = useTheme();
 
 const handleToggle = async (event: MouseEvent) => {

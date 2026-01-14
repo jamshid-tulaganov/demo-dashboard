@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { debounce, debounceAsync, throttle } from '~/shared/lib/utils/debounce';
+import { debounce, debounceAsync, throttle } from '~/utils/debounce';
 
 describe('Debounce Utility', () => {
     beforeEach(() => {

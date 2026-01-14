@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { useTheme } from '~/shared/lib/theme';
 
 interface LogoProps {
     /** Width of the logo */

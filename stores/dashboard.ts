@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
-import { useApiClient } from '~/shared/lib/api/useApiClient';
+import { useApiClient } from '~/composables/useApiClient';
 
 export interface DashboardStats {
     totalUsers: number;

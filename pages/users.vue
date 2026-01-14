@@ -6,7 +6,6 @@ import { useUsersStore, type User } from '~/stores/users';
 import UsersTable from '~/widgets/UsersTable/UsersTable.vue';
 import UserModal from '~/widgets/UserModal/UserModal.vue';
 import UserDetailModal from '~/widgets/UserDetailModal/UserDetailModal.vue';
-import { TableSkeleton } from '~/shared/ui';
 
 definePageMeta({
     layout: 'default',

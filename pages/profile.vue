@@ -2,10 +2,6 @@
 import { ref, onMounted } from 'vue';
 import { message } from 'ant-design-vue';
 import { EditOutlined } from '@ant-design/icons-vue';
-import { useAuth } from '~/shared/lib';
-import { useApiClient } from '~/shared/lib/api/useApiClient';
-import { LazyImage } from '~/shared/ui';
-import { UserModal } from '~/widgets/UserModal';
 import type { User } from '~/stores/users';
 
 definePageMeta({
