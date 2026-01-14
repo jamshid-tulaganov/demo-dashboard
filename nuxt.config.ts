@@ -1,14 +1,26 @@
 import { defineNuxtConfig } from "nuxt/config";
 import { resolve } from "path";
+// 2026 Fix: Use explicit import for Vue plugin to resolve Nitro parsing errors
+import vue from '@vitejs/plugin-vue';
 
 export default defineNuxtConfig({
     compatibilityDate: "2026-01-01",
+    srcDir: '.',
 
-    // 1. Nitro: Fixes the 'Expression expected' and 'rollup-plugin-inject' errors
+    // 1. Nitro: Fixes 'Expression expected' and 'rollup-plugin-inject' errors
     nitro: {
         preset: 'netlify',
+        rollupConfig: {
+            // @ts-ignore
+            plugins: [vue()],
+        },
         externals: {
-            inline: [resolve(__dirname, './shared'), resolve(__dirname, './widgets')]
+            inline: [
+                resolve(__dirname, './shared'),
+                resolve(__dirname, './widgets'),
+                resolve(__dirname, './features'),
+                resolve(__dirname, './entities')
+            ]
         },
     },
 
@@ -20,7 +32,7 @@ export default defineNuxtConfig({
         "@nuxtjs/i18n"
     ],
 
-    // 3. FSD Aliases: Ensures imports like 'shared/ui/Button' work
+    // 3. FSD Aliases
     alias: {
         "shared": resolve(__dirname, "./shared"),
         "widgets": resolve(__dirname, "./widgets"),
@@ -28,11 +40,12 @@ export default defineNuxtConfig({
         "entities": resolve(__dirname, "./entities"),
     },
 
-    // 4. Component Scanning: Auto-imports your FSD components
+    // 4. Component Scanning
     components: {
         dirs: [
-            { path: '~/components', pathPrefix: false },
             { path: '~/widgets', pathPrefix: false },
+            { path: '~/features', pathPrefix: false },
+            { path: '~/entities', pathPrefix: false },
             {
                 path: '~/shared/ui',
                 pathPrefix: false,
@@ -41,14 +54,21 @@ export default defineNuxtConfig({
         ],
     },
 
-    // 5. Vite: Critical for parsing .vue files inside the shared folder
+    // 5. Vite: Critical for parsing .vue files inside custom FSD folders
     vite: {
         optimizeDeps: {
-            include: ['ant-design-vue', 'swiper'],
+            include: ['ant-design-vue', 'swiper', 'vue'],
         },
         ssr: {
-            // Prevents rollup-plugin-inject from parsing .vue files as JS
-            noExternal: [/^shared/, 'ant-design-vue', 'swiper'],
+            // Prevents rollup-plugin-inject from failing on .vue files in these folders
+            noExternal: [
+                /shared/,
+                /widgets/,
+                /features/,
+                /entities/,
+                'ant-design-vue',
+                'swiper'
+            ],
         },
         server: {
             fs: {
@@ -57,14 +77,25 @@ export default defineNuxtConfig({
         },
     },
 
-    // 6. i18n: Configured for your /i18n folder
+    // 6. Build Transpile: Prevents "Expression expected" by processing modern JS/TS
+    build: {
+        transpile: [
+            'ant-design-vue',
+            'shared',
+            'widgets',
+            'features',
+            'entities'
+        ],
+    },
+
+    // 7. i18n Configuration
     i18n: {
         locales: [
             { code: 'en', name: 'English', file: 'en.json' },
             { code: 'ru', name: 'Русский', file: 'ru.json' },
             { code: 'uz', name: "O'zbekcha", file: 'uz.json' },
         ],
-        langDir: '',
+        langDir: '.',
         defaultLocale: 'uz',
         strategy: 'prefix_except_default',
         detectBrowserLanguage: {
@@ -74,7 +105,7 @@ export default defineNuxtConfig({
         },
     },
 
-    // 7. Styling and UI
+    // 8. Styling and UI
     css: ["ant-design-vue/dist/reset.css"],
 
     antd: {
@@ -86,7 +117,7 @@ export default defineNuxtConfig({
         viewer: false,
     },
 
-    // 8. Runtime and Experimental
+    // 9. Runtime and Experimental
     runtimeConfig: {
         public: {
             apiBaseUrl: 'https://dummyjson.com',
@@ -102,7 +133,7 @@ export default defineNuxtConfig({
         typeCheck: false,
     },
 
-    // 9. Meta Tags
+    // 10. Meta Tags
     app: {
         head: {
             title: "Demo Dashboard",
@@ -113,7 +144,7 @@ export default defineNuxtConfig({
             link: [
                 { rel: "preconnect", href: "https://fonts.googleapis.com" },
                 { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" },
-                { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200..1000&display=swap" },
+                { rel: "stylesheet", href: "fonts.googleapis.com" },
             ],
         },
     },
