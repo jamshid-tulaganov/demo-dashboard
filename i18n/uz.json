@@ -97,7 +97,8 @@
         "updateSuccess": "Muvaffaqiyatli yangilandi",
         "createSuccess": "Muvaffaqiyatli yaratildi",
         "confirmDelete": "Ushbu elementni o'chirishni xohlaysizmi?",
-        "unsavedChanges": "Saqlanmagan o'zgarishlar mavjud. Chiqmoqchimisiz?"
+        "unsavedChanges": "Saqlanmagan o'zgarishlar mavjud. Chiqmoqchimisiz?",
+        "updateError": "Xato"
     },
     "profile": {
         "title": "Profil",
@@ -271,7 +272,6 @@
             "discount": "Chegirma foizi",
             "stock": "Zaxira",
             "sku": "Artikul",
-            "availability": "Mavjudlik holati",
             "minimumOrder": "Minimal buyurtma miqdori",
             "rating": "Reyting",
             "weight": "Og'irlik",
@@ -604,9 +604,5 @@
             "noData": "Ma'lumot yo'q",
             "success": "Eksport qilindi"
         }
-    },
-    "messages": {
-        "updateSuccess": "Muvaffaqiyatli",
-        "updateError": "Xato"
     }
 }

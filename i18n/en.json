@@ -94,10 +94,11 @@
     "messages": {
         "saveSuccess": "Saved successfully",
         "deleteSuccess": "Deleted successfully",
-        "updateSuccess": "Updated successfully",
         "createSuccess": "Created successfully",
         "confirmDelete": "Are you sure you want to delete this item?",
-        "unsavedChanges": "You have unsaved changes. Do you want to leave?"
+        "unsavedChanges": "You have unsaved changes. Do you want to leave?",
+        "updateSuccess": "Success",
+        "updateError": "Error updating item"
     },
     "profile": {
         "title": "Profile",
@@ -603,9 +604,5 @@
             "noData": "No users to export",
             "success": "Users exported successfully"
         }
-    },
-    "messages": {
-        "updateSuccess": "Success",
-        "updateError": "Error"
     }
 }
