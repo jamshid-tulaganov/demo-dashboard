@@ -2,7 +2,7 @@
 
 A modern, feature-rich Nuxt 3 dashboard with dark/light themes, multi-language support, and custom design system.
 
-## 🚀 Quick Start
+## Quick Start
 
 ```bash
 # Install dependencies
@@ -18,47 +18,52 @@ npm run build
 npm run preview
 ```
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 demo-dashboard/
-├── app/                    # App-level code
-│   └── providers/         # Theme and locale providers
-├── assets/                # Static assets (fonts, images)
-├── layouts/               # Page layouts
-│   ├── default.vue       # Main dashboard layout
-│   └── auth.vue          # Authentication layout
-├── pages/                # Application pages
-│   ├── index.vue         # Dashboard home
-│   └── login.vue         # Login page
-├── shared/               # Shared UI components and utilities
-│   ├── ui/              # Reusable UI components
-│   └── lib/             # Utilities and composables
-├── widgets/             # Feature widgets (Header, etc.)
+├── components/           # All UI components (auto-imported)
+│   ├── Common/          # Shared UI components (Button, Icon, Logo, etc.)
+│   ├── Header/          # Header component
+│   ├── Sidebar/         # Sidebar navigation
+│   ├── DashboardStats/  # Dashboard statistics components
+│   └── ...              # Other feature components
+├── composables/         # Vue composables (auto-imported)
+│   ├── useAuth.ts       # Authentication logic
+│   ├── useApiClient.ts  # API client utilities
+│   ├── useTheme.ts      # Theme management
+│   └── useSidebar.ts    # Sidebar state
+├── utils/               # Utility functions
+│   └── debounce.ts      # Debounce and throttle utilities
+├── stores/              # Pinia stores
+├── pages/               # Application pages
+│   ├── index.vue        # Dashboard home
+│   └── login.vue        # Login page
+├── layouts/             # Page layouts
+│   ├── default.vue      # Main dashboard layout
+│   └── auth.vue         # Authentication layout
+├── locales/             # i18n translation files
+├── assets/              # Static assets (fonts, images)
 └── public/              # Public static files
-    ├── icons/          # SVG icons
-    └── assets/         # Logo files
+    ├── icons/           # SVG icons
+    └── assets/          # Logo files
 ```
 
-## 🎨 Features
+## Features
 
 ### 1. Dark/Light Theme
 
 **Toggle anywhere in the app:**
 ```vue
-<script setup>
-import { ThemeSwitcher } from '~/widgets/ThemeSwitcher';
-</script>
-
 <template>
+    <!-- ThemeSwitcher is auto-imported -->
     <ThemeSwitcher />
 </template>
 ```
 
 **Use in code:**
 ```typescript
-import { useTheme } from '~/shared/lib/theme';
-
+// useTheme is auto-imported by Nuxt
 const { isDark, toggleTheme } = useTheme();
 ```
 
@@ -74,11 +79,8 @@ const { isDark, toggleTheme } = useTheme();
 
 **Switch language:**
 ```vue
-<script setup>
-import { LanguageSwitcher } from '~/widgets/LanguageSwitcher';
-</script>
-
 <template>
+    <!-- LanguageSwitcher is auto-imported -->
     <LanguageSwitcher />
 </template>
 ```
@@ -86,9 +88,8 @@ import { LanguageSwitcher } from '~/widgets/LanguageSwitcher';
 **Use translations:**
 ```vue
 <script setup>
-import { useLocale } from '~/shared/lib/i18n';
-
-const { t } = useLocale();
+// useI18n is auto-imported by Nuxt
+const { t } = useI18n();
 </script>
 
 <template>
@@ -106,11 +107,8 @@ const { t } = useLocale();
 
 **Use in components:**
 ```vue
-<script setup>
-import { Icon } from '~/shared/ui';
-</script>
-
 <template>
+    <!-- Icon is auto-imported -->
     <!-- Basic -->
     <Icon name="home" />
 
@@ -131,11 +129,8 @@ npm run icons:convert ./your-icons-folder ./public/icons
 
 **Logo automatically switches for dark/light mode:**
 ```vue
-<script setup>
-import { Logo } from '~/shared/ui';
-</script>
-
 <template>
+    <!-- Logo is auto-imported -->
     <!-- Default size -->
     <Logo />
 
@@ -148,7 +143,7 @@ import { Logo } from '~/shared/ui';
 - `dark.svg` - Shows in light mode
 - `light.svg` - Shows in dark mode
 
-## 🎯 Typography
+## Typography
 
 **Font:** Nunito Sans (loaded from Google Fonts)
 
@@ -167,7 +162,7 @@ import { Logo } from '~/shared/ui';
 </template>
 ```
 
-## 🎨 Color System
+## Color System
 
 ### Tailwind Classes
 
@@ -193,7 +188,7 @@ import { Logo } from '~/shared/ui';
 
 **Chart colors:** `text-chart-purple`, `text-chart-yellow`, `text-chart-green`, etc.
 
-## 🏗️ Creating New Pages
+## Creating New Pages
 
 1. Create file in `pages/` directory
 2. Choose a layout:
@@ -210,9 +205,11 @@ definePageMeta({
 </template>
 ```
 
-## 🧩 Components
+## Components
 
-### Built-in Components
+All components are **auto-imported** by Nuxt. No import statements needed!
+
+### Common Components
 
 **Icon** - SVG icons with theme support
 ```vue
@@ -229,6 +226,25 @@ definePageMeta({
 <Button>Click me</Button>
 ```
 
+**StatusChip** - Status indicator
+```vue
+<StatusChip status="active" />
+```
+
+**LazyImage** - Optimized image loading
+```vue
+<LazyImage src="/path/to/image.jpg" alt="Description" />
+```
+
+### Feature Components
+
+- **Header** - Top navigation bar
+- **Sidebar** - Side navigation menu
+- **ThemeSwitcher** - Theme toggle
+- **LanguageSwitcher** - Language selector
+- **SearchModal** - Global search
+- **NotificationsModal** - Notifications panel
+
 ### Ant Design Components
 
 All Ant Design Vue components are available:
@@ -240,7 +256,37 @@ All Ant Design Vue components are available:
 </template>
 ```
 
-## 🛠️ Common Tasks
+## Composables
+
+All composables are **auto-imported** by Nuxt.
+
+### useAuth
+```typescript
+const { user, login, logout, isAuthenticated } = useAuth();
+```
+
+### useApiClient
+```typescript
+const { fetch, client, loading } = useApiClient();
+
+// SSR-friendly fetch
+const { data } = await fetch.get('/users');
+
+// Client-side mutations
+await client.post('/users', { body: userData });
+```
+
+### useTheme
+```typescript
+const { isDark, toggleTheme, themeConfig } = useTheme();
+```
+
+### useSidebar
+```typescript
+const { collapsed, toggleCollapsed, mobileMenuOpen } = useSidebar();
+```
+
+## Common Tasks
 
 ### Add a new language
 
@@ -248,15 +294,16 @@ All Ant Design Vue components are available:
 2. Update `nuxt.config.ts`:
 ```typescript
 i18n: {
-    locales: ['en', 'ru', 'uz', 'fr'],
+    locales: [
+        { code: 'fr', name: 'Français', file: 'fr.json' },
+        // ...existing locales
+    ],
 }
 ```
-3. Update `i18n.config.ts` to import the new locale
-4. Update `useLocale.ts` to include the new language
 
 ### Change primary color
 
-Edit `shared/lib/theme/useTheme.ts`:
+Edit `composables/useTheme.ts`:
 ```typescript
 token: {
     colorPrimary: '#YOUR_COLOR',
@@ -273,7 +320,7 @@ fontFamily: {
 }
 ```
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### "Failed to fetch dynamically imported module"
 ```bash
@@ -297,7 +344,7 @@ npm run dev
 - Verify locale file is imported in `i18n.config.ts`
 - Check for typos in translation key
 
-## 📦 Tech Stack
+## Tech Stack
 
 - **Framework:** Nuxt 3
 - **UI Library:** Ant Design Vue
@@ -306,24 +353,23 @@ npm run dev
 - **Internationalization:** @nuxtjs/i18n
 - **TypeScript:** Full type safety
 
-## 🔧 Configuration Files
+## Configuration Files
 
 - `nuxt.config.ts` - Nuxt configuration
 - `tailwind.config.js` - Tailwind CSS setup
 - `i18n.config.ts` - i18n configuration
 - `tsconfig.json` - TypeScript settings
-- `.eslintrc.cjs` - ESLint rules
 
-## 📝 Best Practices
+## Best Practices
 
-1. **Use composables** - Keep logic in `shared/lib/`
-2. **Follow FSD** - Organize by features, not by type
+1. **Use composables** - Keep logic in `composables/`
+2. **Auto-imports** - Components and composables are auto-imported
 3. **Type everything** - Use TypeScript for all code
 4. **Theme-aware** - Always consider dark/light modes
 5. **Translations** - Use `t()` for all user-facing text
 6. **SSR-safe** - Use `typeof window !== 'undefined'` for browser APIs
 
-## 🚀 Deployment
+## Deployment
 
 ```bash
 # Build for production
@@ -336,7 +382,7 @@ npm run preview
 npm run generate
 ```
 
-## 📄 License
+## License
 
 Private project
 

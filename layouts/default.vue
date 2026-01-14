@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { Header } from '~/widgets/Header';
-import { Sidebar } from '~/widgets/Sidebar';
+// Components are auto-imported by Nuxt
 </script>
 
 <template>

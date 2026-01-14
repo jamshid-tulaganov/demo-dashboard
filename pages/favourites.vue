@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import ProductCard from '~/widgets/ProductCard/ProductCard.vue';
 import { useFavoritesStore } from '~/stores/favorites';
 import { message } from 'ant-design-vue';
 import { HeartFilled } from '@ant-design/icons-vue';

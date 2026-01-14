@@ -7,7 +7,6 @@ import 'swiper/css/pagination';
 import 'swiper/css/thumbs';
 import { useFavoritesStore } from '~/stores/favorites';
 import { useProductsStore } from '~/stores/products';
-import EditProductModal from '~/widgets/EditProductModal/EditProductModal.vue';
 import type { Product } from '~/stores/products';
 import { message } from 'ant-design-vue';
 

@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import StatCard from '~/widgets/DashboardStats/StatCard.vue';
-import SalesChart from '~/widgets/DashboardStats/SalesChart.vue';
-import OrdersTable from '~/widgets/OrdersTable/OrdersTable.vue';
 import { useDashboardStore } from '~/stores/dashboard';
 
 definePageMeta({

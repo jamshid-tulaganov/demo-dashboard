@@ -13,7 +13,6 @@ export default defineNuxtConfig({
         externals: {
             inline: [
                 /shared/,
-                /widgets/,
                 /features/,
                 /entities/,
             ],
@@ -38,7 +37,6 @@ export default defineNuxtConfig({
      * -------------------------------------------------- */
     alias: {
         shared: resolve(__dirname, './shared'),
-        widgets: resolve(__dirname, './widgets'),
         features: resolve(__dirname, './features'),
         entities: resolve(__dirname, './entities'),
     },
@@ -49,7 +47,6 @@ export default defineNuxtConfig({
     components: {
         dirs: [
             { path: '~/components', pathPrefix: false },
-            { path: '~/widgets', pathPrefix: false },
             { path: '~/features', pathPrefix: false },
             { path: '~/entities', pathPrefix: false },
         ],
@@ -64,7 +61,6 @@ export default defineNuxtConfig({
                 'ant-design-vue',
                 'swiper',
                 /shared/,
-                /widgets/,
                 /features/,
                 /entities/,
             ],

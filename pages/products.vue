@@ -5,8 +5,6 @@ import { message, Modal } from 'ant-design-vue';
 import { PlusOutlined } from '@ant-design/icons-vue';
 import { useProductsStore, type Product } from '~/stores/products';
 import { useFavoritesStore } from '~/stores/favorites';
-import ProductsTable from '~/widgets/ProductsTable/ProductsTable.vue';
-import ProductModal from '~/widgets/ProductModal/ProductModal.vue';
 
 definePageMeta({
     layout: 'default',

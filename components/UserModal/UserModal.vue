@@ -2,7 +2,6 @@
 import { ref, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import type { User } from '~/stores/users';
-import UserForm from '~/widgets/UserForm/UserForm.vue';
 
 interface Props {
     open: boolean;
