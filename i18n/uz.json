@@ -28,7 +28,8 @@
             "passwordRequired": "Iltimos, parolingizni kiriting!",
             "forgotPassword": "Parolni unutdingizmi?",
             "noAccount": "Hisobingiz yo'qmi?",
-            "signUp": "Ro'yxatdan o'tish"
+            "signUp": "Ro'yxatdan o'tish",
+            "success": "Tizimga kirish muvaffaqiyatli yakunlandi"
         },
         "logout": {
             "title": "Chiqish",

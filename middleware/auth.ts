@@ -1,4 +1,9 @@
 export default defineNuxtRouteMiddleware(async (to) => {
+    // Skip on server-side for static builds - cookies not available during SSG
+    if (import.meta.server) {
+        return
+    }
+
     const tokenService = useTokenService()
 
     const hasAccess = tokenService.hasAccessToken()

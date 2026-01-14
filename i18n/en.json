@@ -28,7 +28,8 @@
             "passwordRequired": "Please input your password!",
             "forgotPassword": "Forgot password?",
             "noAccount": "Don't have an account?",
-            "signUp": "Sign up"
+            "signUp": "Sign up",
+            "success": "You have successfully signed in"
         },
         "logout": {
             "title": "Logout",
