@@ -179,12 +179,14 @@ const getGenderIcon = (gender: string): string => {
         >
             <template #bodyCell="{ column, record }">
                 <template v-if="column.key === 'image'">
-                    <LazyImage
+                    <img
                         :src="record.image"
                         :alt="record.firstName"
                         class="w-12 h-12 rounded-full object-cover"
                         width="48"
                         height="48"
+                        loading="lazy"
+                        referrerpolicy="no-referrer"
                     />
                 </template>
 

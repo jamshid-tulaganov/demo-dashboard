@@ -91,12 +91,14 @@ const renderStars = (rating: number) => {
                         class="image-container"
                         @click.stop="openImageModal(index, $event)"
                     >
-                        <LazyImage
+                        <img
                             :src="image"
                             :alt="`${product.title} - ${index + 1}`"
                             class="w-full h-48 object-cover rounded-t-lg"
                             width="300"
                             height="192"
+                            loading="lazy"
+                            referrerpolicy="no-referrer"
                         />
                     </div>
                 </SwiperSlide>

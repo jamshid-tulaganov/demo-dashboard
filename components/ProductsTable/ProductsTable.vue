@@ -167,12 +167,14 @@ const getAvailabilityColor = (status?: string): string => {
         >
             <template #bodyCell="{ column, record }">
                 <template v-if="column.key === 'thumbnail'">
-                    <LazyImage
+                    <img
                         :src="record.thumbnail"
                         :alt="record.title"
                         class="w-16 h-16 object-cover rounded"
                         width="64"
                         height="64"
+                        loading="lazy"
+                        referrerpolicy="no-referrer"
                     />
                 </template>
 
