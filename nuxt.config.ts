@@ -69,7 +69,7 @@ export default defineNuxtConfig({
             { code: 'ru', name: 'Русский', file: 'ru.json' },
             { code: 'uz', name: "O'zbekcha", file: 'uz.json' },
         ],
-        langDir: 'i18n',
+        langDir: '',
         defaultLocale: 'uz',
         detectBrowserLanguage: {
             useCookie: true,
