@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { EditOutlined, DeleteOutlined, MoreOutlined } from '@ant-design/icons-vue';
+import { EditOutlined, DeleteOutlined, MoreOutlined, HeartOutlined, HeartFilled } from '@ant-design/icons-vue';
 import type { Product } from '~/stores/products';
 import { LazyImage } from '~/shared/ui';
 
@@ -14,16 +14,19 @@ interface Props {
         pageSize: number;
         total: number;
     };
+    isFavorite?: (productId: number) => boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
     loading: false,
     selectedRowKeys: () => [],
+    isFavorite: () => () => false,
 });
 
 const emit = defineEmits<{
     edit: [product: Product];
     delete: [id: number];
+    toggleFavorite: [product: Product];
     selectionChange: [selectedKeys: number[]];
     pageChange: [page: number, pageSize: number];
 }>();
@@ -99,7 +102,7 @@ const columns = computed(() => [
     {
         title: t('products.table.actions'),
         key: 'actions',
-        width: 120,
+        width: 150,
         fixed: 'right',
         align: 'center',
     },
@@ -118,6 +121,10 @@ const handleEdit = (product: Product) => {
 
 const handleDelete = (id: number) => {
     emit('delete', id);
+};
+
+const handleToggleFavorite = (product: Product) => {
+    emit('toggleFavorite', product);
 };
 
 const handlePageChange = (page: number, pageSize: number) => {
@@ -212,7 +219,20 @@ const getAvailabilityColor = (status?: string): string => {
                 </template>
 
                 <template v-else-if="column.key === 'actions'">
-                    <div class="flex justify-center">
+                    <div class="flex justify-center gap-2">
+                        <!-- Favorite Button -->
+                        <a-button
+                            type="text"
+                            @click="handleToggleFavorite(record)"
+                            class="favorite-btn"
+                        >
+                            <template #icon>
+                                <HeartFilled v-if="isFavorite(record.id)" class="text-red-500" />
+                                <HeartOutlined v-else />
+                            </template>
+                        </a-button>
+
+                        <!-- Actions Dropdown -->
                         <a-dropdown placement="bottomRight" :trigger="['click']">
                             <a-button type="text">
                                 <template #icon>
@@ -378,5 +398,14 @@ const getAvailabilityColor = (status?: string): string => {
 
 .products-table :deep(.ant-dropdown-menu .delete-menu-item .flex) {
     @apply text-red-500 dark:text-red-400;
+}
+
+/* Favorite button */
+.favorite-btn {
+    @apply transition-all duration-200;
+}
+
+.favorite-btn:hover :deep(.anticon) {
+    @apply scale-110;
 }
 </style>

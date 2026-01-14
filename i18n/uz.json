@@ -152,6 +152,15 @@
             "myProfile": "Mening profilim",
             "theme": "Mavzu",
             "language": "Til"
+        },
+        "notifications": {
+            "title": "Bildirishnomalar",
+            "markAllRead": "Hammasini o'qilgan qilish",
+            "clearAll": "Hammasini tozalash",
+            "empty": {
+                "title": "Bildirishnomalar yo'q",
+                "description": "Sizda hali bildirishnomalar yo'q. Yangi xabar kelganda sizni xabardor qilamiz."
+            }
         }
     },
     "search": {

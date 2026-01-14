@@ -4,6 +4,7 @@ import { useI18n } from 'vue-i18n';
 import { message, Modal } from 'ant-design-vue';
 import { PlusOutlined } from '@ant-design/icons-vue';
 import { useProductsStore, type Product } from '~/stores/products';
+import { useFavoritesStore } from '~/stores/favorites';
 import ProductsTable from '~/widgets/ProductsTable/ProductsTable.vue';
 import ProductModal from '~/widgets/ProductModal/ProductModal.vue';
 import { TableSkeleton } from '~/shared/ui';
@@ -15,6 +16,7 @@ definePageMeta({
 
 const { t } = useI18n();
 const productsStore = useProductsStore();
+const favoritesStore = useFavoritesStore();
 
 // State
 const searchQuery = ref('');
@@ -119,6 +121,7 @@ const sortOptions = [
 ];
 
 onMounted(async () => {
+    favoritesStore.loadFavorites();
     await Promise.all([
         productsStore.fetchProducts(100, 0),
         productsStore.fetchCategories(),
@@ -172,6 +175,15 @@ const handleDelete = (id: number) => {
             }
         },
     });
+};
+
+const handleToggleFavorite = (product: Product) => {
+    favoritesStore.toggleFavorite(product);
+    if (favoritesStore.isFavorite(product.id)) {
+        message.success(t('favorites.addedToFavorites'));
+    } else {
+        message.success(t('favorites.removedFromFavorites'));
+    }
 };
 
 const handleSelectionChange = (keys: number[]) => {
@@ -430,9 +442,19 @@ const exportToCSV = () => {
 
         <!-- Products Table -->
         <TableSkeleton v-if="loading && paginatedProducts.length === 0" :rows="10" :columns="11" />
-        <ProductsTable v-else :products="paginatedProducts" :loading="loading" :selected-row-keys="selectedRowKeys"
-            :pagination="pagination" @edit="handleEdit" @delete="handleDelete" @selection-change="handleSelectionChange"
-            @page-change="handlePageChange" />
+        <ProductsTable
+            v-else
+            :products="paginatedProducts"
+            :loading="loading"
+            :selected-row-keys="selectedRowKeys"
+            :pagination="pagination"
+            :is-favorite="favoritesStore.isFavorite"
+            @edit="handleEdit"
+            @delete="handleDelete"
+            @toggle-favorite="handleToggleFavorite"
+            @selection-change="handleSelectionChange"
+            @page-change="handlePageChange"
+        />
 
         <!-- Product Modal -->
         <ProductModal v-model:open="modalVisible" :product="currentProduct" :categories="categories"

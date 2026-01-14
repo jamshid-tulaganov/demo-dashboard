@@ -152,6 +152,15 @@
             "myProfile": "My Profile",
             "theme": "Theme",
             "language": "Language"
+        },
+        "notifications": {
+            "title": "Notifications",
+            "markAllRead": "Mark all as read",
+            "clearAll": "Clear all",
+            "empty": {
+                "title": "No notifications",
+                "description": "You don't have any notifications yet. We'll notify you when something new arrives."
+            }
         }
     },
     "search": {

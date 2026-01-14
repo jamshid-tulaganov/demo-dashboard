@@ -132,12 +132,34 @@ const rules: Record<string, Rule[]> = {
 watch(
     () => props.user,
     (newUser) => {
-        if (newUser) {
-            formData.value = {
+        console.log('UserForm watch triggered:', { newUser, isEditMode: props.isEditMode });
+
+        if (newUser && newUser.id) {
+            // Only populate form if we have a valid user with an ID
+            const userData = {
                 ...newUser,
                 password: '',
-                hair: newUser.hair || { color: '', type: '' },
-                address: newUser.address || {
+                middleName: newUser.middleName || '',
+                bloodGroup: newUser.bloodGroup || '',
+                height: newUser.height || 0,
+                weight: newUser.weight || 0,
+                eyeColor: newUser.eyeColor || '',
+                university: newUser.university || '',
+                ein: newUser.ein || '',
+                ssn: newUser.ssn || '',
+                userAgent: newUser.userAgent || '',
+                hair: newUser.hair ? {
+                    color: newUser.hair.color || '',
+                    type: newUser.hair.type || ''
+                } : { color: '', type: '' },
+                address: newUser.address ? {
+                    address: newUser.address.address || '',
+                    city: newUser.address.city || '',
+                    state: newUser.address.state || '',
+                    stateCode: newUser.address.stateCode || '',
+                    postalCode: newUser.address.postalCode || '',
+                    country: newUser.address.country || ''
+                } : {
                     address: '',
                     city: '',
                     state: '',
@@ -145,13 +167,23 @@ watch(
                     postalCode: '',
                     country: '',
                 },
-                company: newUser.company || {
+                company: newUser.company ? {
+                    name: newUser.company.name || '',
+                    department: newUser.company.department || '',
+                    title: newUser.company.title || ''
+                } : {
                     name: '',
                     department: '',
                     title: '',
                 },
+                role: newUser.role || 'user',
+                status: newUser.status || 'active',
             };
-        } else {
+
+            console.log('Setting form data to:', userData);
+            formData.value = userData;
+        } else if (!props.isEditMode) {
+            // Only reset to empty if we're in create mode (not edit mode)
             formData.value = {
                 firstName: '',
                 lastName: '',

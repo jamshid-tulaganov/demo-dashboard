@@ -8,6 +8,7 @@ import ThemeSwitcher from '~/widgets/ThemeSwitcher/ThemeSwitcher.vue';
 import LanguageSwitcherCompact from '~/widgets/LanguageSwitcher/LanguageSwitcherCompact.vue';
 import ThemeSwitcherCompact from '~/widgets/ThemeSwitcher/ThemeSwitcherCompact.vue';
 import { SearchModal } from '~/widgets/SearchModal';
+import { NotificationsModal } from '~/widgets/NotificationsModal';
 import { Icon } from '~/shared/ui';
 
 const { t } = useI18n();
@@ -16,8 +17,9 @@ const router = useRouter();
 const sidebarStore = useSidebarStore();
 
 const searchModalVisible = ref(false);
+const notificationsModalVisible = ref(false);
 const showLogoutModal = ref(false);
-const notificationCount = ref(5);
+const notificationCount = ref(0);
 
 const handleLogout = async () => {
     showLogoutModal.value = false;
@@ -26,6 +28,10 @@ const handleLogout = async () => {
 
 const openSearchModal = () => {
     searchModalVisible.value = true;
+};
+
+const openNotificationsModal = () => {
+    notificationsModalVisible.value = true;
 };
 
 const handleProfileMenuClick = (key: string) => {
@@ -87,7 +93,7 @@ const handleProfileMenuClick = (key: string) => {
 
                 <!-- Notifications -->
                 <a-badge :count="notificationCount" :overflow-count="99">
-                    <a-button type="text" size="large" class="flex items-center justify-center p-2">
+                    <a-button type="text" size="large" @click="openNotificationsModal" class="flex items-center justify-center p-2">
                         <Icon name="notification" :size="20"
                             class="text-light-text-secondary dark:text-dark-text-secondary" />
                     </a-button>
@@ -193,6 +199,9 @@ const handleProfileMenuClick = (key: string) => {
 
     <!-- Search Modal -->
     <SearchModal v-model:open="searchModalVisible" />
+
+    <!-- Notifications Modal -->
+    <NotificationsModal v-model:open="notificationsModalVisible" />
 
     <!-- Logout Confirmation Modal -->
     <a-modal v-model:open="showLogoutModal" :title="t('auth.logout.title')" :ok-text="t('common.yes')"

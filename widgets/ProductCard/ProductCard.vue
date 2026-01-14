@@ -106,25 +106,13 @@ const renderStars = (rating: number) => {
 
         <!-- Product Info -->
         <div class="p-4 space-y-3">
-            <!-- Product Name with Favorite -->
+            <!-- Product Name -->
             <div class="flex items-start justify-between gap-2">
                 <h3
                     class="text-base font-semibold text-light-text-primary dark:text-dark-text-primary line-clamp-2 flex-1"
                 >
                     {{ product.title }}
                 </h3>
-                <!-- Favorite Button -->
-                <button
-                    type="button"
-                    class="favorite-btn flex-shrink-0 hover:scale-110 transition-transform"
-                    @click.stop.prevent="toggleFavorite"
-                >
-                    <Icon
-                        :name="isFavorite ? 'filled-like' : 'empty-like'"
-                        :size="20"
-                        :class="isFavorite ? 'text-red' : 'text-light-text-tertiary dark:text-dark-text-secondary'"
-                    />
-                </button>
             </div>
 
             <!-- Price and Rating -->
@@ -148,12 +136,20 @@ const renderStars = (rating: number) => {
                 </div>
             </div>
 
-            <!-- Edit Button -->
+            <!-- Dislike/View Product Button -->
             <button
+                v-if="isFavorite"
+                class="w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300"
+                @click.stop.prevent="toggleFavorite"
+            >
+                {{ t('products.removeFromFavorites') }}
+            </button>
+            <button
+                v-else
                 class="w-full bg-orange hover:bg-orange/90 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300"
                 @click.stop="goToProduct"
             >
-                {{ t('products.editProduct') }}
+                {{ t('common.edit') }}
             </button>
         </div>
 
