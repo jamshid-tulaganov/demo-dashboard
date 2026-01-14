@@ -1,12 +1,33 @@
 <script setup lang="ts">
 import { LineChart } from 'vue-chart-3';
-import { Chart, registerables } from 'chart.js';
+import {
+    Chart,
+    LineController,
+    LineElement,
+    PointElement,
+    LinearScale,
+    CategoryScale,
+    Filler,
+    Legend,
+    Tooltip,
+} from 'chart.js';
 import dayjs from 'dayjs';
 import { useDashboardStore } from '~/stores/dashboard';
 
-Chart.register(...registerables);
+// Register only the modules needed for line charts
+Chart.register(
+    LineController,
+    LineElement,
+    PointElement,
+    LinearScale,
+    CategoryScale,
+    Filler,
+    Legend,
+    Tooltip
+);
 
 const { t } = useI18n();
+const { isDark } = useTheme();
 const dashboardStore = useDashboardStore();
 const stats = computed(() => dashboardStore.getStats);
 
@@ -164,12 +185,6 @@ const chartOptions = computed(() => ({
     },
 }));
 
-const isDark = computed(() => {
-    if (window) {
-        return document.documentElement.classList.contains('dark');
-    }
-    return false;
-});
 </script>
 
 <template>

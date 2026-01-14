@@ -84,6 +84,7 @@ const handleLogout = async () => {
         :class="[
             'h-screen bg-white dark:bg-dark-secondary transition-all duration-500 ease-in-out flex flex-col',
             'fixed lg:sticky top-0 z-40',
+            'border-r border-gray-200 dark:border-dark-quaternary',
             collapsed ? 'w-20' : 'w-64',
             mobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         ]"

@@ -40,7 +40,7 @@ onMounted(() => getCurrentUser())
 </script>
 
 <template>
-    <header class="bg-white dark:bg-dark-secondary px-4 lg:px-6 py-3 lg:py-4 sticky top-0 z-30">
+    <header class="bg-white dark:bg-dark-secondary px-4 lg:px-6 py-3 lg:py-4 sticky top-0 z-30 border-b border-gray-200 dark:border-dark-quaternary">
         <div class="flex items-center justify-between gap-2 lg:gap-4">
             <!-- Left Side: Burger Menu & Search -->
             <div class="flex items-center gap-2 lg:gap-4 flex-1 min-w-0">
@@ -62,7 +62,7 @@ onMounted(() => getCurrentUser())
                 <div class="hidden md:block flex-1 max-w-md">
                     <div @click="openSearchModal"
                         class="flex items-center gap-2 px-4 py-2.5 rounded-lg border border-gray-200 dark:border-dark-quaternary hover:border-primary cursor-pointer transition-all bg-gray-50 dark:bg-dark-tertiary">
-                        <Icon name="search" :size="18" class="text-gray-400 !dark:text-dark-text-secondary" />
+                        <Icon name="search" :size="18" class="text-gray-400 dark:text-dark-text-secondary" />
                         <span class="text-sm text-gray-400 dark:text-dark-text-secondary">{{
                             t('header.search.placeholder') }}</span>
                         <div class="ml-auto flex items-center gap-1">
