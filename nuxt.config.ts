@@ -25,6 +25,7 @@ export default defineNuxtConfig({
     // Performance optimizations
     vite: {
         build: {
+            modulePreload: false,
             rollupOptions: {
                 output: {
                     manualChunks: {
@@ -45,10 +46,12 @@ export default defineNuxtConfig({
             {
                 path: '~/components',
                 pathPrefix: false,
+                extensions: ['.vue'],
             },
             {
                 path: '~/widgets',
                 pathPrefix: false,
+                extensions: ['.vue'],
             },
         ],
     },
@@ -66,7 +69,7 @@ export default defineNuxtConfig({
             { code: 'ru', name: 'Русский', file: 'ru.json' },
             { code: 'uz', name: "O'zbekcha", file: 'uz.json' },
         ],
-        langDir: '',
+        langDir: 'i18n',
         defaultLocale: 'uz',
         detectBrowserLanguage: {
             useCookie: true,
